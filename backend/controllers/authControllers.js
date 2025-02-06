@@ -1,3 +1,4 @@
+require("dotenv").config();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
@@ -6,6 +7,9 @@ const User = require("../models/User");
 const signup = async (req, res) => {
   try {
     const { name, email, password, role, location, skills } = req.body;
+    if (await User.findOne({ email })) {
+      return res.status(400).json({ message: "User already exists" });
+    }
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({
       name,
@@ -15,7 +19,7 @@ const signup = async (req, res) => {
       location,
       skills,
     });
-    res.status(201).json({ user, message: "User Signup successfully" });
+    res.status(201).json({ message: "User Signup successfully" });
   } catch (error) {
     res.status(400).json({ message: "Internal Server Error" });
   }
