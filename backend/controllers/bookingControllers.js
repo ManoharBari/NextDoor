@@ -23,13 +23,13 @@ const viewAll = async (req, res) => {
 };
 
 // Delete booking for a user
-const remove = async (req, res) => {
+const update = async (req, res) => {
   try {
-    const bookings = await Booking.findByIdAndDelete(req.params.userId);
-    res.json({ bookings, message: "Order cancelled" });
+    const booking = await Booking.findByIdAndUpdate(req.params.userId);
+    res.json({ booking, message: "Order cancelled" });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 };
 
-module.exports = { create, viewAll, remove };
+module.exports = { create, viewAll, update };
