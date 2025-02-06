@@ -5,6 +5,7 @@ const connectDB = require("./db");
 const cors = require("cors");
 const auth = require("./routes/authRoutes");
 const service = require("./routes/serviceRoutes");
+const booking = require("./routes/bookingRoutes");
 
 // middleware
 app.use(cors());
@@ -14,6 +15,7 @@ connectDB();
 
 app.use("/auth", auth);
 app.use("/services", service);
+app.use("/booking", booking);
 
 app.listen(8080, () => {
   console.log("Server is running on port 8080");

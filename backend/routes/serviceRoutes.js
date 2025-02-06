@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { create, viewAll, remove } = require("../controllers/serviceControllers");
+const {
+  create,
+  viewAll,
+  remove,
+} = require("../controllers/serviceControllers");
 
 router.post("/", create);
 router.get("/", viewAll);
