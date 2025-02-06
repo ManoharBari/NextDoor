@@ -1,4 +1,3 @@
-const express = require("express");
 const Service = require("../models/Service");
 
 // Create a new service
