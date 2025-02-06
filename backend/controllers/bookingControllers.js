@@ -25,8 +25,12 @@ const viewAll = async (req, res) => {
 // Delete booking for a user
 const update = async (req, res) => {
   try {
-    const booking = await Booking.findByIdAndUpdate(req.params.userId);
-    res.json({ booking, message: "Order cancelled" });
+    const booking = await Booking.findByIdAndUpdate(
+      req.params.userId,
+      { status: req.body.status },
+      { new: true }
+    );
+    res.json({ booking, message: "Order updated" });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
