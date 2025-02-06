@@ -5,7 +5,7 @@ const Service = require("../models/Service");
 const create = async (req, res) => {
   try {
     const service = await Service.create(req.body);
-    res.status(201).json(service);
+    res.status(201).json({ service, message: "Service created successfully" });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -21,4 +21,13 @@ const viewAll = async (req, res) => {
   }
 };
 
-module.exports = { create, viewAll };
+const remove = async (req, res) => {
+  try {
+    const service = await Service.findByIdAndDelete(req.params.id);
+    res.json({ service, message: "Service deleted" });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+module.exports = { create, viewAll, remove };

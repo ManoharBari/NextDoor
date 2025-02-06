@@ -1,9 +1,10 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const connectDB = require("./db");
 const cors = require("cors");
 const auth = require("./routes/authRoutes");
-require("dotenv").config();
+const service = require("./routes/serviceRoutes");
 
 // middleware
 app.use(cors());
@@ -12,6 +13,7 @@ app.use(express.json());
 connectDB();
 
 app.use("/auth", auth);
+app.use("/services", service);
 
 app.listen(8080, () => {
   console.log("Server is running on port 8080");
