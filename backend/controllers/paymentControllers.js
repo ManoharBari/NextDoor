@@ -1,6 +1,4 @@
-const express = require("express");
 const Payment = require("../models/Payment");
-const router = express.Router();
 
 // Process a payment
 const processPayment = async (req, res) => {
