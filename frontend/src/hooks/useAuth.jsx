@@ -1,6 +1,6 @@
 import { useState, useCallback, createContext, useContext } from "react";
 
-const AuthContext = createContext(null);
+export const AuthContext = createContext(null);
 
 export function useAuth() {
   const context = useContext(AuthContext);
@@ -10,7 +10,7 @@ export function useAuth() {
   return context;
 }
 
-export function AuthProvider({ children }) {
+export function useAuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
   const signIn = useCallback(async (email, password) => {

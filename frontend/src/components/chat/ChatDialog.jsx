@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { X, Send } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
-import { Provider } from '../../types';
 
 
 export function ChatDialog({ isOpen, onClose, provider }) {

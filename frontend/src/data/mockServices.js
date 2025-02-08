@@ -11,7 +11,7 @@ export const mockServices = [
       avatar: "https://source.unsplash.com/100x100/?portrait-woman-1",
       profession: "Professional House Cleaner",
       rating: 4.8,
-      location: { lat: 40.7128, lng: -74.006 },
+      location: 1,
       email: "sarah.johnson@example.com",
       phone: "+1 (555) 123-4567",
       about:
@@ -52,7 +52,7 @@ export const mockServices = [
       avatar: "https://source.unsplash.com/100x100/?portrait-woman-1",
       profession: "Professional House Cleaner",
       rating: 4.8,
-      location: { lat: 40.7128, lng: -74.006 },
+      location: 2,
       email: "sarah.johnson@example.com",
       phone: "+1 (555) 123-4567",
       about:
@@ -93,7 +93,7 @@ export const mockServices = [
       avatar: "https://source.unsplash.com/100x100/?portrait-woman-2",
       profession: "Professional Landscape Designer",
       rating: 4.7,
-      location: { lat: 40.7128, lng: -74.006 },
+      location: 7,
       email: "emily.chen@example.com",
       phone: "+1 (555) 987-6543",
       about:

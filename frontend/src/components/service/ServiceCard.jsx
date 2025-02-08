@@ -1,6 +1,5 @@
 import React from 'react';
 import { Star, MapPin, Clock, MessageCircle } from 'lucide-react';
-import { formatDistance } from '../../utils/distance';
 import { formatPrice } from '../../utils/format';
 
 export function ServiceCard({ service, onBook, onChat, onProviderClick }) {
@@ -39,7 +38,7 @@ export function ServiceCard({ service, onBook, onChat, onProviderClick }) {
 
         <div className="flex items-center gap-2 text-gray-600 mb-2">
           <MapPin className="w-4 h-4" />
-          <span className="text-sm">{formatDistance(service.provider.location)}</span>
+          <span className="text-sm">1</span>
         </div>
 
         <div className="flex items-center gap-2 text-gray-600 mb-4">

@@ -1,7 +1,6 @@
 import React from 'react';
 import { MapPin, Star, Clock, Calendar, Mail, Phone } from 'lucide-react';
 import { ServiceCard } from '../service/ServiceCard';
-import { formatDistance } from '../../utils/distance';
 
 
 export function ProviderProfile({ provider, services, onBook, onChat }) {
@@ -49,7 +48,7 @@ export function ProviderProfile({ provider, services, onBook, onChat }) {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                 <div className="flex items-center gap-2 text-gray-600">
                   <MapPin className="w-5 h-5" />
-                  <span>{formatDistance(provider.location)}</span>
+                  <span>1km</span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-600">
                   <Clock className="w-5 h-5" />
