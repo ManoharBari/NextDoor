@@ -9,10 +9,14 @@ const bookingRoutes = require("./routes/bookingRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
+const { errorMiddleware } = require("./middleware/errorMiddleware");
+const { authMiddleware } = require("./middleware/authMiddleware");
+const { roleMiddleware } = require("./middleware/roleMiddleware");
 
 // middleware
 app.use(cors());
 app.use(express.json());
+app.use(errorMiddleware);
 
 connectDB();
 
