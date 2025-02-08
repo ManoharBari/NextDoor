@@ -1,23 +1,9 @@
 import React, { useState } from 'react';
 import { Calendar, Clock, CreditCard, MapPin, MessageSquare } from 'lucide-react';
-import type { Service } from '../../types';
 import { formatPrice } from '../../utils/format';
 
-interface BookingPageProps {
-  service: Service;
-  onSubmit: (bookingData: BookingFormData) => void;
-}
-
-interface BookingFormData {
-  date: string;
-  time: string;
-  address: string;
-  notes: string;
-  paymentMethod: string;
-}
-
-export function BookingPage({ service, onSubmit }: BookingPageProps) {
-  const [formData, setFormData] = useState<BookingFormData>({
+export function BookingPage({ service, onSubmit }) {
+  const [formData, setFormData] = useState(BookingFormData)({
     date: '',
     time: '',
     address: '',
@@ -25,7 +11,7 @@ export function BookingPage({ service, onSubmit }: BookingPageProps) {
     paymentMethod: 'credit_card'
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(formData);
   };
@@ -49,13 +35,13 @@ export function BookingPage({ service, onSubmit }: BookingPageProps) {
                   <p className="text-lg">{service.provider.name}</p>
                 </div>
               </div>
-              
+
               <div className="p-6">
                 <div className="mb-6">
                   <h2 className="text-xl font-semibold mb-2">Service Details</h2>
                   <p className="text-gray-600">{service.description}</p>
                 </div>
-                
+
                 <div className="flex items-center justify-between py-4 border-t">
                   <span className="text-gray-600">Price</span>
                   <span className="text-2xl font-bold">{formatPrice(service.price)}/hour</span>

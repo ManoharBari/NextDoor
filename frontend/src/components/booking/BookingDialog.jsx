@@ -1,23 +1,17 @@
 import React, { useState } from 'react';
 import { X, Calendar, Clock } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
-import { Service } from '../../types';
 import { formatPrice } from '../../utils/format';
 
-interface BookingDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
-  service: Service;
-}
 
-export function BookingDialog({ isOpen, onClose, service }: BookingDialogProps) {
+export function BookingDialog({ isOpen, onClose, service }) {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const { isAuthenticated } = useAuth();
 
   if (!isOpen) return null;
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // In a real app, this would make an API call to create the booking
     console.log('Booking submitted:', { service, date, time });

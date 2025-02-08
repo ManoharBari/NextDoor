@@ -1,11 +1,7 @@
 import React from 'react';
 
-interface BookingButtonProps {
-  serviceId: string;
-  onBook: (serviceId: string) => void;
-}
 
-export function BookingButton({ serviceId, onBook }: BookingButtonProps) {
+export function BookingButton({ serviceId, onBook }) {
   return (
     <button
       onClick={() => onBook(serviceId)}
