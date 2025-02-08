@@ -16,7 +16,7 @@ export function Navigation() {
             2
           </span>
         </button>
-        
+
         {isAuthenticated ? (
           <div className="flex items-center gap-2">
             <img
