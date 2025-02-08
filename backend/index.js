@@ -11,7 +11,6 @@ const chatRoutes = require("./routes/chatRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const { errorMiddleware } = require("./middleware/errorMiddleware");
 const { authMiddleware } = require("./middleware/authMiddleware");
-const { roleMiddleware } = require("./middleware/roleMiddleware");
 
 // middleware
 app.use(cors());
@@ -21,11 +20,11 @@ app.use(errorMiddleware);
 connectDB();
 
 app.use("/auth", authRoutes);
-app.use("/services", serviceRoutes);
-app.use("/booking", bookingRoutes);
-app.use("/review", reviewRoutes);
-app.use("/chat", chatRoutes);
-app.use("/payments", paymentRoutes);
+app.use("/services", authMiddleware, serviceRoutes);
+app.use("/booking", authMiddleware, bookingRoutes);
+app.use("/review", authMiddleware, reviewRoutes);
+app.use("/chat", authMiddleware, chatRoutes);
+app.use("/payments", authMiddleware, paymentRoutes);
 
 app.listen(8080, () => {
   console.log("Server is running on port 8080");
