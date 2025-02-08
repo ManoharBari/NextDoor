@@ -29,7 +29,7 @@ export default function App() {
     setShowBooking(false);
   };
 
-  const handleBookService = (serviceId: string) => {
+  const handleBookService = (serviceId) => {
     const service = services.find((s) => s.id === serviceId);
     if (!service) return;
 
@@ -41,7 +41,7 @@ export default function App() {
     }
   };
 
-  const handleChat = (providerId: string) => {
+  const handleChat = (providerId) => {
     const service = services.find((s) => s.provider.id === providerId);
     if (!service) return;
 
@@ -53,11 +53,11 @@ export default function App() {
     }
   };
 
-  const handleProviderClick = (providerId: string) => {
+  const handleProviderClick = (providerId) => {
     setSelectedProviderId(providerId);
   };
 
-  const handleBookingSubmit = (bookingData: any) => {
+  const handleBookingSubmit = (bookingData) => {
     console.log('Booking submitted:', bookingData);
     resetState();
   };
