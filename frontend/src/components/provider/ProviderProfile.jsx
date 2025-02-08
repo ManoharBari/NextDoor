@@ -2,16 +2,9 @@ import React from 'react';
 import { MapPin, Star, Clock, Calendar, Mail, Phone } from 'lucide-react';
 import { ServiceCard } from '../service/ServiceCard';
 import { formatDistance } from '../../utils/distance';
-import type { Provider, Service } from '../../types';
 
-interface ProviderProfileProps {
-  provider: Provider;
-  services: Service[];
-  onBook: (serviceId: string) => void;
-  onChat: (providerId: string) => void;
-}
 
-export function ProviderProfile({ provider, services, onBook, onChat }: ProviderProfileProps) {
+export function ProviderProfile({ provider, services, onBook, onChat }) {
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       {/* Hero Section */}

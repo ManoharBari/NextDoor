@@ -1,12 +1,7 @@
 import React from 'react';
 import { categories } from '../../data/categories';
 
-interface CategoryFilterProps {
-  selectedCategory: string;
-  onSelectCategory: (category: string) => void;
-}
-
-export function CategoryFilter({ selectedCategory, onSelectCategory }: CategoryFilterProps) {
+export function CategoryFilter({ selectedCategory, onSelectCategory }) {
   return (
     <div className="flex gap-2 mt-4 overflow-x-auto pb-2">
       {categories.map((category) => (

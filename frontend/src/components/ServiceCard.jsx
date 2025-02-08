@@ -1,13 +1,7 @@
 import React from 'react';
 import { Star, MapPin, Clock } from 'lucide-react';
-import type { Service } from '../types';
 
-interface ServiceCardProps {
-  service: Service;
-  onBook: (serviceId: string) => void;
-}
-
-export function ServiceCard({ service, onBook }: ServiceCardProps) {
+export function ServiceCard({ service, onBook }) {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
       <div className="relative h-48">
@@ -21,7 +15,7 @@ export function ServiceCard({ service, onBook }: ServiceCardProps) {
           <span className="font-medium">{service.rating.toFixed(1)}</span>
         </div>
       </div>
-      
+
       <div className="p-4">
         <h3 className="text-lg font-semibold mb-2">{service.title}</h3>
         <div className="flex items-center gap-2 text-gray-600 mb-2">
@@ -32,7 +26,7 @@ export function ServiceCard({ service, onBook }: ServiceCardProps) {
           <Clock className="w-4 h-4" />
           <span className="text-sm">Available today</span>
         </div>
-        
+
         <div className="flex items-center justify-between">
           <div>
             <span className="text-2xl font-bold">${service.price}</span>

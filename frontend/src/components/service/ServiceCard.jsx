@@ -2,16 +2,8 @@ import React from 'react';
 import { Star, MapPin, Clock, MessageCircle } from 'lucide-react';
 import { formatDistance } from '../../utils/distance';
 import { formatPrice } from '../../utils/format';
-import type { Service } from '../../types';
 
-interface ServiceCardProps {
-  service: Service;
-  onBook: (serviceId: string) => void;
-  onChat: (providerId: string) => void;
-  onProviderClick?: (providerId: string) => void;
-}
-
-export function ServiceCard({ service, onBook, onChat, onProviderClick }: ServiceCardProps) {
+export function ServiceCard({ service, onBook, onChat, onProviderClick }) {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
       <div className="relative h-48">
@@ -25,7 +17,7 @@ export function ServiceCard({ service, onBook, onChat, onProviderClick }: Servic
           <span className="font-medium">{service.rating.toFixed(1)}</span>
         </div>
       </div>
-      
+
       <div className="p-4">
         <div className="flex items-center gap-2 mb-2">
           <img
@@ -36,7 +28,7 @@ export function ServiceCard({ service, onBook, onChat, onProviderClick }: Servic
           />
           <div>
             <h3 className="text-lg font-semibold">{service.title}</h3>
-            <p 
+            <p
               className="text-sm text-gray-600 cursor-pointer hover:text-blue-600"
               onClick={() => onProviderClick?.(service.provider.id)}
             >
@@ -49,12 +41,12 @@ export function ServiceCard({ service, onBook, onChat, onProviderClick }: Servic
           <MapPin className="w-4 h-4" />
           <span className="text-sm">{formatDistance(service.provider.location)}</span>
         </div>
-        
+
         <div className="flex items-center gap-2 text-gray-600 mb-4">
           <Clock className="w-4 h-4" />
           <span className="text-sm">Available today</span>
         </div>
-        
+
         <div className="flex items-center justify-between">
           <div>
             <span className="text-2xl font-bold">{formatPrice(service.price)}</span>

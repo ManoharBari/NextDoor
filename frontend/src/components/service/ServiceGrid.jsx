@@ -1,15 +1,7 @@
 import React from 'react';
 import { ServiceCard } from './ServiceCard';
-import type { Service } from '../../types';
 
-interface ServiceGridProps {
-  services: Service[];
-  onBook: (serviceId: string) => void;
-  onChat: (providerId: string) => void;
-  onProviderClick?: (providerId: string) => void;
-}
-
-export function ServiceGrid({ services, onBook, onChat, onProviderClick }: ServiceGridProps) {
+export function ServiceGrid({ services, onBook, onChat, onProviderClick }) {
   if (services.length === 0) {
     return (
       <div className="text-center py-12">

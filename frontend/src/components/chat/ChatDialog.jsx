@@ -3,19 +3,14 @@ import { X, Send } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import { Provider } from '../../types';
 
-interface ChatDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
-  provider: Provider;
-}
 
-export function ChatDialog({ isOpen, onClose, provider }: ChatDialogProps) {
+export function ChatDialog({ isOpen, onClose, provider }) {
   const [message, setMessage] = useState('');
   const { isAuthenticated } = useAuth();
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     // In a real app, this would send the message through a WebSocket
     console.log('Message sent:', { provider, message });
