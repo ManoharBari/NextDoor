@@ -43,7 +43,7 @@ const login = async (req, res) => {
         expiresIn: "1d",
       }
     );
-    res.json({ token, message: "User Login successfully" });
+    res.json({ user, token, message: "User Login successfully" });
   } catch (error) {
     res.status(400).json({ message: "Internal Server Error" });
   }

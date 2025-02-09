@@ -101,5 +101,5 @@ export default function App() {
         <ChatDialog isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} provider={selectedService.provider} />
       )}
     </div>
-  );
+  )
 }
