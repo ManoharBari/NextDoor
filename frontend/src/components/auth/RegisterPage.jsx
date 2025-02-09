@@ -13,10 +13,10 @@ export function RegisterPage() {
 
   const { register } = useAuth();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      await register(formData);
+      register(formData);
     } catch (error) {
       console.error("Registration failed:", error);
     }
