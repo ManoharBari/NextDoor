@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { User, Bell } from 'lucide-react';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuthProvider } from '../../hooks/useAuth';
 import { SignInDialog } from '../auth/SignInDialog';
 
 export function Navigation() {
   const [isSignInOpen, setIsSignInOpen] = useState(false);
-  const { user, isAuthenticated, signOut } = useAuth();
+  const { user, isAuthenticated, signOut } = useAuthProvider();
 
   return (
     <>

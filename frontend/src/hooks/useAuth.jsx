@@ -2,7 +2,7 @@ import { useState, createContext, useContext } from "react";
 
 export const AuthContext = createContext(null);
 
-export function useAuth() {
+export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
     throw new Error("useAuth must be used within an AuthProvider");
@@ -79,7 +79,7 @@ export function useAuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ user, signIn, signOut, register }}
+      value={{ user, isAuthenticated: !!user, signIn, signOut, register }}
     >
       {children}
     </AuthContext.Provider>

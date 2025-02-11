@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { X, Send } from 'lucide-react';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuthProvider } from '../../hooks/useAuth';
 
 
 export function ChatDialog({ isOpen, onClose, provider }) {
   const [message, setMessage] = useState('');
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuthProvider();
 
   if (!isOpen) return null;
 

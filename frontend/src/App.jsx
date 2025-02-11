@@ -8,12 +8,12 @@ import { BookingPage } from './components/booking/BookingPage';
 import { RegisterPage } from './components/auth/RegisterPage';
 import { ChatDialog } from './components/chat/ChatDialog';
 import { useServices } from './hooks/useServices';
-import { useAuth } from './hooks/useAuth';
+import { useAuthProvider } from './hooks/useAuth';
 import { Service } from './types/index';
 
 export default function App() {
   const { services, searchTerm, setSearchTerm, selectedCategory, setSelectedCategory } = useServices();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuthProvider();
 
   const [selectedService, setSelectedService] = useState(Service || null);
   const [isChatOpen, setIsChatOpen] = useState(false);

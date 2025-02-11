@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { User, Mail, Lock, Phone, MapPin } from "lucide-react";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuthProvider } from "../../hooks/useAuth";
 
 export function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -11,7 +11,7 @@ export function RegisterPage() {
     address: "",
   });
 
-  const { register } = useAuth();
+  const { register } = useAuthProvider();
 
   const handleSubmit = (e) => {
     e.preventDefault();
