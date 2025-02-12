@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { 
-  LayoutDashboard, 
-  Calendar, 
-  Users, 
-  Package, 
+import {
+  LayoutDashboard,
+  Calendar,
+  Users,
+  Package,
   MessageSquare,
   Bell
 } from 'lucide-react';
@@ -73,9 +73,8 @@ export function ProviderDashboard() {
                 <li key={item.id}>
                   <button
                     onClick={() => setActiveTab(item.id)}
-                    className={`w-full flex items-center gap-3 px-4 py-2 rounded-lg transition-colors ${
-                      activeTab === item.id ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-50'
-                    }`}
+                    className={`w-full flex items-center gap-3 px-4 py-2 rounded-lg transition-colors ${activeTab === item.id ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-50'
+                      }`}
                   >
                     <item.icon className="w-5 h-5" />
                     <span>{item.label}</span>
@@ -101,9 +100,8 @@ export function ProviderDashboard() {
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`flex flex-col items-center justify-center flex-1 h-full ${
-                activeTab === item.id ? 'text-blue-600' : 'text-gray-600'
-              }`}
+              className={`flex flex-col items-center justify-center flex-1 h-full ${activeTab === item.id ? 'text-blue-600' : 'text-gray-600'
+                }`}
             >
               <item.icon className="w-6 h-6" />
               <span className="text-xs mt-1">{item.label}</span>

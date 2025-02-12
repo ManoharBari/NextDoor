@@ -2,19 +2,7 @@ import React, { useState } from 'react';
 import { Plus, Edit, Trash, Star } from 'lucide-react';
 import { formatPrice } from '../../../utils/format';
 
-interface Service {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  duration: number;
-  category: string;
-  image: string;
-  rating: number;
-  bookings: number;
-}
-
-const mockServices: Service[] = [
+const mockServices = [
   {
     id: '1',
     title: 'House Cleaning',

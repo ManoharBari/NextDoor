@@ -1,20 +1,9 @@
 import React from 'react';
 import { Mail, Phone, MapPin, Calendar, Star } from 'lucide-react';
 
-interface Client {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  address: string;
-  joinedDate: string;
-  bookings: number;
-  totalSpent: number;
-  avatar: string;
-  rating: number;
-}
 
-const mockClients: Client[] = [
+
+const mockClients = [
   {
     id: '1',
     name: 'John Doe',

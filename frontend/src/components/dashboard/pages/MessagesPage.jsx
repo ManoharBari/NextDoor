@@ -1,28 +1,28 @@
 import React, { useState } from 'react';
 import { Search, Send } from 'lucide-react';
 
-interface Message {
-  id: string;
-  senderId: string;
-  receiverId: string;
-  content: string;
-  timestamp: string;
-  read: boolean;
+const Message = {
+  id: "",
+  senderId: "",
+  receiverId: "",
+  content: "",
+  timestamp: "",
+  read: true,
 }
 
-interface Chat {
-  id: string;
+const Chat = {
+  id: "",
   user: {
-    id: string;
-    name: string;
-    avatar: string;
-    lastSeen: string;
-  };
-  lastMessage: Message;
-  unreadCount: number;
+    id: "",
+    name: "",
+    avatar: "",
+    lastSeen: "",
+  },
+  lastMessage: Message,
+  unreadCount: 2,
 }
 
-const mockChats: Chat[] = [
+const mockChats = [
   {
     id: '1',
     user: {
@@ -61,7 +61,7 @@ const mockChats: Chat[] = [
   }
 ];
 
-const mockMessages: Message[] = [
+const mockMessages = [
   {
     id: 'm1',
     senderId: 'u1',
@@ -89,14 +89,14 @@ const mockMessages: Message[] = [
 ];
 
 export function MessagesPage() {
-  const [selectedChat, setSelectedChat] = useState<Chat | null>(null);
+  const [selectedChat, setSelectedChat] = useState(Chat || null);
   const [newMessage, setNewMessage] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
 
-  const handleSendMessage = (e: React.FormEvent) => {
+  const handleSendMessage = (e) => {
     e.preventDefault();
     if (!newMessage.trim()) return;
-    
+
     // In a real app, this would send the message through a WebSocket
     console.log('Sending message:', newMessage);
     setNewMessage('');
@@ -125,9 +125,8 @@ export function MessagesPage() {
               <div
                 key={chat.id}
                 onClick={() => setSelectedChat(chat)}
-                className={`p-4 border-b cursor-pointer hover:bg-gray-50 ${
-                  selectedChat?.id === chat.id ? 'bg-blue-50' : ''
-                }`}
+                className={`p-4 border-b cursor-pointer hover:bg-gray-50 ${selectedChat?.id === chat.id ? 'bg-blue-50' : ''
+                  }`}
               >
                 <div className="flex gap-3">
                   <img
@@ -183,21 +182,18 @@ export function MessagesPage() {
               {mockMessages.map((message) => (
                 <div
                   key={message.id}
-                  className={`flex ${
-                    message.senderId === 'p1' ? 'justify-end' : 'justify-start'
-                  }`}
+                  className={`flex ${message.senderId === 'p1' ? 'justify-end' : 'justify-start'
+                    }`}
                 >
                   <div
-                    className={`max-w-[70%] rounded-lg px-4 py-2 ${
-                      message.senderId === 'p1'
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-gray-100'
-                    }`}
+                    className={`max-w-[70%] rounded-lg px-4 py-2 ${message.senderId === 'p1'
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-gray-100'
+                      }`}
                   >
                     <p>{message.content}</p>
-                    <p className={`text-xs mt-1 ${
-                      message.senderId === 'p1' ? 'text-blue-100' : 'text-gray-500'
-                    }`}>
+                    <p className={`text-xs mt-1 ${message.senderId === 'p1' ? 'text-blue-100' : 'text-gray-500'
+                      }`}>
                       {new Date(message.timestamp).toLocaleTimeString()}
                     </p>
                   </div>

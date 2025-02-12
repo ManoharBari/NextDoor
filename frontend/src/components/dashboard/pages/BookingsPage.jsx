@@ -2,19 +2,8 @@ import React, { useState } from 'react';
 import { Calendar, Clock, MapPin, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 import { formatPrice } from '../../../utils/format';
 
-interface Booking {
-  id: string;
-  clientName: string;
-  service: string;
-  date: string;
-  time: string;
-  duration: number;
-  address: string;
-  status: 'pending' | 'confirmed' | 'completed' | 'cancelled';
-  amount: number;
-}
 
-const mockBookings: Booking[] = [
+const mockBookings = [
   {
     id: '1',
     clientName: 'John Doe',
@@ -50,7 +39,7 @@ const mockBookings: Booking[] = [
   }
 ];
 
-function getStatusColor(status: string) {
+function getStatusColor(status) {
   switch (status) {
     case 'completed':
       return 'text-green-600 bg-green-50';
@@ -65,7 +54,7 @@ function getStatusColor(status: string) {
   }
 }
 
-function getStatusIcon(status: string) {
+function getStatusIcon(status) {
   switch (status) {
     case 'completed':
       return <CheckCircle className="w-5 h-5" />;
@@ -83,7 +72,7 @@ function getStatusIcon(status: string) {
 export function BookingsPage() {
   const [filter, setFilter] = useState('all');
 
-  const filteredBookings = mockBookings.filter(booking => 
+  const filteredBookings = mockBookings.filter(booking =>
     filter === 'all' || booking.status === filter
   );
 
@@ -96,11 +85,10 @@ export function BookingsPage() {
             <button
               key={status}
               onClick={() => setFilter(status)}
-              className={`px-4 py-2 rounded-lg capitalize ${
-                filter === status
+              className={`px-4 py-2 rounded-lg capitalize ${filter === status
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-100 hover:bg-gray-200'
-              }`}
+                }`}
             >
               {status}
             </button>
