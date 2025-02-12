@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function App() {
   const navigate = useNavigate();
+
   const {
     services,
     searchTerm,
@@ -83,7 +84,7 @@ export default function App() {
   };
 
   return (
-    <Router>
+    <>
       <Header />
       <Routes>
         <Route
@@ -115,6 +116,6 @@ export default function App() {
         {isAuthenticated && user.role === 'provider' && <Route path="/dashboard" element={<ProviderDashboard />} />}
       </Routes>
       {selectedService && <ChatDialog isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} provider={selectedService.provider} />}
-    </Router>
+    </>
   )
 }
