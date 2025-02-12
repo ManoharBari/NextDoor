@@ -35,13 +35,27 @@ export const Review = {
   userName: "",
   rating: 0,
   comment: "",
-  date: new Date(), // Use JS Date object instead of string
+  date: new Date(), // Use JS Date object instead of ""
 };
 
 export const Booking = {
   id: "",
   serviceId: "",
   userId: "",
-  date: new Date(),
-  status: "pending", // Can be 'pending', 'confirmed', 'completed', 'cancelled'
+  date: "",
+  time: "",
+  status: "pending" | "confirmed" | "completed" | "cancelled",
+  service: {
+    title: "",
+    price: 0,
+    provider: {
+      name: "",
+      avatar: "",
+    },
+  },
+  totalAmount: 0,
+  duration: 0,
+  address: "",
+  paymentStatus: "pending" | "paid" | "failed",
+  paymentMethod: "",
 };
