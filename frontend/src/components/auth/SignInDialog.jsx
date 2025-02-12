@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { X } from 'lucide-react';
-import { useAuth } from '../../hooks/useAuth';
+import UserContext from '../../context/auth/userContext';
 
 export function SignInDialog({ isOpen, onClose }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { signIn } = useAuth();
+  
+  const { signIn } = useContext(UserContext);
 
   if (!isOpen) return null;
 

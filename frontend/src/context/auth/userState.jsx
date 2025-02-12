@@ -1,16 +1,6 @@
 import { useState, createContext, useContext } from "react";
-
-export const AuthContext = createContext(null);
-
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-  return context;
-}
-
-export function useAuthProvider({ children }) {
+import UserContext from "./userContext";
+function userState({ children }) {
   const [user, setUser] = useState(null);
 
   // Sign In
@@ -78,10 +68,12 @@ export function useAuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider
+    <UserContext.Provider
       value={{ user, isAuthenticated: !!user, signIn, signOut, register }}
     >
       {children}
-    </AuthContext.Provider>
+    </UserContext.Provider>
   );
 }
+
+export default userState;

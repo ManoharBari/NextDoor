@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Header } from './components/layout/Header';
 import { SearchBar } from './components/search/SearchBar';
 import { CategoryFilter } from './components/search/CategoryFilter';
@@ -7,13 +7,13 @@ import { ProviderProfile } from './components/provider/ProviderProfile';
 import { BookingPage } from './components/booking/BookingPage';
 import { RegisterPage } from './components/auth/RegisterPage';
 import { ChatDialog } from './components/chat/ChatDialog';
-import { useServices } from './hooks/useServices';
-import { useAuthProvider } from './hooks/useAuth';
+import { useServices } from './context/useServices';
+import UserContext from './context/auth/userContext';
 import { Service } from './types/index';
 
 export default function App() {
   const { services, searchTerm, setSearchTerm, selectedCategory, setSelectedCategory } = useServices();
-  const { isAuthenticated } = useAuthProvider();
+  const { isAuthenticated } = useContext(UserContext);
 
   const [selectedService, setSelectedService] = useState(Service || null);
   const [isChatOpen, setIsChatOpen] = useState(false);

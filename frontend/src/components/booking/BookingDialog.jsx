@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { X, Calendar, Clock } from 'lucide-react';
-import { useAuth } from '../../hooks/useAuth';
 import { formatPrice } from '../../utils/format';
+import UserContext from '../../context/auth/userContext';
 
 
 export function BookingDialog({ isOpen, onClose, service }) {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
-  const { isAuthenticated } = useAuth();
+  
+  const { isAuthenticated } = useContext(UserContext);
 
   if (!isOpen) return null;
 

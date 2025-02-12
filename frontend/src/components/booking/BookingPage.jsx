@@ -3,7 +3,7 @@ import { Calendar, Clock, CreditCard, MapPin, MessageSquare } from 'lucide-react
 import { formatPrice } from '../../utils/format';
 
 export function BookingPage({ service, onSubmit }) {
-  const [formData, setFormData] = useState(BookingFormData)({
+  const [formData, setFormData] = useState({
     date: '',
     time: '',
     address: '',
