@@ -49,4 +49,18 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { signup, login };
+const google = () => passport.authenticate("google", ["profile", "email"]);
+
+const googleCallback = () => {
+  passport.authenticate("google", {
+    successRedirect: process.env.CLIENT_URL,
+    failureRedirect: "/login/failed",
+  });
+};
+
+const googleLogout = (req, res) => {
+  req.logout();
+  res.redirect(process.env.CLIENT_URL);
+};
+
+module.exports = { signup, login, google, googleCallback, googleLogout };

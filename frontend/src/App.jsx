@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Header } from './components/layout/Header';
 import { SearchBar } from './components/search/SearchBar';
 import { CategoryFilter } from './components/search/CategoryFilter';
@@ -13,8 +14,10 @@ import { ProviderDashboard } from './components/dashboard/ProviderDashboard';
 import { useServices } from './context/useServices';
 import UserContext from './context/auth/userContext';
 import { Service } from './types/index';
+import { useNavigate } from "react-router-dom";
 
 export default function App() {
+  const navigate = useNavigate();
   const {
     services,
     searchTerm,
@@ -25,12 +28,8 @@ export default function App() {
 
   const { isAuthenticated, user } = useContext(UserContext);
   const [selectedService, setSelectedService] = useState(Service || null);
-  const [isChatOpen, setIsChatOpen] = useState(false);
   const [selectedProviderId, setSelectedProviderId] = useState("" || null);
-  const [showRegister, setShowRegister] = useState(false);
-  const [showBooking, setShowBooking] = useState(false);
-  const [showPayment, setShowPayment] = useState(false);
-  const [showOrders, setShowOrders] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const [bookingDetails, setBookingDetails] = useState(null);
 
   // Get the selected provider and their services
@@ -45,10 +44,10 @@ export default function App() {
     const service = services.find(s => s.id === serviceId);
     if (service) {
       if (!isAuthenticated) {
-        setShowRegister(true);
+        navigate('/register');
       } else {
         setSelectedService(service);
-        setShowBooking(true);
+        navigate('/booking');
       }
     }
   };
@@ -57,7 +56,7 @@ export default function App() {
     const service = services.find(s => s.provider.id === providerId);
     if (service) {
       if (!isAuthenticated) {
-        setShowRegister(true);
+        navigate('/register');
       } else {
         setSelectedService(service);
         setIsChatOpen(true);
@@ -75,85 +74,47 @@ export default function App() {
 
   const handleBookingSubmit = (bookingData) => {
     setBookingDetails(bookingData);
-    setShowBooking(false);
-    setShowPayment(true);
+    navigate('/payment');
   };
 
   const handlePaymentComplete = () => {
-    setShowPayment(false);
-    setShowOrders(true);
+    setBookingDetails(null);
+    navigate('/orders');
   };
 
-  // Show provider dashboard if user is a provider
-  if (isAuthenticated) {
-    return <ProviderDashboard />;
-  }
-
-  if (showRegister) {
-    return <RegisterPage />;
-  }
-
-  if (showBooking && selectedService) {
-    return <BookingPage service={selectedService} onSubmit={handleBookingSubmit} />;
-  }
-
-  if (showPayment && selectedService && bookingDetails) {
-    return (
-      <PaymentPage
-        service={selectedService}
-        bookingDetails={bookingDetails}
-        onPaymentComplete={handlePaymentComplete}
-      />
-    );
-  }
-
-  if (showOrders) {
-    return <OrderHistoryPage />;
-  }
-
   return (
-    <div className="min-h-screen bg-gray-50">
+    <Router>
       <Header />
-
-      <main>
-        {selectedProvider ? (
-          <ProviderProfile
-            provider={selectedProvider}
-            services={providerServices}
-            onBook={handleBookService}
-            onChat={handleChat}
-          />
-        ) : (
-          <div className="max-w-7xl mx-auto px-4 py-8">
-            <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
-              <SearchBar
-                searchTerm={searchTerm}
-                onSearchChange={setSearchTerm}
-                onOpenFilters={handleOpenFilters}
-              />
-              <CategoryFilter
-                selectedCategory={selectedCategory}
-                onSelectCategory={setSelectedCategory}
-              />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div className="max-w-7xl mx-auto px-4 py-8">
+              <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
+                <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} onOpenFilters={handleOpenFilters} />
+                <CategoryFilter selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />
+              </div>
+              <ServiceGrid services={services} onBook={handleBookService} onChat={handleChat} onProviderClick={handleProviderClick} />
             </div>
-
-            <ServiceGrid
-              services={services}
-              onBook={handleBookService}
-              onChat={handleChat}
-              onProviderClick={handleProviderClick}
-            />
-          </div>
-        )}
-      </main>
-
-      {selectedService && (
-        <ChatDialog
-          isOpen={isChatOpen}
-          onClose={() => setIsChatOpen(false)}
-          provider={selectedService.provider}
+          }
         />
-      )}
-    </div>
-  );
+        <Route path="/register" element={<RegisterPage />} />
+        <Route
+          path="/provider/:providerId"
+          element={<ProviderProfile provider={selectedProvider} services={providerServices} />}
+        />
+        <Route
+          path="/booking"
+          element={selectedService ? <BookingPage service={selectedService} onSubmit={handleBookingSubmit} /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/payment"
+          element={selectedService && bookingDetails ? <PaymentPage service={selectedService} bookingDetails={bookingDetails} onPaymentComplete={handlePaymentComplete} /> : <Navigate to="/" />}
+        />
+        <Route path="/orders" element={<OrderHistoryPage />} />
+        {isAuthenticated && user.role === 'provider' && <Route path="/dashboard" element={<ProviderDashboard />} />}
+      </Routes>
+      {selectedService && <ChatDialog isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} provider={selectedService.provider} />}
+    </Router>
+  )
 }
