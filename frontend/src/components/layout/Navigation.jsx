@@ -2,15 +2,25 @@ import React, { useContext, useState } from 'react';
 import { User, Bell } from 'lucide-react';
 import { SignInDialog } from '../auth/SignInDialog';
 import UserContext from '../../context/auth/userContext';
+import { useNavigate } from 'react-router-dom';
 
 export function Navigation() {
+  const navigate = useNavigate();
   const [isSignInOpen, setIsSignInOpen] = useState(false);
-
   const { user, isAuthenticated, signOut } = useContext(UserContext);
 
   return (
     <>
       <nav className="flex items-center gap-4">
+        {isAuthenticated && user.role === 'provider' && (
+          <button
+            onClick={() => navigate('/dashboard')}
+            className=" bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Dashboard
+          </button>)
+        }
+
         <button className="p-2 hover:bg-gray-100 rounded-full relative">
           <Bell className="w-6 h-6" />
           <span className="absolute top-0 right-0 bg-red-500 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center">
@@ -31,6 +41,7 @@ export function Navigation() {
             >
               Sign Out
             </button>
+
           </div>
         ) : (
           <button

@@ -101,7 +101,7 @@ export default function App() {
           }
         />
 
-        {isAuthenticated && user.role == "provider" && <Route path="/dashboard" element={<ProviderDashboard />} />}
+        <Route path="/dashboard" element={<ProviderDashboard />} />
 
         <Route path="/register" element={<RegisterPage />} />
 
