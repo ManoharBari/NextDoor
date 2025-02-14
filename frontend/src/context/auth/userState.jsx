@@ -21,8 +21,9 @@ function userState({ children }) {
         id: data.user._id,
         email: data.user.email,
         name: data.user.name,
-        avatar: data.user.avatar || `https://source.unsplash.com/100x100/?portrait`,
+        avatar: data.user.profilePicture || `https://source.unsplash.com/100x100/?portrait`,
         token: data.token, // Save token for authentication
+        role: data.user.role
       });
 
       localStorage.setItem("token", data.token); // Store token in localStorage

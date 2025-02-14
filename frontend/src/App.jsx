@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { Header } from './components/layout/Header';
 import { SearchBar } from './components/search/SearchBar';
 import { CategoryFilter } from './components/search/CategoryFilter';
@@ -87,6 +87,7 @@ export default function App() {
     <>
       <Header />
       <Routes>
+
         <Route
           path="/"
           element={
@@ -99,21 +100,27 @@ export default function App() {
             </div>
           }
         />
+
+        {isAuthenticated && user.role == "provider" && <Route path="/dashboard" element={<ProviderDashboard />} />}
+
         <Route path="/register" element={<RegisterPage />} />
+
         <Route
           path="/provider/:providerId"
           element={<ProviderProfile provider={selectedProvider} services={providerServices} />}
         />
+
         <Route
           path="/booking"
           element={selectedService ? <BookingPage service={selectedService} onSubmit={handleBookingSubmit} /> : <Navigate to="/" />}
         />
+
         <Route
           path="/payment"
           element={selectedService && bookingDetails ? <PaymentPage service={selectedService} bookingDetails={bookingDetails} onPaymentComplete={handlePaymentComplete} /> : <Navigate to="/" />}
         />
+
         <Route path="/orders" element={<OrderHistoryPage />} />
-        {isAuthenticated && user.role === 'provider' && <Route path="/dashboard" element={<ProviderDashboard />} />}
       </Routes>
       {selectedService && <ChatDialog isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} provider={selectedService.provider} />}
     </>

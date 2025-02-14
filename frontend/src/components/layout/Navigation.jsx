@@ -5,7 +5,7 @@ import UserContext from '../../context/auth/userContext';
 
 export function Navigation() {
   const [isSignInOpen, setIsSignInOpen] = useState(false);
-  
+
   const { user, isAuthenticated, signOut } = useContext(UserContext);
 
   return (

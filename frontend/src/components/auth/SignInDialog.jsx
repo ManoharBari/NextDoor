@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { X } from 'lucide-react';
+import { User, X } from 'lucide-react';
 import UserContext from '../../context/auth/userContext';
+import { Link } from 'react-router-dom';
 
 export function SignInDialog({ isOpen, onClose }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
+
   const { signIn } = useContext(UserContext);
 
   if (!isOpen) return null;
@@ -65,8 +66,10 @@ export function SignInDialog({ isOpen, onClose }) {
           >
             Sign In
           </button>
+          <span className="block text-center text-sm text-gray-600 mt-2">Don't have an account?
+            <Link className='font-semibold text-blue-700 hover:underline' onClick={onClose} to='/register'> Register here</Link></span>
         </form>
       </div>
-    </div>
+    </div >
   );
 }
