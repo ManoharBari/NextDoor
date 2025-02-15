@@ -1,22 +1,20 @@
 import { useState, useMemo } from "react";
 import { mockServices } from "../../data/mockServices";
 import ServiceContext from "./serviceContext";
-import userState from "../auth/userState";
 
-export function useServices() {
+function serviceState({ children }) {
   const [services, setServices] = useState(mockServices);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   // Show All Services
-  const ShowAllServices = async (email, password) => {
+  const ShowAllServices = async () => {
     try {
-      const response = await fetch(`${host}/auth/login`, {
-        method: "POST",
+      const response = await fetch(`${host}/services`, {
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
       });
 
       if (!response.ok) throw new Error("Invalid credentials");
@@ -31,7 +29,6 @@ export function useServices() {
         role: data.user.role
       });
 
-      localStorage.setItem("token", data.token); // Store token in localStorage
     } catch (error) {
       console.error("Login error:", error.message);
     }
@@ -57,9 +54,11 @@ export function useServices() {
       setSearchTerm,
       selectedCategory,
       setSelectedCategory,
+      ShowAllServices
     }}>
+      {children}
     </ServiceContext.Provider>
   );
 }
 
-export default userState;
+export default serviceState;

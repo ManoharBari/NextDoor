@@ -11,8 +11,8 @@ import { ChatDialog } from './components/chat/ChatDialog';
 import { OrderHistoryPage } from './components/orders/OrderHistoryPage';
 import { PaymentPage } from './components/payment/PaymentPage';
 import { ProviderDashboard } from './components/dashboard/ProviderDashboard';
-import { useServices } from './context/useServices';
 import UserContext from './context/auth/userContext';
+import ServiceContext from './context/service/serviceContext';
 import { Service } from './types/index';
 import { useNavigate } from "react-router-dom";
 
@@ -25,9 +25,9 @@ export default function App() {
     setSearchTerm,
     selectedCategory,
     setSelectedCategory
-  } = useServices();
+  } = useContext(ServiceContext);
 
-  const { isAuthenticated, user } = useContext(UserContext);
+  const { isAuthenticated } = useContext(UserContext);
   const [selectedService, setSelectedService] = useState(Service || null);
   const [selectedProviderId, setSelectedProviderId] = useState("" || null);
   const [isChatOpen, setIsChatOpen] = useState(false);

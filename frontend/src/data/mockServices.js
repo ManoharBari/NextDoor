@@ -12,8 +12,8 @@ export const mockServices = [
       profession: "Professional House Cleaner",
       rating: 4.8,
       location: 1,
-      email: "sarah.johnson@example.com",
-      phone: "+1 (555) 123-4567",
+      email: "sarah.johnson@nextdoor.com",
+      phone: "+91 123-4567-890",
       about:
         "With over 5 years of experience in professional house cleaning, I take pride in providing thorough, eco-friendly cleaning services. I specialize in deep cleaning, organization, and maintaining a healthy living environment for my clients.\n\nI use only premium, environmentally safe cleaning products and follow a detailed checklist to ensure no spot is missed. Available for regular maintenance cleaning as well as one-time deep cleaning services.",
       reviews: [
