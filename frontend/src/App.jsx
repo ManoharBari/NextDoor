@@ -71,6 +71,7 @@ export default function App() {
 
   const handleProviderClick = (providerId) => {
     setSelectedProviderId(providerId);
+    navigate(`/provider/${providerId}`);
   };
 
   const handleBookingSubmit = (bookingData) => {

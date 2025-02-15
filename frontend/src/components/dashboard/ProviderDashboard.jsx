@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   LayoutDashboard,
   Calendar,
@@ -19,10 +19,12 @@ export function ProviderDashboard() {
   const { user, isAuthenticated } = useContext(UserContext);
   const navigate = useNavigate();
 
-  if (!isAuthenticated || user.role !== 'provider') {
-    navigate('/');
-  }
-  
+  useEffect(() => {
+    if (!isAuthenticated || user.role !== 'provider') {
+      navigate('/');
+    }
+  }, [isAuthenticated, user]);
+
   const renderContent = () => {
     switch (activeTab) {
       case 'dashboard':

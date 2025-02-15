@@ -11,7 +11,7 @@ const signup = async (req, res) => {
       return res.status(400).json({ message: "User already exists" });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({
+    await User.create({
       name,
       email,
       password: hashedPassword,
@@ -49,18 +49,4 @@ const login = async (req, res) => {
   }
 };
 
-const google = () => passport.authenticate("google", ["profile", "email"]);
-
-const googleCallback = () => {
-  passport.authenticate("google", {
-    successRedirect: process.env.CLIENT_URL,
-    failureRedirect: "/login/failed",
-  });
-};
-
-const googleLogout = (req, res) => {
-  req.logout();
-  res.redirect(process.env.CLIENT_URL);
-};
-
-module.exports = { signup, login, google, googleCallback, googleLogout };
+module.exports = { signup, login };
