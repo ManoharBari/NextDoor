@@ -20,9 +20,9 @@ app.use(errorMiddleware);
 connectDB();
 
 app.use("/auth", authRoutes);
-app.use("/services", authMiddleware, serviceRoutes);
+app.use("/services", serviceRoutes);
 app.use("/booking", authMiddleware, bookingRoutes);
-app.use("/review", authMiddleware, reviewRoutes);
+app.use("/review", reviewRoutes);
 app.use("/chat", authMiddleware, chatRoutes);
 app.use("/payments", authMiddleware, paymentRoutes);
 

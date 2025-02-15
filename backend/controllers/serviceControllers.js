@@ -13,7 +13,10 @@ const create = async (req, res) => {
 // Get all services
 const viewAll = async (req, res) => {
   try {
-    const services = await Service.find().populate("provider", "name email");
+    const services = await Service.find().populate(
+      "provider",
+      "name email location profilePicture"
+    );
     res.json(services);
   } catch (error) {
     res.status(400).json({ message: error.message });

@@ -13,7 +13,7 @@ export function ServiceCard({ service, onBook, onChat, onProviderClick }) {
         />
         <div className="absolute top-4 right-4 bg-white px-2 py-1 rounded-full flex items-center gap-1">
           <Star className="w-4 h-4 text-yellow-400" />
-          <span className="font-medium">{service.rating.toFixed(1)}</span>
+          <span className="font-medium">{service.rating}</span> 
         </div>
       </div>
 

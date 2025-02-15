@@ -3,7 +3,8 @@ import { mockServices } from "../../data/mockServices";
 import ServiceContext from "./serviceContext";
 
 function serviceState({ children }) {
-  const [services, setServices] = useState(mockServices);
+  const host = `${import.meta.env.VITE_REACT_APP_BACKEND_URL}`;
+  const [services, setServices] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
@@ -20,14 +21,7 @@ function serviceState({ children }) {
       if (!response.ok) throw new Error("Invalid credentials");
 
       const data = await response.json();
-      setUser({
-        id: data.user._id,
-        email: data.user.email,
-        name: data.user.name,
-        avatar: data.user.profilePicture || `https://source.unsplash.com/100x100/?portrait`,
-        token: data.token, // Save token for authentication
-        role: data.user.role
-      });
+      setServices(data);
 
     } catch (error) {
       console.error("Login error:", error.message);

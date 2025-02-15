@@ -6,9 +6,10 @@ const {
   remove,
 } = require("../controllers/serviceControllers");
 const { roleMiddleware } = require("../middleware/roleMiddleware");
+const { authMiddleware } = require("../middleware/authMiddleware");
 
-router.post("/", roleMiddleware(["provider"]), create);
+router.post("/", authMiddleware, roleMiddleware("provider"), create);
 router.get("/", viewAll);
-router.delete("/:id", roleMiddleware(["provider"]), remove);
+router.delete("/:id", authMiddleware, roleMiddleware("provider"), remove);
 
 module.exports = router;

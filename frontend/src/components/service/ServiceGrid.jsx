@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { ServiceCard } from './ServiceCard';
+import ServiceContext from '../../context/service/serviceContext';
 
 export function ServiceGrid({ services, onBook, onChat, onProviderClick }) {
+  const { ShowAllServices } = useContext(ServiceContext);
+
+  useEffect(() => {
+    ShowAllServices();
+  }, []);
+
   if (services.length === 0) {
     return (
       <div className="text-center py-12">
@@ -14,7 +21,7 @@ export function ServiceGrid({ services, onBook, onChat, onProviderClick }) {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {services.map((service) => (
         <ServiceCard
-          key={service.id}
+          key={service._id}
           service={service}
           onBook={onBook}
           onChat={onChat}
