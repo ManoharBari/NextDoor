@@ -23,13 +23,13 @@ export function ServiceCard({ service, onBook, onChat, onProviderClick }) {
             src={service.provider.avatar}
             alt={service.provider.name}
             className="w-8 h-8 rounded-full cursor-pointer"
-            onClick={() => onProviderClick?.(service.provider.id)}
+            onClick={() => onProviderClick?.(service.provider._id)}
           />
           <div>
             <h3 className="text-lg font-semibold">{service.title}</h3>
             <p
               className="text-sm text-gray-600 cursor-pointer hover:text-blue-600"
-              onClick={() => onProviderClick?.(service.provider.id)}
+              onClick={() => onProviderClick?.(service.provider._id)}
             >
               {service.provider.name}
             </p>
@@ -43,7 +43,7 @@ export function ServiceCard({ service, onBook, onChat, onProviderClick }) {
 
         <div className="flex items-center gap-2 text-gray-600 mb-4">
           <Clock className="w-4 h-4" />
-          <span className="text-sm">Available today</span>
+          <span className="text-sm">Available</span>
         </div>
 
         <div className="flex items-center justify-between">
@@ -53,13 +53,13 @@ export function ServiceCard({ service, onBook, onChat, onProviderClick }) {
           </div>
           <div className="flex gap-2">
             <button
-              onClick={() => onChat(service.provider.id)}
+              onClick={() => onChat(service.provider._id)}
               className="p-2 rounded-lg border border-gray-200 hover:bg-gray-50"
             >
               <MessageCircle className="w-5 h-5" />
             </button>
             <button
-              onClick={() => onBook(service.id)}
+              onClick={() => onBook(service._id)}
               className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
             >
               Book Now
