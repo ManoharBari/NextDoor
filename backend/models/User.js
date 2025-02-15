@@ -24,11 +24,6 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  // Relevant for service providers
-  skills: {
-    type: [String],
-    default: [],
-  },
   bio: {
     type: String,
     default: "",

@@ -1,12 +1,15 @@
 import { useState, createContext, useContext } from "react";
 import UserContext from "./userContext";
+import { useNavigate } from "react-router-dom";
 function userState({ children }) {
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const host = `${import.meta.env.VITE_REACT_APP_BACKEND_URL}`;
 
   // Sign In
   const signIn = async (email, password) => {
     try {
-      const response = await fetch("http://localhost:8080/auth/login", {
+      const response = await fetch(`${host}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,7 +38,7 @@ function userState({ children }) {
   // Register
   const register = async (data) => {
     try {
-      const response = await fetch("http://localhost:5000/api/auth/register", {
+      const response = await fetch(`${host}/auth/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -51,12 +54,11 @@ function userState({ children }) {
         email: resData.user.email,
         name: resData.user.name,
         avatar: resData.user.avatar || `https://source.unsplash.com/100x100/?portrait`,
-        phone: resData.user.phone,
-        address: resData.user.address,
+        location: resData.user.location,
         token: resData.token, // Save token for authentication
       });
-
       localStorage.setItem("token", resData.token); // Store token in localStorage
+      navigate('/');
     } catch (error) {
       console.error("Registration error:", error.message);
     }

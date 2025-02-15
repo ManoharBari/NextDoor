@@ -6,20 +6,28 @@ const User = require("../models/User");
 // User Signup
 const signup = async (req, res) => {
   try {
-    const { name, email, password, role, location, skills } = req.body;
+    const { name, email, password, role, location } = req.body;
     if (await User.findOne({ email })) {
       return res.status(400).json({ message: "User already exists" });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    await User.create({
+    const user = await User.create({
       name,
       email,
       password: hashedPassword,
       role,
       location,
-      skills,
     });
-    res.status(201).json({ message: "User Signup successfully" });
+
+    const token = jwt.sign(
+      { id: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1d",
+      }
+    );
+
+    res.status(201).json({ user, token, message: "User Signup successfully" });
   } catch (error) {
     res.status(400).json({ message: "Internal Server Error" });
   }
@@ -43,6 +51,7 @@ const login = async (req, res) => {
         expiresIn: "1d",
       }
     );
+    
     res.json({ user, token, message: "User Login successfully" });
   } catch (error) {
     res.status(400).json({ message: "Internal Server Error" });
