@@ -15,11 +15,6 @@ const ServiceSchema = new Schema({
     ref: "User",
     required: true,
   },
-  review: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Review",
-    required: true,
-  },
   price: {
     type: Number,
     required: true,

@@ -28,7 +28,6 @@ function userState({ children }) {
         token: data.token, // Save token for authentication
         role: data.user.role
       });
-
       localStorage.setItem("token", data.token); // Store token in localStorage
     } catch (error) {
       console.error("Login error:", error.message);
@@ -56,6 +55,7 @@ function userState({ children }) {
         avatar: resData.user.avatar || `https://source.unsplash.com/100x100/?portrait`,
         location: resData.user.location,
         token: resData.token, // Save token for authentication
+        role: resData.user.role
       });
       localStorage.setItem("token", resData.token); // Store token in localStorage
       navigate('/');
@@ -69,7 +69,7 @@ function userState({ children }) {
     setUser(null);
     localStorage.removeItem("token"); // Remove token on logout
   };
- 
+
   return (
     <UserContext.Provider
       value={{ user, isAuthenticated: !!user, signIn, signOut, register }}

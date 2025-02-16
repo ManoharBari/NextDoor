@@ -8,11 +8,10 @@ export function Navigation() {
   const navigate = useNavigate();
   const [isSignInOpen, setIsSignInOpen] = useState(false);
   const { user, isAuthenticated, signOut } = useContext(UserContext);
-
   return (
     <>
       <nav className="flex items-center gap-4">
-        {isAuthenticated && user.role === 'provider' && (
+        {isAuthenticated && user.role == 'provider' && (
           <button
             onClick={() => navigate('/dashboard')}
             className=" bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"

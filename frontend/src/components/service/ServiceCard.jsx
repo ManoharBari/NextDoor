@@ -13,7 +13,7 @@ export function ServiceCard({ service, onBook, onChat, onProviderClick }) {
         />
         <div className="absolute top-4 right-4 bg-white px-2 py-1 rounded-full flex items-center gap-1">
           <Star className="w-4 h-4 text-yellow-400" />
-          <span className="font-medium">{service.rating}</span>
+          <span className="font-medium">{service.rating}4.6</span>
         </div>
       </div>
 
@@ -38,18 +38,18 @@ export function ServiceCard({ service, onBook, onChat, onProviderClick }) {
 
         <div className="flex items-center gap-2 text-gray-600 mb-2">
           <MapPin className="w-4 h-4" />
-          <span className="text-sm">1</span>
+          <span className="text-sm">{service.provider.location}</span>
         </div>
 
         <div className="flex items-center gap-2 text-gray-600 mb-4">
           <Clock className="w-4 h-4" />
-          <span className="text-sm">Available</span>
+          <span className="text-sm">{service.availability ? "Available" : "Not Available"}</span>
         </div>
 
         <div className="flex items-center justify-between">
           <div>
             <span className="text-2xl font-bold">{formatPrice(service.price)}</span>
-            <span className="text-gray-600">/hour</span>
+            <span className="text-gray-600">/visit</span>
           </div>
           <div className="flex gap-2">
             <button
