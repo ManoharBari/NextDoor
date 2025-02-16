@@ -67,16 +67,16 @@ export function PaymentPage({ service, bookingDetails, onPaymentComplete }) {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Duration</span>
-                  <span className="font-medium">{bookingDetails.duration} hours</span>
+                  <span className="font-medium">{bookingDetails.duration}Day</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Rate</span>
-                  <span className="font-medium">{formatPrice(service.price)}/hour</span>
+                  <span className="font-medium">{formatPrice(service.price)}/visit</span>
                 </div>
                 <div className="pt-2 border-t">
                   <div className="flex justify-between text-lg font-bold">
                     <span>Total Amount</span>
-                    <span>{formatPrice(totalAmount)}</span>
+                    <span>{formatPrice(service.price)}</span>
                   </div>
                 </div>
               </div>
@@ -164,7 +164,7 @@ export function PaymentPage({ service, bookingDetails, onPaymentComplete }) {
                 type="submit"
                 className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-semibold"
               >
-                Pay {formatPrice(totalAmount)}
+                Pay {formatPrice(service.price)}
               </button>
             </form>
           </div>

@@ -26,7 +26,7 @@ export function BookingPage({ service, onSubmit }) {
             <div className="bg-white rounded-xl shadow-lg overflow-hidden">
               <div className="relative h-64">
                 <img
-                  src={`https://source.unsplash.com/1600x900/?${service.category.toLowerCase()}-service`}
+                  src={"https://media.istockphoto.com/id/1049775258/photo/smiling-handsome-electrician-repairing-electrical-box-with-pliers-in-corridor-and-looking-at.jpg?s=1024x1024&w=is&k=20&c=I8Fxr-SRoAovM3W5Ijd36Vv3cYFqrEErd6mKvPUjmzs="}
                   alt={service.title}
                   className="w-full h-full object-cover"
                 />
@@ -45,7 +45,7 @@ export function BookingPage({ service, onSubmit }) {
 
                 <div className="flex items-center justify-between py-4 border-t">
                   <span className="text-gray-600">Price</span>
-                  <span className="text-2xl font-bold">{formatPrice(service.price)}/hour</span>
+                  <span className="text-2xl font-bold">{formatPrice(service.price)}/visit</span>
                 </div>
               </div>
             </div>
@@ -66,7 +66,7 @@ export function BookingPage({ service, onSubmit }) {
                     required
                     value={formData.date}
                     onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                    className="pl-10 w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                    className="pl-10 py-1 px-4 w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
               </div>
@@ -82,7 +82,7 @@ export function BookingPage({ service, onSubmit }) {
                     required
                     value={formData.time}
                     onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                    className="pl-10 w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                    className="pl-10 py-1 px-4 w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
               </div>
@@ -97,8 +97,9 @@ export function BookingPage({ service, onSubmit }) {
                     required
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                    className="pl-10 w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                    rows={3}
+                    className="pl-10 py-2 px-4 w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                     placeholder="Enter your address..."
+                    rows={2}
                   />
                 </div>
               </div>
@@ -112,8 +113,8 @@ export function BookingPage({ service, onSubmit }) {
                   <textarea
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                    className="pl-10 w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                    rows={3}
+                    className="pl-10 py-2 px-4 w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                    rows={2}
                     placeholder="Any special instructions or requirements..."
                   />
                 </div>
@@ -128,7 +129,7 @@ export function BookingPage({ service, onSubmit }) {
                   <select
                     value={formData.paymentMethod}
                     onChange={(e) => setFormData({ ...formData, paymentMethod: e.target.value })}
-                    className="pl-10 w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                    className="pl-10 py-1 px-4 w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                   >
                     <option value="credit_card">Credit Card</option>
                     <option value="debit_card">Debit Card</option>
