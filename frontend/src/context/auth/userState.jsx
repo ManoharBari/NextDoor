@@ -69,7 +69,7 @@ function userState({ children }) {
     setUser(null);
     localStorage.removeItem("token"); // Remove token on logout
   };
-
+ 
   return (
     <UserContext.Provider
       value={{ user, isAuthenticated: !!user, signIn, signOut, register }}

@@ -35,14 +35,14 @@ export default function App() {
 
   // Get the selected provider and their services
   const selectedProvider = selectedProviderId
-    ? services.find(s => s.provider.id === selectedProviderId)?.provider
+    ? services.find(s => s.provider._id === selectedProviderId)?.provider
     : null;
   const providerServices = selectedProvider
-    ? services.filter(s => s.provider.id === selectedProviderId)
+    ? services.filter(s => s.provider._id === selectedProviderId)
     : [];
 
   const handleBookService = (serviceId) => {
-    const service = services.find(s => s.id === serviceId);
+    const service = services.find(s => s._id === serviceId);
     if (service) {
       if (!isAuthenticated) {
         navigate('/register');
@@ -54,7 +54,7 @@ export default function App() {
   };
 
   const handleChat = (providerId) => {
-    const service = services.find(s => s.provider.id === providerId);
+    const service = services.find(s => s.provider._id === providerId);
     if (service) {
       if (!isAuthenticated) {
         navigate('/register');

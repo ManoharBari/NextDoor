@@ -1,8 +1,18 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { User, Mail, Lock, Phone, MapPin } from "lucide-react";
 import UserContext from "../../context/auth/userContext";
+import { useNavigate } from "react-router-dom";
 
 export function RegisterPage() {
+  const navigate = useNavigate();
+  const { isAuthenticated } = useContext(UserContext);
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/");
+    }
+  }, [isAuthenticated])
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",

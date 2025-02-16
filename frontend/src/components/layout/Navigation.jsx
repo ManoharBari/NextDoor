@@ -28,7 +28,7 @@ export function Navigation() {
           </span>
         </button>
 
-        {isAuthenticated ? (
+        {isAuthenticated || localStorage.getItem('token') ? (
           <div className="flex items-center gap-2">
             <img
               src={user?.avatar}
