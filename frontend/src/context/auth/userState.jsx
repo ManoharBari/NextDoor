@@ -1,9 +1,8 @@
 import { useState, createContext, useContext } from "react";
 import UserContext from "./userContext";
-import { useNavigate } from "react-router-dom";
+
 function userState({ children }) {
-  const navigate = useNavigate();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
   const host = `${import.meta.env.VITE_REACT_APP_BACKEND_URL}`;
 
   // Sign In
@@ -58,7 +57,6 @@ function userState({ children }) {
         role: resData.user.role
       });
       localStorage.setItem("token", resData.token); // Store token in localStorage
-      navigate('/');
     } catch (error) {
       console.error("Registration error:", error.message);
     }
@@ -66,7 +64,7 @@ function userState({ children }) {
 
   // Sign Out
   const signOut = () => {
-    setUser(null);
+    setUser({});
     localStorage.removeItem("token"); // Remove token on logout
   };
 

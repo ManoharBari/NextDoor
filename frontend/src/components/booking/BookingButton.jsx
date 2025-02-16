@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 export function BookingButton({ serviceId, onBook }) {
   return (
     <button

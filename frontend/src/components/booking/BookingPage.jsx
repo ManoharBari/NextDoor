@@ -120,7 +120,7 @@ export function BookingPage({ service, onSubmit }) {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block p-2 text-sm font-medium text-gray-700 mb-1">
                   Payment Method
                 </label>
                 <div className="relative">

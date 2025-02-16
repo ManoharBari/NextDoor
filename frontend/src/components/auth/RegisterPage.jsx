@@ -9,9 +9,9 @@ export function RegisterPage() {
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
-    
+    navigate("/");
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated]);
 
   const [formData, setFormData] = useState({
     name: "",

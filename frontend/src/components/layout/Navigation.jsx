@@ -8,6 +8,7 @@ export function Navigation() {
   const navigate = useNavigate();
   const [isSignInOpen, setIsSignInOpen] = useState(false);
   const { user, isAuthenticated, signOut } = useContext(UserContext);
+
   return (
     <>
       <nav className="flex items-center gap-4">
@@ -27,7 +28,7 @@ export function Navigation() {
           </span>
         </button>
 
-        {isAuthenticated || localStorage.getItem('token') ? (
+        {localStorage.getItem('token') ? (
           <div className="flex items-center gap-2">
             <img
               src={user?.avatar}
