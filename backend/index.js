@@ -8,6 +8,7 @@ const serviceRoutes = require("./routes/serviceRoutes");
 const bookingRoutes = require("./routes/bookingRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 const chatRoutes = require("./routes/chatRoutes");
+const orderRoutes = require("./routes/orderRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const { errorMiddleware } = require("./middleware/errorMiddleware");
 const { authMiddleware } = require("./middleware/authMiddleware");
@@ -25,6 +26,7 @@ app.use("/booking", authMiddleware, bookingRoutes);
 app.use("/review", reviewRoutes);
 app.use("/chat", authMiddleware, chatRoutes);
 app.use("/payments", authMiddleware, paymentRoutes);
+app.use("/orders", authMiddleware, orderRoutes);
 
 app.listen(8080, () => {
   console.log("Server is running on port 8080");

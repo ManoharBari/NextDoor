@@ -27,7 +27,7 @@ export default function App() {
     setSelectedCategory
   } = useContext(ServiceContext);
 
-  const { isAuthenticated } = useContext(UserContext);
+  const { isAuthenticated, user } = useContext(UserContext);
   const [selectedService, setSelectedService] = useState(Service || null);
   const [selectedProviderId, setSelectedProviderId] = useState("" || null);
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -76,7 +76,7 @@ export default function App() {
 
   const handleBookingSubmit = (bookingData) => {
     setBookingDetails(bookingData);
-    navigate('/payment');
+    // navigate('/payment');
   };
 
   const handlePaymentComplete = () => {
@@ -113,7 +113,7 @@ export default function App() {
 
         <Route
           path="/booking"
-          element={selectedService ? <BookingPage service={selectedService} onSubmit={handleBookingSubmit} /> : <Navigate to="/" />}
+          element={selectedService ? <BookingPage serviceId={selectedService._id} userId={user.id} amount={selectedService.price} onSubmit={handleBookingSubmit} service={selectedService}  /> : <Navigate to="/" />}
         />
 
         <Route

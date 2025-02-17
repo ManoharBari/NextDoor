@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Calendar, Clock, CreditCard, MapPin, MessageSquare } from 'lucide-react';
 import { formatPrice } from '../../utils/format';
+import axios from 'axios';
 
-export function BookingPage({ service, onSubmit }) {
+export function BookingPage({ serviceId, amount, userId, service, onSubmit }) {
 
+  const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     date: '',
     time: '',
@@ -12,9 +14,75 @@ export function BookingPage({ service, onSubmit }) {
     paymentMethod: 'credit_card'
   });
 
+  const loadRazorpay = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
+
+  useEffect(() => {
+    loadRazorpay().then(() => setLoading(false)); // Load script before using Razorpay
+  }, []);
+
+  const handlePayment = async () => {
+
+    if (loading) {
+      console.error("Razorpay SDK is not loaded yet.");
+      return;
+    }
+
+    try {
+      const { data } = await axios.post("http://localhost:8080/orders/create-order", {
+        userId,
+        serviceId,
+        amount,
+      }, {
+        headers: {
+          "Content-Type": "application/json",
+          token: `${localStorage.getItem('token')}`,
+        },
+      });
+
+      const options = {
+        key: `${import.meta.env.VITE_REACT_APP_RAZORPAY_KEY_ID}`,
+        amount: data.order.amount,
+        currency: "INR",
+        name: "NextDoor",
+        description: "Service Payment",
+        order_id: data.order.id,
+        handler: async (response) => {
+          await axios.post("http://localhost:8080/orders/verify-payment", response,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                token: `${localStorage.getItem('token')}`,
+              },
+            });
+          alert("Payment successful!");
+        },
+        prefill: {
+          email: "user@example.com",
+          contact: "9876543210",
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
+      const razorpay = new window.Razorpay(options);
+      razorpay.open();
+    } catch (error) {
+      console.error("Payment Error:", error);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(formData);
+    console.log({ serviceId, amount, userId })
   };
 
   return (
@@ -98,7 +166,7 @@ export function BookingPage({ service, onSubmit }) {
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                     className="pl-10 py-2 px-4 w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                     placeholder="Enter your address..."
+                    placeholder="Enter your address..."
                     rows={2}
                   />
                 </div>
@@ -141,8 +209,9 @@ export function BookingPage({ service, onSubmit }) {
               <button
                 type="submit"
                 className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+                onClick={handlePayment}
               >
-                Confirm Booking
+                Pay Now
               </button>
             </form>
           </div>

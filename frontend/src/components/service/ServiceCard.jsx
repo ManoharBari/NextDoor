@@ -1,8 +1,11 @@
 import React from 'react';
 import { Star, MapPin, Clock, MessageCircle } from 'lucide-react';
 import { formatPrice } from '../../utils/format';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export function ServiceCard({ service, onBook, onChat, onProviderClick }) {
+  const navigate = useNavigate();
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
       <div className="relative h-48">
@@ -58,12 +61,17 @@ export function ServiceCard({ service, onBook, onChat, onProviderClick }) {
             >
               <MessageCircle className="w-5 h-5" />
             </button>
+           
             <button
-              onClick={() => onBook(service._id)}
               className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+              onClick={() => {
+                onBook(service._id)
+                navigate(`/booking?serviceId=${service._id}&amount=${service.price}`)
+              }}
             >
               Book Now
             </button>
+
           </div>
         </div>
       </div>
