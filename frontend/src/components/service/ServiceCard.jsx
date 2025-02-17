@@ -61,12 +61,12 @@ export function ServiceCard({ service, onBook, onChat, onProviderClick }) {
             >
               <MessageCircle className="w-5 h-5" />
             </button>
-           
+
             <button
               className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
               onClick={() => {
                 onBook(service._id)
-                navigate(`/booking?serviceId=${service._id}&amount=${service.price}`)
+                navigate("/booking")
               }}
             >
               Book Now

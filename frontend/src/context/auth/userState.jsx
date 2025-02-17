@@ -32,6 +32,34 @@ function userState({ children }) {
       console.error("Login error:", error.message);
     }
   };
+ 
+  // Sign In
+  const showUser = async (email, password) => {
+    try {
+      const response = await fetch(`${host}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) throw new Error("Invalid credentials");
+
+      const data = await response.json();
+      setUser({
+        id: data.user._id,
+        email: data.user.email,
+        name: data.user.name,
+        avatar: data.user.profilePicture || `https://source.unsplash.com/100x100/?portrait`,
+        token: data.token, // Save token for authentication
+        role: data.user.role
+      });
+      localStorage.setItem("token", data.token); // Store token in localStorage
+    } catch (error) {
+      console.error("Login error:", error.message);
+    }
+  };
 
   // Register
   const register = async (data) => {
@@ -70,7 +98,7 @@ function userState({ children }) {
 
   return (
     <UserContext.Provider
-      value={{ user, isAuthenticated: !!user, signIn, signOut, register }}
+      value={{ user, setUser, isAuthenticated: !!user, signIn, signOut, register }}
     >
       {children}
     </UserContext.Provider>

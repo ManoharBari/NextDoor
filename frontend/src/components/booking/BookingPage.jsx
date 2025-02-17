@@ -1,11 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Calendar, Clock, CreditCard, MapPin, MessageSquare } from 'lucide-react';
 import { formatPrice } from '../../utils/format';
 import axios from 'axios';
+import UserContext from '../../context/auth/userContext';
 
 export function BookingPage({ serviceId, amount, userId, service, onSubmit }) {
+  const { setUser } = useContext(UserContext);
 
-  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      setUser()
+    }
+  })
+
   const [formData, setFormData] = useState({
     date: '',
     time: '',
@@ -25,15 +32,11 @@ export function BookingPage({ serviceId, amount, userId, service, onSubmit }) {
   };
 
   useEffect(() => {
-    loadRazorpay().then(() => setLoading(false)); // Load script before using Razorpay
+    // Load script before using Razorpay
+    loadRazorpay();
   }, []);
 
   const handlePayment = async () => {
-
-    if (loading) {
-      console.error("Razorpay SDK is not loaded yet.");
-      return;
-    }
 
     try {
       const { data } = await axios.post("http://localhost:8080/orders/create-order", {
@@ -52,7 +55,8 @@ export function BookingPage({ serviceId, amount, userId, service, onSubmit }) {
         amount: data.order.amount,
         currency: "INR",
         name: "NextDoor",
-        description: "Service Payment",
+        description: "Service Booking Payment",
+        image: "/logo.png",
         order_id: data.order.id,
         handler: async (response) => {
           await axios.post("http://localhost:8080/orders/verify-payment", response,
@@ -65,11 +69,11 @@ export function BookingPage({ serviceId, amount, userId, service, onSubmit }) {
           alert("Payment successful!");
         },
         prefill: {
-          email: "user@example.com",
+          email: "contact@nextdoor.com",
           contact: "9876543210",
         },
         theme: {
-          color: "#3399cc",
+          color: "#2563eb",
         },
       };
       const razorpay = new window.Razorpay(options);
