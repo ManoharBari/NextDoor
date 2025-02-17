@@ -51,15 +51,23 @@ const login = async (req, res) => {
         expiresIn: "1d",
       }
     );
-    
+
     res.json({ user, token, message: "User Login successfully" });
   } catch (error) {
     res.status(400).json({ message: "Internal Server Error" });
   }
 };
 
-const showUser = (req, res) => {
-  
-}
+//get user details
+const getUser = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const user = await User.findById(userId).select("-password"); //select()- password does not include
+    res.json(user);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ msg: "Internal server error" });
+  }
+};
 
-module.exports = { signup, login };
+module.exports = { signup, login, getUser };

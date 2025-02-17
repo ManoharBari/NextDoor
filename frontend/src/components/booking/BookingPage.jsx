@@ -2,17 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Calendar, Clock, CreditCard, MapPin, MessageSquare } from 'lucide-react';
 import { formatPrice } from '../../utils/format';
 import axios from 'axios';
-import UserContext from '../../context/auth/userContext';
+import { useNavigate } from 'react-router-dom';
 
 export function BookingPage({ serviceId, amount, userId, service, onSubmit }) {
-  const { setUser } = useContext(UserContext);
-
-  useEffect(() => {
-    if (localStorage.getItem('token')) {
-      setUser()
-    }
-  })
-
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     date: '',
     time: '',
@@ -32,12 +25,10 @@ export function BookingPage({ serviceId, amount, userId, service, onSubmit }) {
   };
 
   useEffect(() => {
-    // Load script before using Razorpay
     loadRazorpay();
   }, []);
 
   const handlePayment = async () => {
-
     try {
       const { data } = await axios.post("http://localhost:8080/orders/create-order", {
         userId,
@@ -67,6 +58,7 @@ export function BookingPage({ serviceId, amount, userId, service, onSubmit }) {
               },
             });
           alert("Payment successful!");
+          navigate("/orders");
         },
         prefill: {
           email: "contact@nextdoor.com",
@@ -86,7 +78,6 @@ export function BookingPage({ serviceId, amount, userId, service, onSubmit }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(formData);
-    console.log({ serviceId, amount, userId })
   };
 
   return (
@@ -126,7 +117,11 @@ export function BookingPage({ serviceId, amount, userId, service, onSubmit }) {
           {/* Booking Form */}
           <div className="bg-white rounded-xl shadow-lg p-6">
             <h2 className="text-2xl font-bold mb-6">Book Service</h2>
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              onSubmit(formData);
+              handlePayment()
+            }} className="space-y-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Select Date
@@ -213,7 +208,6 @@ export function BookingPage({ serviceId, amount, userId, service, onSubmit }) {
               <button
                 type="submit"
                 className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-semibold"
-                onClick={handlePayment}
               >
                 Pay Now
               </button>

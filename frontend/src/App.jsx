@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Header } from './components/layout/Header';
 import { SearchBar } from './components/search/SearchBar';
@@ -18,7 +18,6 @@ import { useNavigate } from "react-router-dom";
 
 export default function App() {
   const navigate = useNavigate();
-
   const {
     services,
     searchTerm,
@@ -27,11 +26,17 @@ export default function App() {
     setSelectedCategory
   } = useContext(ServiceContext);
 
-  const { isAuthenticated, user } = useContext(UserContext);
+  const { isAuthenticated, user, showUser } = useContext(UserContext);
   const [selectedService, setSelectedService] = useState(Service || null);
   const [selectedProviderId, setSelectedProviderId] = useState("" || null);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [bookingDetails, setBookingDetails] = useState(null);
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      showUser();
+    }
+  }, [isAuthenticated])
 
   // Get the selected provider and their services
   const selectedProvider = selectedProviderId
@@ -74,14 +79,9 @@ export default function App() {
     navigate(`/provider/${providerId}`);
   };
 
-  const handleBookingSubmit = (bookingData) => {
+  const handlePaymentComplete = (bookingData) => {
     setBookingDetails(bookingData);
-    // navigate('/payment');
-  };
-
-  const handlePaymentComplete = () => {
-    setBookingDetails(null);
-    navigate('/orders');
+    // navigate('/orders');
   };
 
   return (
@@ -113,7 +113,7 @@ export default function App() {
 
         <Route
           path="/booking"
-          element={selectedService ? <BookingPage serviceId={selectedService._id} userId={user.id} amount={selectedService.price} onSubmit={handleBookingSubmit} service={selectedService}  /> : <Navigate to="/" />}
+          element={selectedService ? <BookingPage serviceId={selectedService._id} userId={user.id} amount={selectedService.price} onSubmit={handlePaymentComplete} service={selectedService} /> : <Navigate to="/" />}
         />
 
         <Route

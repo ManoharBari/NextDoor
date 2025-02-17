@@ -32,30 +32,28 @@ function userState({ children }) {
       console.error("Login error:", error.message);
     }
   };
- 
-  // Sign In
-  const showUser = async (email, password) => {
+
+  // get user details
+  const showUser = async () => {
     try {
-      const response = await fetch(`${host}/auth/login`, {
+      const response = await fetch(`${host}/auth/getuser`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          token: `${localStorage.getItem("token")}`
         },
-        body: JSON.stringify({ email, password }),
       });
 
       if (!response.ok) throw new Error("Invalid credentials");
 
-      const data = await response.json();
+      const user = await response.json();
       setUser({
-        id: data.user._id,
-        email: data.user.email,
-        name: data.user.name,
-        avatar: data.user.profilePicture || `https://source.unsplash.com/100x100/?portrait`,
-        token: data.token, // Save token for authentication
-        role: data.user.role
+        id: user._id,
+        email: user.email,
+        name: user.name,
+        avatar: user.profilePicture || `https://source.unsplash.com/100x100/?portrait`,
+        role: user.role
       });
-      localStorage.setItem("token", data.token); // Store token in localStorage
     } catch (error) {
       console.error("Login error:", error.message);
     }
@@ -98,7 +96,7 @@ function userState({ children }) {
 
   return (
     <UserContext.Provider
-      value={{ user, setUser, isAuthenticated: !!user, signIn, signOut, register }}
+      value={{ user, setUser, showUser, isAuthenticated: !!user, signIn, signOut, register }}
     >
       {children}
     </UserContext.Provider>
