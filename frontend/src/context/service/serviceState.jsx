@@ -1,5 +1,4 @@
 import { useState, useMemo } from "react";
-import { mockServices } from "../../data/mockServices";
 import ServiceContext from "./serviceContext";
 
 function serviceState({ children }) {
@@ -7,6 +6,7 @@ function serviceState({ children }) {
   const [services, setServices] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [ordersData, setOrdersData] = useState({});
 
   // Show All Services
   const ShowAllServices = async () => {
@@ -48,7 +48,9 @@ function serviceState({ children }) {
       setSearchTerm,
       selectedCategory,
       setSelectedCategory,
-      ShowAllServices
+      ShowAllServices,
+      ordersData,
+      setOrdersData
     }}>
       {children}
     </ServiceContext.Provider>

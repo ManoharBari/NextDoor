@@ -4,7 +4,8 @@ const crypto = require("crypto");
 
 const createOrder = async (req, res) => {
   try {
-    const { userId, serviceId, amount } = req.body;
+    const { userId, serviceId, amount, bookingDate, bookingTime, address } =
+      req.body;
 
     const options = {
       amount: amount * 100, // Convert amount to paise
@@ -20,6 +21,9 @@ const createOrder = async (req, res) => {
       amount,
       currency: "INR",
       status: "created",
+      bookingDate,
+      bookingTime,
+      address,
     });
 
     await newOrder.save();
@@ -34,9 +38,9 @@ const createOrder = async (req, res) => {
 // Get all bookings for a user
 const viewAll = async (req, res) => {
   try {
-    const bookings = await Order.find({ client: req.params.userId }).populate(
-      "service provider"
-    );
+    const bookings = await Order.find()
+      .populate("serviceId", "title description")
+      .populate("userId", "name profilePicture");
     res.json(bookings);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -46,7 +50,7 @@ const viewAll = async (req, res) => {
 // Delete booking for a user
 const remove = async (req, res) => {
   try {
-    const booking = await Order.findByIdAndDelete(req.params.userId);
+    const booking = await Order.findByIdAndDelete(req.params.orderId);
     res.json({ message: "Order Deleted" });
   } catch (error) {
     res.status(400).json({ message: error.message });

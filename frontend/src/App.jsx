@@ -77,10 +77,6 @@ export default function App() {
     navigate(`/provider/${providerId}`);
   };
 
-  const handlePaymentComplete = (bookingData) => {
-    setBookingDetails(bookingData);
-  };
-
   return (
     <>
       <Header />
@@ -110,7 +106,7 @@ export default function App() {
 
         <Route
           path="/booking"
-          element={selectedService ? <BookingPage serviceId={selectedService._id} userId={user.id} amount={selectedService.price} onSubmit={handlePaymentComplete} service={selectedService} /> : <Navigate to="/" />}
+          element={selectedService ? <BookingPage serviceId={selectedService._id} userId={user.id} amount={selectedService.price} service={selectedService} /> : <Navigate to="/" />}
         />
 
         <Route path="/orders" element={<OrderHistoryPage />} />

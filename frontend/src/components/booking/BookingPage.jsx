@@ -3,9 +3,11 @@ import { Calendar, Clock, CreditCard, MapPin, MessageSquare } from 'lucide-react
 import { formatPrice } from '../../utils/format';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import ServiceContext from '../../context/service/serviceContext';
 
-export function BookingPage({ serviceId, amount, userId, service, onSubmit }) {
+export function BookingPage({ serviceId, amount, userId, service }) {
   const navigate = useNavigate();
+  const { setOrdersData } = useContext(ServiceContext);
   const [formData, setFormData] = useState({
     date: '',
     time: '',
@@ -34,13 +36,17 @@ export function BookingPage({ serviceId, amount, userId, service, onSubmit }) {
         userId,
         serviceId,
         amount,
+        bookingDate: formData.date,
+        bookingTime: formData.time,
+        address: formData.address
       }, {
         headers: {
           "Content-Type": "application/json",
           token: `${localStorage.getItem('token')}`,
         },
       });
-
+      setOrdersData(data);
+      console.log(data);
       const options = {
         key: `${import.meta.env.VITE_REACT_APP_RAZORPAY_KEY_ID}`,
         amount: data.order.amount,
@@ -73,11 +79,6 @@ export function BookingPage({ serviceId, amount, userId, service, onSubmit }) {
     } catch (error) {
       console.error("Payment Error:", error);
     }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit(formData);
   };
 
   return (
@@ -119,7 +120,6 @@ export function BookingPage({ serviceId, amount, userId, service, onSubmit }) {
             <h2 className="text-2xl font-bold mb-6">Book Service</h2>
             <form onSubmit={(e) => {
               e.preventDefault();
-              onSubmit(formData);
               handlePayment()
             }} className="space-y-6">
               <div>
@@ -184,24 +184,6 @@ export function BookingPage({ serviceId, amount, userId, service, onSubmit }) {
                     rows={2}
                     placeholder="Any special instructions or requirements..."
                   />
-                </div>
-              </div>
-
-              <div>
-                <label className="block p-2 text-sm font-medium text-gray-700 mb-1">
-                  Payment Method
-                </label>
-                <div className="relative">
-                  <CreditCard className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                  <select
-                    value={formData.paymentMethod}
-                    onChange={(e) => setFormData({ ...formData, paymentMethod: e.target.value })}
-                    className="pl-10 py-1 px-4 w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                  >
-                    <option value="credit_card">Credit Card</option>
-                    <option value="debit_card">Debit Card</option>
-                    <option value="paypal">PayPal</option>
-                  </select>
                 </div>
               </div>
 
