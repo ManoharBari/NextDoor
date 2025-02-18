@@ -5,7 +5,6 @@ const connectDB = require("./db");
 const cors = require("cors");
 const authRoutes = require("./routes/authRoutes");
 const serviceRoutes = require("./routes/serviceRoutes");
-const bookingRoutes = require("./routes/bookingRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const orderRoutes = require("./routes/orderRoutes");
@@ -22,7 +21,6 @@ connectDB();
 
 app.use("/auth", authRoutes);
 app.use("/services", serviceRoutes);
-app.use("/booking", authMiddleware, bookingRoutes);
 app.use("/review", reviewRoutes);
 app.use("/chat", authMiddleware, chatRoutes);
 app.use("/payments", authMiddleware, paymentRoutes);

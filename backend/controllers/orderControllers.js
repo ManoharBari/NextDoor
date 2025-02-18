@@ -24,10 +24,32 @@ const createOrder = async (req, res) => {
 
     await newOrder.save();
 
-    res.json({ success: true, order, orderId: newOrder._id });
+    res.json({ success: true, newOrder, order, orderId: newOrder._id });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: "Order creation failed" });
+  }
+};
+
+// Get all bookings for a user
+const viewAll = async (req, res) => {
+  try {
+    const bookings = await Order.find({ client: req.params.userId }).populate(
+      "service provider"
+    );
+    res.json(bookings);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+// Delete booking for a user
+const remove = async (req, res) => {
+  try {
+    const booking = await Order.findByIdAndDelete(req.params.userId);
+    res.json({ message: "Order Deleted" });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
   }
 };
 
@@ -62,4 +84,4 @@ const verifyPayment = async (req, res) => {
   }
 };
 
-module.exports = { createOrder, verifyPayment };
+module.exports = { createOrder, verifyPayment, remove, viewAll };
