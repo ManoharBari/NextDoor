@@ -9,7 +9,6 @@ import { BookingPage } from './components/booking/BookingPage';
 import { RegisterPage } from './components/auth/RegisterPage';
 import { ChatDialog } from './components/chat/ChatDialog';
 import { OrderHistoryPage } from './components/orders/OrderHistoryPage';
-import { PaymentPage } from './components/payment/PaymentPage';
 import { ProviderDashboard } from './components/dashboard/ProviderDashboard';
 import UserContext from './context/auth/userContext';
 import ServiceContext from './context/service/serviceContext';
@@ -30,7 +29,6 @@ export default function App() {
   const [selectedService, setSelectedService] = useState(Service || null);
   const [selectedProviderId, setSelectedProviderId] = useState("" || null);
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [bookingDetails, setBookingDetails] = useState(null);
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
@@ -81,7 +79,6 @@ export default function App() {
 
   const handlePaymentComplete = (bookingData) => {
     setBookingDetails(bookingData);
-    // navigate('/orders');
   };
 
   return (
@@ -114,11 +111,6 @@ export default function App() {
         <Route
           path="/booking"
           element={selectedService ? <BookingPage serviceId={selectedService._id} userId={user.id} amount={selectedService.price} onSubmit={handlePaymentComplete} service={selectedService} /> : <Navigate to="/" />}
-        />
-
-        <Route
-          path="/payment"
-          element={selectedService && bookingDetails ? <PaymentPage service={selectedService} bookingDetails={bookingDetails} onPaymentComplete={handlePaymentComplete} /> : <Navigate to="/" />}
         />
 
         <Route path="/orders" element={<OrderHistoryPage />} />

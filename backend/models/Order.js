@@ -28,6 +28,22 @@ const OrderSchema = Schema({
   paymentId: {
     type: String,
   },
+  bookingDate: {
+    type: Date,
+    required: true,
+  },
+  bookingTime: {
+    type: String,
+    required: true,
+  },
+  address: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model("Order", OrderSchema);
