@@ -6,7 +6,6 @@ function serviceState({ children }) {
   const [services, setServices] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [ordersData, setOrdersData] = useState({});
 
   // Show All Services
   const ShowAllServices = async () => {
@@ -49,8 +48,6 @@ function serviceState({ children }) {
       selectedCategory,
       setSelectedCategory,
       ShowAllServices,
-      ordersData,
-      setOrdersData
     }}>
       {children}
     </ServiceContext.Provider>

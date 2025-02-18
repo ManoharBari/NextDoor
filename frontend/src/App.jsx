@@ -109,7 +109,7 @@ export default function App() {
           element={selectedService ? <BookingPage serviceId={selectedService._id} userId={user.id} amount={selectedService.price} service={selectedService} /> : <Navigate to="/" />}
         />
 
-        <Route path="/orders" element={<OrderHistoryPage />} />
+        <Route path="/orders" element={<OrderHistoryPage service={selectedService} />} />
       </Routes>
       {selectedService && <ChatDialog isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} provider={selectedService.provider} />}
     </>

@@ -28,7 +28,7 @@ const createOrder = async (req, res) => {
 
     await newOrder.save();
 
-    res.json({ success: true, newOrder, order, orderId: newOrder._id });
+    res.json({ success: true, order, orderId: newOrder._id });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: "Order creation failed" });
@@ -39,7 +39,10 @@ const createOrder = async (req, res) => {
 const viewAll = async (req, res) => {
   try {
     const bookings = await Order.find({ userId: req.params.userId })
-      .populate("serviceId", "title description")
+      .populate(
+        "serviceId",
+        "title description",
+      )
       .populate("userId", "name profilePicture");
     res.json(bookings);
   } catch (error) {

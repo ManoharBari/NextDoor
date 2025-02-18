@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Calendar, Clock, MapPin, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 import UserContext from '../../context/auth/userContext';
 import { formatPrice, formatDate } from '../../utils/format';
-import ServiceContext from '../../context/service/serviceContext';
+import OrderContext from '../../context/order/orderContext';
 
 
 const mockBookings = [
@@ -52,9 +52,9 @@ const mockBookings = [
 
 function getStatusColor(status) {
   switch (status) {
-    case 'completed':
+    case 'paid':
       return 'text-green-600 bg-green-50';
-    case 'pending':
+    case 'created':
       return 'text-yellow-600 bg-yellow-50';
     case 'cancelled':
       return 'text-red-600 bg-red-50';
@@ -65,9 +65,9 @@ function getStatusColor(status) {
 
 function getStatusIcon(status) {
   switch (status) {
-    case 'completed':
+    case 'paid':
       return <CheckCircle className="w-5 h-5" />;
-    case 'pending':
+    case 'created':
       return <AlertCircle className="w-5 h-5" />;
     case 'cancelled':
       return <XCircle className="w-5 h-5" />;
@@ -76,10 +76,16 @@ function getStatusIcon(status) {
   }
 }
 
-export function OrderHistoryPage() {
+export function OrderHistoryPage({ service }) {
   const { user } = useContext(UserContext);
-  const { ordersData } = useContext(ServiceContext);
+  const { ordersData, ShowAllOrder } = useContext(OrderContext);
 
+  useEffect(() => {
+    if (user) {
+      ShowAllOrder();
+    }
+  }, []);
+  console.log(ordersData)
   if (!user) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -100,34 +106,34 @@ export function OrderHistoryPage() {
         </div>
 
         <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-          {mockBookings.map((booking) => (
+          {ordersData.map((booking) => (
             <div
-              key={booking.id}
+              key={booking._id}
               className="p-6 border-b border-gray-200 last:border-0 hover:bg-gray-50 transition-colors"
             >
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
                 <div className="flex items-center gap-4">
                   <img
-                    src={booking.service.provider.avatar}
-                    alt={booking.service.provider.name}
+                    src={booking.userId.profilePicture}
+                    alt={booking.userId.name}
                     className="w-12 h-12 rounded-full"
                   />
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900">
-                      {booking.service.title}
+                      {booking.serviceId.title}
                     </h3>
-                    <p className="text-gray-600">{booking.service.provider.name}</p>
+                    <p className="text-gray-600">{service.provider.name}</p>
                   </div>
                 </div>
 
                 <div className="flex flex-wrap gap-6">
                   <div className="flex items-center gap-2 text-gray-600">
                     <Calendar className="w-5 h-5" />
-                    <span>{new Date(booking.date).toLocaleDateString()}</span>
+                    <span>{new Date(booking.bookingDate).toLocaleDateString()}</span>
                   </div>
                   <div className="flex items-center gap-2 text-gray-600">
                     <Clock className="w-5 h-5" />
-                    <span>{booking.time}</span>
+                    <span>{booking.bookingTime}</span>
                   </div>
                   <div className="flex items-center gap-2 text-gray-600">
                     <MapPin className="w-5 h-5" />
@@ -142,7 +148,7 @@ export function OrderHistoryPage() {
                   </div>
                   <div className="text-right">
                     <div className="text-2xl font-bold text-gray-900">
-                      {formatPrice(booking.totalAmount)}
+                      {formatPrice(booking.amount)}
                     </div>
                     <div className="text-sm text-gray-600">
                       {booking.duration} hours @ {formatPrice(booking.service.price)}/hour
