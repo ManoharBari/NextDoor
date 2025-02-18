@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
 import { Calendar, Clock, MapPin, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 import UserContext from '../../context/auth/userContext';
-import { formatPrice } from '../../utils/format';
+import { formatPrice, formatDate } from '../../utils/format';
+import ServiceContext from '../../context/service/serviceContext';
+
 
 const mockBookings = [
   {
@@ -76,6 +78,7 @@ function getStatusIcon(status) {
 
 export function OrderHistoryPage() {
   const { user } = useContext(UserContext);
+  const { ordersData } = useContext(ServiceContext);
 
   if (!user) {
     return (

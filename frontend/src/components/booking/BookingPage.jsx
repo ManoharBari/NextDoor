@@ -3,11 +3,9 @@ import { Calendar, Clock, CreditCard, MapPin, MessageSquare } from 'lucide-react
 import { formatPrice } from '../../utils/format';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import ServiceContext from '../../context/service/serviceContext';
 
 export function BookingPage({ serviceId, amount, userId, service }) {
   const navigate = useNavigate();
-  const { setOrdersData } = useContext(ServiceContext);
   const [formData, setFormData] = useState({
     date: '',
     time: '',
@@ -45,8 +43,7 @@ export function BookingPage({ serviceId, amount, userId, service }) {
           token: `${localStorage.getItem('token')}`,
         },
       });
-      setOrdersData(data);
-      console.log(data);
+
       const options = {
         key: `${import.meta.env.VITE_REACT_APP_RAZORPAY_KEY_ID}`,
         amount: data.order.amount,
