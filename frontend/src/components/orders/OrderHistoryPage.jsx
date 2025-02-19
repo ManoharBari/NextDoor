@@ -78,14 +78,14 @@ function getStatusIcon(status) {
 
 export function OrderHistoryPage({ service }) {
   const { user } = useContext(UserContext);
-  const { ordersData, ShowAllOrder } = useContext(OrderContext);
+  const { orderData, ShowAllOrder } = useContext(OrderContext);
 
   useEffect(() => {
     if (user) {
       ShowAllOrder();
     }
   }, []);
-  console.log(ordersData)
+  console.log(orderData)
   if (!user) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -106,7 +106,7 @@ export function OrderHistoryPage({ service }) {
         </div>
 
         <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-          {ordersData.map((booking) => (
+          {orderData.map((booking) => (
             <div
               key={booking._id}
               className="p-6 border-b border-gray-200 last:border-0 hover:bg-gray-50 transition-colors"
@@ -150,15 +150,12 @@ export function OrderHistoryPage({ service }) {
                     <div className="text-2xl font-bold text-gray-900">
                       {formatPrice(booking.amount)}
                     </div>
-                    <div className="text-sm text-gray-600">
-                      {booking.duration} hours @ {formatPrice(booking.service.price)}/hour
-                    </div>
                   </div>
                 </div>
               </div>
 
               <div className="mt-4 flex flex-wrap gap-4">
-                {booking.status === 'pending' && (
+                {booking.status === 'created' && (
                   <>
                     <button
                       onClick={() => console.log('Cancel booking:', booking.id)}
@@ -174,7 +171,7 @@ export function OrderHistoryPage({ service }) {
                     </button>
                   </>
                 )}
-                {booking.status === 'completed' && (
+                {booking.status === 'paid' && (
                   <button
                     onClick={() => console.log('Book again:', booking.id)}
                     className="text-blue-600 hover:text-blue-700 font-medium"
