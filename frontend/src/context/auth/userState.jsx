@@ -55,7 +55,7 @@ function userState({ children }) {
         role: user.role
       });
     } catch (error) {
-      console.error("Login error:", error.message);
+      console.error("user getting error:", error.message);
     }
   };
 
