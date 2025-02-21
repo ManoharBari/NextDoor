@@ -24,7 +24,8 @@ function orderState({ children }) {
             const data = await response.json();
             setOrderData(data);
 
-        } catch (error) {
+        } 
+        catch (error) {
             console.error("Login error:", error.message);
         }
     };
