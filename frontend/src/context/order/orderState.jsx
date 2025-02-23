@@ -6,9 +6,9 @@ function orderState({ children }) {
     const host = `${import.meta.env.VITE_REACT_APP_BACKEND_URL}`;
     const [orderData, setOrderData] = useState([]);
 
-    const ShowAllOrder = async (user) => {
+    const ShowAllOrder = async (userId) => {
         try {
-            const response = await fetch(`${host}/orders/${user.id}`, {
+            const response = await fetch(`${host}/orders/${userId}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

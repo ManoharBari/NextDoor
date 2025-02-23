@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Calendar, Clock, MapPin, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 import UserContext from '../../context/auth/userContext';
-import { formatPrice, formatDate } from '../../utils/format';
+import { formatPrice } from '../../utils/format';
 import OrderContext from '../../context/order/orderContext';
 
 
@@ -77,16 +77,23 @@ function getStatusIcon(status) {
 }
 
 export function OrderHistoryPage({ service }) {
-  const { user } = useContext(UserContext);
+  const { user, showUser } = useContext(UserContext);
   const { orderData, ShowAllOrder } = useContext(OrderContext);
 
   useEffect(() => {
-    if (user) {
-      ShowAllOrder(user);
+    if (localStorage.getItem('token')) {
+      showUser();
     }
-  }, []);
+  }, [])
 
-  if (!user) {
+  useEffect(() => {
+    if (user) {
+      const userId = user.id;
+      ShowAllOrder(userId);
+    }
+  }, [user]);
+
+  if (!user.id) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
