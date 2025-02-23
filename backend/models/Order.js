@@ -44,6 +44,9 @@ const OrderSchema = Schema({
     type: Date,
     default: Date.now,
   },
+  razorpayOrderId: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("Order", OrderSchema);

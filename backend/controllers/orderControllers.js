@@ -24,6 +24,7 @@ const createOrder = async (req, res) => {
       bookingDate,
       bookingTime,
       address,
+      razorpayOrderId: order.id,
     });
 
     await newOrder.save();
@@ -39,10 +40,7 @@ const createOrder = async (req, res) => {
 const viewAll = async (req, res) => {
   try {
     const bookings = await Order.find({ userId: req.params.userId })
-      .populate(
-        "serviceId",
-        "title description",
-      )
+      .populate("serviceId", "title description")
       .populate("userId", "name profilePicture");
     res.json(bookings);
   } catch (error) {
@@ -73,7 +71,7 @@ const verifyPayment = async (req, res) => {
 
     if (expectedSignature === razorpay_signature) {
       await Order.findOneAndUpdate(
-        { razorpay_order_id },
+        { razorpayOrderId: razorpay_order_id },
         { paymentId: razorpay_payment_id, status: "paid" }
       );
 
