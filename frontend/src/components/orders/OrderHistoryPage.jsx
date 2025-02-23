@@ -4,60 +4,12 @@ import UserContext from '../../context/auth/userContext';
 import { formatPrice } from '../../utils/format';
 import OrderContext from '../../context/order/orderContext';
 
-
-const mockBookings = [
-  {
-    id: '1',
-    serviceId: '1',
-    userId: '1',
-    date: '2024-03-15',
-    time: '14:00',
-    status: 'completed',
-    service: {
-      title: 'Professional House Cleaning',
-      price: 35,
-      provider: {
-        name: 'Sarah Johnson',
-        avatar: 'https://source.unsplash.com/100x100/?portrait-woman-1'
-      }
-    },
-    totalAmount: 70,
-    duration: 2,
-    address: '123 Main St, New York, NY 10001',
-    paymentStatus: 'paid',
-    paymentMethod: 'credit_card'
-  },
-  {
-    id: '2',
-    serviceId: '2',
-    userId: '1',
-    date: '2024-03-20',
-    time: '10:00',
-    status: 'pending',
-    service: {
-      title: 'Garden Maintenance',
-      price: 45,
-      provider: {
-        name: 'Emily Chen',
-        avatar: 'https://source.unsplash.com/100x100/?portrait-woman-2'
-      }
-    },
-    totalAmount: 90,
-    duration: 2,
-    address: '456 Park Ave, New York, NY 10002',
-    paymentStatus: 'pending',
-    paymentMethod: 'credit_card'
-  }
-];
-
 function getStatusColor(status) {
   switch (status) {
     case 'paid':
       return 'text-green-600 bg-green-50';
     case 'created':
       return 'text-yellow-600 bg-yellow-50';
-    case 'cancelled':
-      return 'text-red-600 bg-red-50';
     default:
       return 'text-gray-600 bg-gray-50';
   }
@@ -69,8 +21,6 @@ function getStatusIcon(status) {
       return <CheckCircle className="w-5 h-5" />;
     case 'created':
       return <AlertCircle className="w-5 h-5" />;
-    case 'cancelled':
-      return <XCircle className="w-5 h-5" />;
     default:
       return <AlertCircle className="w-5 h-5" />;
   }
