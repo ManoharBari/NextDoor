@@ -1,17 +1,14 @@
-import { useContext, useState } from "react";
-import UserContext from "../auth/userContext";
+import { useState } from "react";
 import OrderContext from "./orderContext";
 
 
 function orderState({ children }) {
     const host = `${import.meta.env.VITE_REACT_APP_BACKEND_URL}`;
     const [orderData, setOrderData] = useState([]);
-    const { user } = useContext(UserContext);
 
-    // Show All Orders
     const ShowAllOrder = async () => {
         try {
-            const response = await fetch(`${host}/orders/${user.id}`, {
+            const response = await fetch(`${host}/orders`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -24,7 +21,7 @@ function orderState({ children }) {
             const data = await response.json();
             setOrderData(data);
 
-        } 
+        }
         catch (error) {
             console.error("Login error:", error.message);
         }

@@ -34,7 +34,7 @@ export default function App() {
     if (localStorage.getItem('token')) {
       showUser();
     }
-  }, [isAuthenticated])
+  }, [])
 
   // Get the selected provider and their services
   const selectedProvider = selectedProviderId

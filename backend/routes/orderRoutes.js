@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post("/create-order", createOrder);
 router.post("/verify-payment", verifyPayment);
-router.get("/:userId", viewAll);
+router.get("/", viewAll);
 router.delete("/:orderId", remove);
 
 module.exports = router;
