@@ -14,6 +14,8 @@ import UserContext from './context/auth/userContext';
 import ServiceContext from './context/service/serviceContext';
 import { Service } from './types/index';
 import { useNavigate } from "react-router-dom";
+import '@mantine/core/styles.css';
+import { MantineProvider } from '@mantine/core';
 
 export default function App() {
   const navigate = useNavigate();
@@ -79,39 +81,41 @@ export default function App() {
 
   return (
     <>
-      <Header />
-      <Routes>
+      <MantineProvider withNormalizeCSS withGlobalStyles>
+        <Header />
+        <Routes>
 
-        <Route
-          path="/"
-          element={
-            <div className="max-w-7xl mx-auto px-4 py-8">
-              <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
-                <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} onOpenFilters={handleOpenFilters} />
-                <CategoryFilter selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />
+          <Route
+            path="/"
+            element={
+              <div className="max-w-7xl mx-auto px-4 py-8">
+                <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
+                  <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} onOpenFilters={handleOpenFilters} />
+                  <CategoryFilter selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />
+                </div>
+                <ServiceGrid services={services} onBook={handleBookService} onChat={handleChat} onProviderClick={handleProviderClick} />
               </div>
-              <ServiceGrid services={services} onBook={handleBookService} onChat={handleChat} onProviderClick={handleProviderClick} />
-            </div>
-          }
-        />
+            }
+          />
 
-        <Route path="/dashboard" element={<ProviderDashboard />} />
+          <Route path="/dashboard" element={<ProviderDashboard />} />
 
-        <Route path="/register" element={<RegisterPage />} />
+          <Route path="/register" element={<RegisterPage />} />
 
-        <Route
-          path="/provider/:providerId"
-          element={<ProviderProfile provider={selectedProvider} services={providerServices} />}
-        />
+          <Route
+            path="/provider/:providerId"
+            element={<ProviderProfile provider={selectedProvider} services={providerServices} />}
+          />
 
-        <Route
-          path="/booking"
-          element={selectedService ? <BookingPage serviceId={selectedService._id} userId={user.id} amount={selectedService.price} service={selectedService} /> : <Navigate to="/" />}
-        />
+          <Route
+            path="/booking"
+            element={selectedService ? <BookingPage serviceId={selectedService._id} userId={user.id} amount={selectedService.price} service={selectedService} /> : <Navigate to="/" />}
+          />
 
-        <Route path="/orders" element={<OrderHistoryPage service={selectedService} />} />
-      </Routes>
-      {selectedService && <ChatDialog isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} provider={selectedService.provider} />}
+          <Route path="/orders" element={<OrderHistoryPage service={selectedService} />} />
+        </Routes>
+        {selectedService && <ChatDialog isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} provider={selectedService.provider} />}
+      </MantineProvider>
     </>
   )
 }
