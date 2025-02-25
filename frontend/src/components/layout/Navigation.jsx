@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { User, Bell, LayoutDashboard, ShoppingBag, LogOut, Home, ChevronRight } from 'lucide-react';
+import { User, Bell, LayoutDashboard, ShoppingBag, LogOut, Home, Wrench, ChevronRight } from 'lucide-react';
 import { SignInDialog } from '../auth/SignInDialog';
 import UserContext from '../../context/auth/userContext';
 import { useNavigate } from 'react-router-dom';
@@ -32,6 +32,10 @@ export function Navigation() {
             <Menu.Dropdown>
               <Menu.Item onClick={() => navigate('/')} leftSection={<Home size={14} />}>
                 Home
+              </Menu.Item>
+
+              <Menu.Item onClick={() => navigate('/')} leftSection={<Wrench size={14} />}>
+                Services
               </Menu.Item>
 
               {isAuthenticated && user.role == 'provider' && (

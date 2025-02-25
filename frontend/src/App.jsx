@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Header } from './components/layout/Header';
+import { HomePage } from './components/Homepage';
 import { SearchBar } from './components/search/SearchBar';
 import { CategoryFilter } from './components/search/CategoryFilter';
 import { ServiceGrid } from './components/service/ServiceGrid';
@@ -85,10 +86,14 @@ export default function App() {
         <Header />
         <Routes>
 
+          <Route path="/" element={<HomePage />} />
+          
+          <Route path="/register" element={<RegisterPage />} />
+
           <Route
-            path="/"
+            path="/services"
             element={
-              <div className="max-w-7xl mx-auto px-4 py-8">
+              <div className="max-w-7xl mx-auto px-6 py-2">
                 <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
                   <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} onOpenFilters={handleOpenFilters} />
                   <CategoryFilter selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />
@@ -99,8 +104,6 @@ export default function App() {
           />
 
           <Route path="/dashboard" element={<ProviderDashboard />} />
-
-          <Route path="/register" element={<RegisterPage />} />
 
           <Route
             path="/provider/:providerId"
