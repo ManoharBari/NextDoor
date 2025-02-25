@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Star, Shield, Clock, CheckCircle, MapPin, Calendar, CreditCard, Home, ClipboardList, Award, ArrowRight, DoorOpen, Facebook, Twitter, Instagram, Mail, Phone } from 'lucide-react';
 import { categories } from '../data/categories';
 import { useNavigate } from 'react-router-dom';
+import ServiceContext from '../context/service/serviceContext';
 
 export function HomePage() {
     const navigate = useNavigate()
     const [selectedCategory, setSelectedCategory] = useState('All');
-    const [searchQuery, setSearchQuery] = useState('');
+    const { searchTerm, setSearchTerm } = useContext(ServiceContext)
 
     const bookingSteps = [
         {
@@ -146,8 +147,8 @@ export function HomePage() {
                                 <input
                                     type="text"
                                     placeholder="What service do you need?"
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
                                     className="w-full pl-10 pr-4 py-3 rounded-lg border focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 />
                             </div>
@@ -159,7 +160,7 @@ export function HomePage() {
                                     className="w-full md:w-48 pl-10 pr-4 py-3 rounded-lg border focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 />
                             </div>
-                            <button className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors">
+                            <button onClick={() => navigate('/services')} className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors">
                                 Search
                             </button>
                         </div>

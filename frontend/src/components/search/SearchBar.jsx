@@ -10,7 +10,7 @@ export function SearchBar({ searchTerm, onSearchChange, onOpenFilters }) {
           type="text"
           value={searchTerm}
           onChange={(e) => onSearchChange(e.target.value)}
-          placeholder="Search services..."
+          placeholder="What service do you need?"
           className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         />
       </div>
