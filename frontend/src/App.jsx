@@ -81,7 +81,7 @@ export default function App() {
 
   return (
     <>
-      <MantineProvider withNormalizeCSS withGlobalStyles>
+      <MantineProvider>
         <Header />
         <Routes>
 
