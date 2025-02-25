@@ -1,16 +1,57 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Search, MapPin, Star, Shield, Clock, Award, ArrowRight, DoorOpen, Facebook, Twitter, Instagram, Mail, Phone } from 'lucide-react';
+import { Search, Star, Shield, Clock, CheckCircle, MapPin, Calendar, CreditCard, Home, ClipboardList, Award, ArrowRight, DoorOpen, Facebook, Twitter, Instagram, Mail, Phone } from 'lucide-react';
 import { categories } from '../data/categories';
+import { useNavigate } from 'react-router-dom';
 
 export function HomePage() {
+    const navigate = useNavigate()
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [searchQuery, setSearchQuery] = useState('');
 
+    const bookingSteps = [
+        {
+            icon: Search,
+            title: 'Search a Service',
+            description: 'Browse our wide range of professional services.',
+            color: 'bg-blue-50'
+        },
+        {
+            icon: ClipboardList,
+            title: 'Choose a Provider',
+            description: 'Select from our verified and highly-rated service providers.',
+            color: 'bg-purple-50'
+        },
+        {
+            icon: Calendar,
+            title: 'Book Appointment',
+            description: 'Pick a convenient date and time for your service.',
+            color: 'bg-green-50'
+        },
+        {
+            icon: CreditCard,
+            title: 'Make Payment',
+            description: 'Pay securely using your preferred payment method.',
+            color: 'bg-orange-50'
+        },
+        {
+            icon: CheckCircle,
+            title: 'Get Confirmation',
+            description: 'Receive instant confirmation and service details.',
+            color: 'bg-pink-50'
+        },
+        {
+            icon: Home,
+            title: 'Enjoy the Service',
+            description: 'Sit back while our professionals handle your needs.',
+            color: 'bg-yellow-50'
+        }
+    ];
+
     const socialLinks = [
-        { href: "https://facebook.com/eventura", icon: Facebook, label: "Facebook" },
-        { href: "https://twitter.com/eventura", icon: Twitter, label: "Twitter" },
-        { href: "https://instagram.com/eventura", icon: Instagram, label: "Instagram" },
+        { href: "https://facebook.com/nextdoor", icon: Facebook, label: "Facebook" },
+        { href: "https://twitter.com/nextdoor", icon: Twitter, label: "Twitter" },
+        { href: "https://instagram.com/nextdoor", icon: Instagram, label: "Instagram" },
     ];
 
     const features = [
@@ -56,7 +97,8 @@ export function HomePage() {
     ];
 
     return (
-        <div className="min-h-screen">
+        <div className="min-h-screen bg-gray-50">
+
             {/* Hero Section */}
             <motion.section
                 initial={{ opacity: 0 }}
@@ -80,7 +122,7 @@ export function HomePage() {
                         transition={{ delay: 0.2 }}
                         className="text-4xl md:text-6xl font-bold text-white mb-6"
                     >
-                        Find Trusted Local Service Providers
+                        Find Trusted Service Providers
                     </motion.h1>
 
                     <motion.p
@@ -89,7 +131,7 @@ export function HomePage() {
                         transition={{ delay: 0.3 }}
                         className="text-xl text-gray-200 mb-8"
                     >
-                        Book reliable service providers for all your home needs
+                        Book reliable service providers for all your needs
                     </motion.p>
 
                     <motion.div
@@ -167,7 +209,7 @@ export function HomePage() {
                                 transition={{ delay: index * 0.2 }}
                                 className="bg-white p-6 rounded-lg shadow-sm text-center"
                             >
-                                <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <div className="w-16 shadow-lg h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
                                     <feature.icon className="w-8 h-8 text-blue-600" />
                                 </div>
                                 <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
@@ -214,8 +256,52 @@ export function HomePage() {
                 </div>
             </section>
 
+            {/* booking steps */}
+            <section className="py-16 bg-gray-100">
+                <div className="max-w-7xl mx-auto px-4">
+                    <motion.div
+                        initial={{ y: 20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.2 }}
+                        className="text-center mb-12"
+                    >
+                        <h2 className="text-3xl font-bold mb-4">How to Book Your Service</h2>
+                        <p className="text-gray-600 max-w-2xl mx-auto">
+                            Booking a service is quick and easy. Follow these simple steps to get started.
+                        </p>
+                    </motion.div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {bookingSteps.map((step, index) => (
+                            <motion.div
+                                key={step.title}
+                                initial={{ y: 20, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                transition={{ delay: index * 0.1 }}
+                                className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow"
+                            >
+                                <div className="flex items-start gap-4">
+                                    <div className={`${step.color} p-3 rounded-xl`}>
+                                        <step.icon className="w-6 h-6" />
+                                    </div>
+                                    <div>
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <span className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-100 text-blue-600 text-sm font-semibold">
+                                                {index + 1}
+                                            </span>
+                                            <h3 className="font-semibold text-lg">{step.title}</h3>
+                                        </div>
+                                        <p className="text-gray-600">{step.description}</p>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
             {/* CTA Section */}
-            <section className="py-16 bg-blue-600">
+            <section className="py-16 mx-5 shadow-lg my-10 rounded-3xl bg-blue-600">
                 <div className="max-w-4xl mx-auto px-4 text-center">
                     <motion.div
                         initial={{ y: 20, opacity: 0 }}
@@ -227,6 +313,7 @@ export function HomePage() {
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
+                            onClick={() => navigate("/services")}
                             className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold inline-flex items-center gap-2 hover:bg-blue-50 transition-colors"
                         >
                             Book a Service
@@ -242,7 +329,7 @@ export function HomePage() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {/* Brand Section */}
                         <div>
-                            <h3 className="text-xl flex items-center gap-2 font-bold mb-4"><DoorOpen size={40} />NextDoor</h3>
+                            <h2 className="text-4xl flex items-center gap-2 font-bold mb-4"><DoorOpen size={40} />NextDoor</h2>
                             <p className="text-gray-400">
                                 Connecting service providers with clients seamlessly.
                                 find, book, and chat with trusted professionals.
@@ -252,7 +339,7 @@ export function HomePage() {
 
                         {/* Contact Section */}
                         <div>
-                            <h3 className="text-xl font-bold mb-4">Contact Us</h3>
+                            <h3 className="text-2xl font-bold mb-4">Contact Us</h3>
                             <div className="space-y-2">
                                 <div className="flex items-center">
                                     <Mail className="h-5 w-5 mr-2" />
@@ -271,7 +358,7 @@ export function HomePage() {
 
                         {/* Social Media Section */}
                         <div>
-                            <h3 className="text-xl font-bold mb-4">Follow Us</h3>
+                            <h3 className="text-2xl font-bold mb-4">Follow Us</h3>
                             <div className="flex space-x-4">
                                 {socialLinks.map(({ href, icon: Icon, label }) => (
                                     <a
