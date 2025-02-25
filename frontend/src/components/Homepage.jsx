@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Search, MapPin, Star, Shield, Clock, Award, ArrowRight } from 'lucide-react';
+import { Search, MapPin, Star, Shield, Clock, Award, ArrowRight, DoorOpen, Facebook, Twitter, Instagram, Mail, Phone } from 'lucide-react';
 import { categories } from '../data/categories';
 
 export function HomePage() {
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [searchQuery, setSearchQuery] = useState('');
+
+    const socialLinks = [
+        { href: "https://facebook.com/eventura", icon: Facebook, label: "Facebook" },
+        { href: "https://twitter.com/eventura", icon: Twitter, label: "Twitter" },
+        { href: "https://instagram.com/eventura", icon: Instagram, label: "Instagram" },
+    ];
 
     const features = [
         {
@@ -137,8 +143,8 @@ export function HomePage() {
                                 transition={{ delay: index * 0.1 }}
                                 onClick={() => setSelectedCategory(category)}
                                 className={`p-4 rounded-lg text-center transition-all transform hover:scale-105 ${selectedCategory === category
-                                        ? 'bg-blue-600 text-white'
-                                        : 'bg-white text-gray-800 hover:bg-gray-50'
+                                    ? 'bg-blue-600 text-white'
+                                    : 'bg-white text-gray-800 hover:bg-gray-50'
                                     }`}
                             >
                                 {category}
@@ -229,6 +235,67 @@ export function HomePage() {
                     </motion.div>
                 </div>
             </section>
+
+            {/* footer */}
+            <footer className="bg-gray-900 text-white">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {/* Brand Section */}
+                        <div>
+                            <h3 className="text-xl flex items-center gap-2 font-bold mb-4"><DoorOpen size={40} />NextDoor</h3>
+                            <p className="text-gray-400">
+                                Connecting service providers with clients seamlessly.
+                                find, book, and chat with trusted professionals.
+                                secure payments, verified profiles, and a hassle-free experience.
+                            </p>
+                        </div>
+
+                        {/* Contact Section */}
+                        <div>
+                            <h3 className="text-xl font-bold mb-4">Contact Us</h3>
+                            <div className="space-y-2">
+                                <div className="flex items-center">
+                                    <Mail className="h-5 w-5 mr-2" />
+                                    <a href="mailto:contact@eventura.com" className="text-gray-400 hover:text-white">
+                                        support@nextdoor.com
+                                    </a>
+                                </div>
+                                <div className="flex items-center">
+                                    <Phone className="h-5 w-5 mr-2" />
+                                    <a href="tel:+1234567890" className="text-gray-400 hover:text-white">
+                                        (+91) 987 654 3210
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Social Media Section */}
+                        <div>
+                            <h3 className="text-xl font-bold mb-4">Follow Us</h3>
+                            <div className="flex space-x-4">
+                                {socialLinks.map(({ href, icon: Icon, label }) => (
+                                    <a
+                                        key={label}
+                                        href={href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={label}
+                                        className="text-gray-400 hover:text-white transition duration-300"
+                                    >
+                                        <Icon className="h-6 w-6" />
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Copyright Section */}
+                    <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
+                        <p>&copy; {new Date().getFullYear()} NextDoor. All rights reserved.</p>
+                    </div>
+                </div>
+            </footer>
+
         </div>
     );
 }
