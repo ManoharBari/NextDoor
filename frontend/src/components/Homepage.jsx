@@ -107,11 +107,11 @@ export function HomePage() {
                 transition={{ duration: 0.5 }}
                 className="relative h-[600px] flex items-center justify-center"
             >
-                <div className="absolute inset-0">
+                <div className="absolute flex items-baseline justify-center inset-0">
                     <img
                         src="hero.jpg"
                         alt="Home Services"
-                        className="w-full h-full object-cover"
+                        className="w-[80vw] h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-black bg-opacity-50" />
                 </div>
