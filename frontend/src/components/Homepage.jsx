@@ -111,7 +111,7 @@ export function HomePage() {
                     <img
                         src="hero.jpg"
                         alt="Home Services"
-                        className="w-[80vw] h-full object-cover"
+                        className="md:w-[80vw] w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-black bg-opacity-50" />
                 </div>
