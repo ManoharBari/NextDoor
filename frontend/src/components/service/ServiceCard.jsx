@@ -1,7 +1,6 @@
 import React from 'react';
 import { Star, MapPin, Clock, MessageCircle } from 'lucide-react';
 import { formatPrice } from '../../utils/format';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 export function ServiceCard({ service, onBook, onChat, onProviderClick }) {
@@ -10,7 +9,7 @@ export function ServiceCard({ service, onBook, onChat, onProviderClick }) {
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
       <div className="relative h-48">
         <img
-          src={"https://media.istockphoto.com/id/1049775258/photo/smiling-handsome-electrician-repairing-electrical-box-with-pliers-in-corridor-and-looking-at.jpg?s=1024x1024&w=is&k=20&c=I8Fxr-SRoAovM3W5Ijd36Vv3cYFqrEErd6mKvPUjmzs="}
+          src={service.image}
           alt={service.title}
           className="w-full h-full object-cover"
         />
@@ -23,7 +22,7 @@ export function ServiceCard({ service, onBook, onChat, onProviderClick }) {
       <div className="p-4">
         <div className="flex items-center gap-2 mb-2">
           <img
-            src={"https://media.istockphoto.com/id/1288538088/photo/portrait-young-confident-smart-asian-businessman-look-at-camera-and-smile.webp?a=1&b=1&s=612x612&w=0&k=20&c=paMxlHje19nxRQGaGI-gz3QbGx1lgenKyTHVDfrhOlc="}
+            src={service.provider.image}
             alt={service.provider.name}
             className="w-8 h-8 rounded-full cursor-pointer"
             onClick={() => onProviderClick?.(service.provider._id)}

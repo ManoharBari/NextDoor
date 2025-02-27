@@ -83,7 +83,7 @@ export function HomePage() {
             id: 1,
             name: 'Sarah Johnson',
             role: 'Homeowner',
-            image: 'https://source.unsplash.com/100x100/?portrait-woman-1',
+            image: 'https://t4.ftcdn.net/jpg/11/70/74/75/360_F_1170747517_cpGtv16ShOyiZBEp6nQcc4R8vmsbnsUv.jpg',
             content: 'Found an amazing cleaning service through this platform. The booking process was seamless!',
             rating: 5
         },
@@ -91,7 +91,7 @@ export function HomePage() {
             id: 2,
             name: 'Michael Chen',
             role: 'Business Owner',
-            image: 'https://source.unsplash.com/100x100/?portrait-man-1',
+            image: 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg',
             content: 'Great platform for finding reliable service providers. Highly recommended!',
             rating: 5
         }
