@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Edit, Trash, Star } from 'lucide-react';
+import { Plus, Edit, Trash, X, Star } from 'lucide-react';
 import { formatPrice } from '../../../utils/format';
 
 const mockServices = [
@@ -28,7 +28,23 @@ const mockServices = [
 ];
 
 export function ServicesPage() {
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    provider: '',
+    price: 0,
+    category: '',
+    availability: true,
+    image: '',
+  });
   const [showAddForm, setShowAddForm] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Form data:', formData);
+    setFormData({})
+    setShowAddForm(false);
+  }
 
   return (
     <div className="space-y-6">
@@ -91,15 +107,18 @@ export function ServicesPage() {
       {showAddForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6 w-full max-w-md">
-            <h3 className="text-xl font-bold mb-4">Add New Service</h3>
-            <form className="space-y-4">
+            <h3 className="text-xl flex items-center justify-between  font-bold mb-4">Add New Service <X className='cursor-pointer text-gray-500' size={20} onClick={() => setShowAddForm(false)} /></h3>
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Title
                 </label>
                 <input
                   type="text"
-                  className="w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                  name='title'
+                  value={formData.title}
+                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  className="w-full px-2 py-1 rounded-lg border border-gray-400 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
 
@@ -108,7 +127,10 @@ export function ServicesPage() {
                   Description
                 </label>
                 <textarea
-                  className="w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                  name='description'
+                  value={formData.description}
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  className="w-full px-2 py-1 rounded-lg border border-gray-400 focus:ring-blue-500 focus:border-blue-500"
                   rows={3}
                 />
               </div>
@@ -116,20 +138,26 @@ export function ServicesPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Price (per hour)
+                    Price (per visit)
                   </label>
                   <input
+                    name='price'
+                    value={formData.price}
+                    onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
                     type="number"
-                    className="w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-2 py-1 rounded-lg border border-gray-400 focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Duration (hours)
+                    Image (URL)
                   </label>
                   <input
-                    type="number"
-                    className="w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                    name='image'
+                    value={formData.image}
+                    onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                    type="text"
+                    className="w-full px-2 py-1 rounded-lg border border-gray-400 focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
               </div>
@@ -138,11 +166,19 @@ export function ServicesPage() {
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Category
                 </label>
-                <select className="w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500">
-                  <option>Cleaning</option>
-                  <option>Plumbing</option>
-                  <option>Electrical</option>
-                  <option>Gardening</option>
+                <select
+                  name='category'
+                  value={formData.category}
+                  onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                  className="w-full px-2 py-1 rounded-lg border border-gray-400 focus:ring-blue-500 focus:border-blue-500">
+                  <option value=''>select category</option>
+                  <option value='Cleaning'> Cleaning</option>
+                  <option value='Plumbing'> Plumbing</option>
+                  <option value='Electrical'> Electrical</option>
+                  <option value='Moving'> Moving</option>
+                  <option value='Painting'> Painting</option>
+                  <option value='Carpentry'> Carpentry</option>
+                  <option value='Beauty & Wellness'> Beauty & Wellness</option>
                 </select>
               </div>
 
