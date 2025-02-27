@@ -29,7 +29,7 @@ function getStatusIcon(status) {
 
 export function OrderHistoryPage({ service }) {
   const { user, showUser } = useContext(UserContext);
-  const { orderData, ShowAllOrder } = useContext(OrderContext);
+  const { orderData, DeleteOrder, ShowAllOrder } = useContext(OrderContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export function OrderHistoryPage({ service }) {
       const userId = user.id;
       ShowAllOrder(userId);
     }
-  }, [user]);
+  }, [orderData, user]);
 
   if (!user.id) {
     return (
@@ -117,7 +117,7 @@ export function OrderHistoryPage({ service }) {
                 {booking.status === 'created' && (
                   <>
                     <button
-                      onClick={() => console.log('Cancel booking:', booking.id)}
+                      onClick={() => DeleteOrder(booking._id)}
                       className="text-red-600 hover:text-red-700 font-medium"
                     >
                       Cancel Booking
@@ -133,7 +133,7 @@ export function OrderHistoryPage({ service }) {
                 {booking.status === 'paid' && (
                   <>
                     <button
-                      onClick={() => console.log('Cancel booking:', booking.id)}
+                      onClick={() => DeleteOrder(booking._id)}
                       className="text-red-600 hover:text-red-700 font-medium"
                     >
                       Cancel Booking

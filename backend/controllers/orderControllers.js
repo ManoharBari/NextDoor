@@ -52,7 +52,7 @@ const viewAll = async (req, res) => {
 const remove = async (req, res) => {
   try {
     const booking = await Order.findByIdAndDelete(req.params.orderId);
-    res.json({ message: "Order Deleted" });
+    res.json({ booking, message: "Booking Cancelled" });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
