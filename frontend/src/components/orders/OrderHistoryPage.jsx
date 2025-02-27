@@ -3,6 +3,7 @@ import { Calendar, Clock, MapPin, CheckCircle, XCircle, AlertCircle } from 'luci
 import UserContext from '../../context/auth/userContext';
 import { formatPrice } from '../../utils/format';
 import OrderContext from '../../context/order/orderContext';
+import { useNavigate } from 'react-router-dom';
 
 function getStatusColor(status) {
   switch (status) {
@@ -29,6 +30,7 @@ function getStatusIcon(status) {
 export function OrderHistoryPage({ service }) {
   const { user, showUser } = useContext(UserContext);
   const { orderData, ShowAllOrder } = useContext(OrderContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
@@ -129,19 +131,21 @@ export function OrderHistoryPage({ service }) {
                   </>
                 )}
                 {booking.status === 'paid' && (
-                  <button
-                    onClick={() => console.log('Book again:', booking.id)}
-                    className="text-blue-600 hover:text-blue-700 font-medium"
-                  >
-                    Book Again
-                  </button>
+                  <>
+                    <button
+                      onClick={() => console.log('Cancel booking:', booking.id)}
+                      className="text-red-600 hover:text-red-700 font-medium"
+                    >
+                      Cancel Booking
+                    </button>
+                    <button
+                      onClick={() => navigate('/services')}
+                      className="text-blue-600 hover:text-blue-700 font-medium"
+                    >
+                      Book Again
+                    </button>
+                  </>
                 )}
-                <button
-                  onClick={() => console.log('View details:', booking.id)}
-                  className="text-gray-600 hover:text-gray-700 font-medium"
-                >
-                  View Details
-                </button>
               </div>
             </div>
           ))}

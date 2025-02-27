@@ -34,7 +34,7 @@ export function Navigation() {
                 Home
               </Menu.Item>
 
-              <Menu.Item onClick={() => navigate('/')} leftSection={<Wrench size={14} />}>
+              <Menu.Item onClick={() => navigate('/services')} leftSection={<Wrench size={14} />}>
                 Services
               </Menu.Item>
 
@@ -64,7 +64,7 @@ export function Navigation() {
         ) : (
           <button
             onClick={() => setIsSignInOpen(true)}
-            className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 rounded-lg"
+            className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg"
           >
             <User className="w-5 h-5" />
             <span>Sign In</span>
