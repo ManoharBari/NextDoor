@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Header } from './components/layout/Header';
 import { HomePage } from './components/Homepage';
 import { SearchBar } from './components/search/SearchBar';
@@ -21,6 +21,7 @@ import Footer from './components/Footer';
 
 export default function App() {
   const navigate = useNavigate();
+  const location = useLocation();
   const {
     services,
     searchTerm,
@@ -119,7 +120,7 @@ export default function App() {
           <Route path="/orders" element={<OrderHistoryPage service={selectedService} />} />
         </Routes>
         {selectedService && <ChatDialog isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} provider={selectedService.provider} />}
-        <Footer />
+        {location.pathname != '/dashboard' && <Footer />}
       </MantineProvider>
     </>
   )
