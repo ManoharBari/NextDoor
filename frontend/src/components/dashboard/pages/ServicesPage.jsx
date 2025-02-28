@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Plus, Edit, Trash, X, Star } from 'lucide-react';
 import { formatPrice } from '../../../utils/format';
+import ServiceContext from '../../../context/service/serviceContext';
 
 const mockServices = [
   {
@@ -38,10 +39,12 @@ export function ServicesPage() {
     image: '',
   });
   const [showAddForm, setShowAddForm] = useState(false);
+  const { AddServices } = useContext(ServiceContext)
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form data:', formData);
+    AddServices(formData)
     setFormData({})
     setShowAddForm(false);
   }
