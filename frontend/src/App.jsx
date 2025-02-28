@@ -17,6 +17,7 @@ import { Service } from './types/index';
 import { useNavigate } from "react-router-dom";
 import '@mantine/core/styles.css';
 import { MantineProvider } from '@mantine/core';
+import Footer from './components/Footer';
 
 export default function App() {
   const navigate = useNavigate();
@@ -87,7 +88,7 @@ export default function App() {
         <Routes>
 
           <Route path="/" element={<HomePage />} />
-          
+
           <Route path="/register" element={<RegisterPage />} />
 
           <Route
@@ -118,6 +119,7 @@ export default function App() {
           <Route path="/orders" element={<OrderHistoryPage service={selectedService} />} />
         </Routes>
         {selectedService && <ChatDialog isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} provider={selectedService.provider} />}
+        <Footer />
       </MantineProvider>
     </>
   )
