@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Plus, Edit, Trash, X, Star } from 'lucide-react';
 import { formatPrice } from '../../../utils/format';
 import ServiceContext from '../../../context/service/serviceContext';
+import UserContext from '../../../context/auth/userContext';
 
 const mockServices = [
   {
@@ -39,15 +40,17 @@ export function ServicesPage() {
     image: '',
   });
   const [showAddForm, setShowAddForm] = useState(false);
-  const { AddServices } = useContext(ServiceContext)
+  const { AddServices, services } = useContext(ServiceContext)
+  const { user } = useContext(UserContext)
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form data:', formData);
     AddServices(formData)
     setFormData({})
     setShowAddForm(false);
   }
+
+  const filteredServices = services.filter(service => service.provider._id == user.id)
 
   return (
     <div className="space-y-6">
@@ -62,18 +65,18 @@ export function ServicesPage() {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {mockServices.map((service) => (
-          <div key={service.id} className="bg-white rounded-lg shadow-sm overflow-hidden">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {filteredServices.map((service) => (
+          <div key={service._id} className="bg-white rounded-lg shadow-sm overflow-hidden">
             <div className="relative h-48">
               <img
-                src={service.image}
+                src={ "https://proplumbersandiego.com/wp-content/uploads/2022/10/dwsd.jpg"}
                 alt={service.title}
                 className="w-full h-full object-cover"
               />
               <div className="absolute top-4 right-4 bg-white px-2 py-1 rounded-full flex items-center gap-1">
                 <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                <span className="font-medium">{service.rating}</span>
+                <span className="font-medium">{service.rating || 4.8}</span>
               </div>
             </div>
 
@@ -84,10 +87,10 @@ export function ServicesPage() {
               <div className="flex justify-between items-center mb-4">
                 <div>
                   <span className="text-2xl font-bold">{formatPrice(service.price)}</span>
-                  <span className="text-gray-600">/hour</span>
+                  <span className="text-gray-600">/visit</span>
                 </div>
                 <div className="text-right">
-                  <div className="font-semibold">{service.bookings}</div>
+                  <div className="font-semibold">{service.bookings || 11}</div>
                   <div className="text-sm text-gray-600">bookings</div>
                 </div>
               </div>
@@ -119,9 +122,10 @@ export function ServicesPage() {
                 <input
                   type="text"
                   name='title'
+                  required
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  className="w-full px-2 py-1 rounded-lg border border-gray-400 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-2 py-1 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
 
@@ -131,9 +135,10 @@ export function ServicesPage() {
                 </label>
                 <textarea
                   name='description'
+                  required
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full px-2 py-1 rounded-lg border border-gray-400 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-2 py-1 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                   rows={3}
                 />
               </div>
@@ -145,10 +150,11 @@ export function ServicesPage() {
                   </label>
                   <input
                     name='price'
+                    required
                     value={formData.price}
                     onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
                     type="number"
-                    className="w-full px-2 py-1 rounded-lg border border-gray-400 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-2 py-1 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
                 <div>
@@ -157,10 +163,11 @@ export function ServicesPage() {
                   </label>
                   <input
                     name='image'
+                    required
                     value={formData.image}
                     onChange={(e) => setFormData({ ...formData, image: e.target.value })}
                     type="text"
-                    className="w-full px-2 py-1 rounded-lg border border-gray-400 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-2 py-1 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
               </div>
@@ -171,9 +178,10 @@ export function ServicesPage() {
                 </label>
                 <select
                   name='category'
+                  required
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                  className="w-full px-2 py-1 rounded-lg border border-gray-400 focus:ring-blue-500 focus:border-blue-500">
+                  className="w-full px-2 py-1 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500">
                   <option value=''>select category</option>
                   <option value='Cleaning'> Cleaning</option>
                   <option value='Plumbing'> Plumbing</option>
