@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const upload = require("../middleware/uploadMiddleware");
 const {
   create,
   viewAll,
@@ -8,8 +9,16 @@ const {
 const { roleMiddleware } = require("../middleware/roleMiddleware");
 const { authMiddleware } = require("../middleware/authMiddleware");
 
-router.post("/", authMiddleware, roleMiddleware("provider"), create);
+router.post(
+  "/",
+  upload.single("image"),
+  authMiddleware,
+  roleMiddleware("provider"),
+  create
+);
+
 router.get("/", viewAll);
+
 router.delete("/:id", authMiddleware, roleMiddleware("provider"), remove);
 
 module.exports = router;

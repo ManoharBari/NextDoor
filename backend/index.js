@@ -20,7 +20,7 @@ app.use(errorMiddleware);
 connectDB();
 
 app.use("/auth", authRoutes);
-app.use("/services", serviceRoutes);
+app.use("/services", express.static("uploads"), serviceRoutes);
 app.use("/review", reviewRoutes);
 app.use("/chat", authMiddleware, chatRoutes);
 app.use("/payments", authMiddleware, paymentRoutes);

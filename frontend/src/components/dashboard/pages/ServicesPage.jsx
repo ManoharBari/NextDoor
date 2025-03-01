@@ -70,7 +70,7 @@ export function ServicesPage() {
           <div key={service._id} className="bg-white rounded-lg shadow-sm overflow-hidden">
             <div className="relative h-48">
               <img
-                src={ "https://proplumbersandiego.com/wp-content/uploads/2022/10/dwsd.jpg"}
+                src={service.image || "https://proplumbersandiego.com/wp-content/uploads/2022/10/dwsd.jpg"}
                 alt={service.title}
                 className="w-full h-full object-cover"
               />
@@ -163,10 +163,11 @@ export function ServicesPage() {
                   </label>
                   <input
                     name='image'
+                    accept="image/*"
                     required
                     value={formData.image}
                     onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                    type="text"
+                    type="file"
                     className="w-full px-2 py-1 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>

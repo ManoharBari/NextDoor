@@ -35,7 +35,7 @@ function serviceState({ children }) {
       const response = await fetch(`${host}/services`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': '*/*',
           token: `${localStorage.getItem("token")}`,
         },
         body: JSON.stringify({
