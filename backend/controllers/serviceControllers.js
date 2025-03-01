@@ -3,8 +3,24 @@ const Service = require("../models/Service");
 // Create a new service
 const create = async (req, res) => {
   try {
-    const service = await Service.create(req.body);
-    res.status(201).json({ service, message: "Service created successfully" });
+    const { title, description, price, provider, availability, category } =
+      req.body;
+    const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
+
+    const newService = new Service({
+      title,
+      description,
+      provider,
+      availability,
+      category,
+      price,
+      imageUrl,
+    });
+    await newService.save();
+
+    res
+      .status(201)
+      .json({ service: newService, message: "Service created successfully" });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Plus, Edit, Trash, X, Star } from 'lucide-react';
 import { formatPrice } from '../../../utils/format';
 import ServiceContext from '../../../context/service/serviceContext';
@@ -34,14 +34,18 @@ export function ServicesPage() {
     title: '',
     description: '',
     provider: '',
-    price: 0,
+    price: Number,
     category: '',
     availability: true,
-    image: '',
+    image: null,
   });
   const [showAddForm, setShowAddForm] = useState(false);
-  const { AddServices, services } = useContext(ServiceContext)
+  const { AddServices, services, ShowAllServices } = useContext(ServiceContext)
   const { user } = useContext(UserContext)
+
+  useEffect(() => {
+    ShowAllServices()
+  }, [services]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -162,12 +166,11 @@ export function ServicesPage() {
                     Image (URL)
                   </label>
                   <input
+                    type="file"
                     name='image'
                     accept="image/*"
                     required
-                    value={formData.image}
-                    onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                    type="file"
+                    onChange={(e) => setFormData({ ...formData, image: e.target.files[0] })}
                     className="w-full px-2 py-1 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>

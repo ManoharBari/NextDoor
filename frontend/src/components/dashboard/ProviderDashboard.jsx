@@ -55,7 +55,7 @@ export function ProviderDashboard() {
       {/* Main Content Area */}
       <div className="flex-1 flex">
         {/* Sidebar - Hidden on Mobile */}
-        <aside className="hidden fixed md:block w-[18vw]">
+        <aside className="hidden z-50 fixed md:block w-[18vw]">
           <nav className="bg-white min-h-screen shadow-lg p-4">
             <ul className="space-y-2">
               {navigationItems.map((item) => (

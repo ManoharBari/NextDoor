@@ -31,24 +31,25 @@ function serviceState({ children }) {
 
   // Add Services
   const AddServices = async (data) => {
+
+    const formData = new FormData();
+    formData.append("image", data.image);
+    formData.append("title", data.title);
+    formData.append("description", data.description);
+    formData.append("price", data.price);
+    formData.append("provider", user.id);
+    formData.append("category", data.category);
+    formData.append("availability", data.availability);
+
     try {
       const response = await fetch(`${host}/services`, {
         method: "POST",
         headers: {
-          'Content-Type': '*/*',
+          'Content-Type': 'multipart/form-data',
           token: `${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify({
-          title: data.title,
-          description: data.description,
-          provider: user.id,
-          price: data.price,
-          category: data.category,
-          availability: data.availability,
-          image: data.image,
-        }),
+        body: formData,
       });
-
       if (!response.ok) throw new Error("Invalid credentials");
 
       const res = await response.json();

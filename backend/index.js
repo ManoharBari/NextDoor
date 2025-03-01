@@ -16,6 +16,7 @@ const { authMiddleware } = require("./middleware/authMiddleware");
 app.use(cors());
 app.use(express.json());
 app.use(errorMiddleware);
+app.use(express.urlencoded({ extended: true }));
 
 connectDB();
 
