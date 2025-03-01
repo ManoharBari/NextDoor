@@ -30,6 +30,7 @@ const mockServices = [
 ];
 
 export function ServicesPage() {
+  const host = `${import.meta.env.VITE_REACT_APP_BACKEND_URL}`;
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -74,7 +75,7 @@ export function ServicesPage() {
           <div key={service._id} className="bg-white rounded-lg shadow-sm overflow-hidden">
             <div className="relative h-48">
               <img
-                src={service.image || "https://proplumbersandiego.com/wp-content/uploads/2022/10/dwsd.jpg"}
+                src="http://localhost:8080/uploads/1740844212385.png"
                 alt={service.title}
                 className="w-full h-full object-cover"
               />

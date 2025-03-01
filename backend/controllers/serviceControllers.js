@@ -14,7 +14,7 @@ const create = async (req, res) => {
       availability,
       category,
       price,
-      imageUrl,
+      image: imageUrl,
     });
     await newService.save();
 

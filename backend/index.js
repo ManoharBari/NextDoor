@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const connectDB = require("./db");
 const cors = require("cors");
+const path = require("path");
 const authRoutes = require("./routes/authRoutes");
 const serviceRoutes = require("./routes/serviceRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
@@ -14,14 +15,14 @@ const { authMiddleware } = require("./middleware/authMiddleware");
 
 // middleware
 app.use(cors());
-app.use(express.json());
 app.use(errorMiddleware);
 app.use(express.urlencoded({ extended: true }));
 
 connectDB();
 
+app.use(express.static(path.join(__dirname, "public")));
 app.use("/auth", authRoutes);
-app.use("/services", express.static("uploads"), serviceRoutes);
+app.use("/services", serviceRoutes);
 app.use("/review", reviewRoutes);
 app.use("/chat", authMiddleware, chatRoutes);
 app.use("/payments", authMiddleware, paymentRoutes);

@@ -45,7 +45,6 @@ function serviceState({ children }) {
       const response = await fetch(`${host}/services`, {
         method: "POST",
         headers: {
-          'Content-Type': 'multipart/form-data',
           token: `${localStorage.getItem("token")}`,
         },
         body: formData,
@@ -57,7 +56,7 @@ function serviceState({ children }) {
       console.log("success")
 
     } catch (error) {
-      console.error("Login error:", error.message);
+      console.error("Upload error:", error.message);
     }
   };
 

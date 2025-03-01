@@ -4,7 +4,7 @@ const path = require("path");
 // Storage configuration
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/"); // Save files in uploads folder
+    cb(null, "C:/Users/DELL/OneDrive/Desktop/NextDoor/backend/public/uploads/"); // Save files in uploads folder
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + path.extname(file.originalname)); // Unique file name
