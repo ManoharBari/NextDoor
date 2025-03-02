@@ -4,12 +4,14 @@ import { formatPrice } from '../../utils/format';
 import { useNavigate } from 'react-router-dom';
 
 export function ServiceCard({ service, onBook, onChat, onProviderClick }) {
+  const host = `${import.meta.env.VITE_REACT_APP_BACKEND_URL}`;
   const navigate = useNavigate();
+  
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
       <div className="relative h-48">
         <img
-          src={service.image}
+          src={`${host}${service.image}`}
           alt={service.title}
           className="w-full h-full object-cover"
         />

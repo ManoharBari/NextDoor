@@ -75,7 +75,7 @@ export function ServicesPage() {
           <div key={service._id} className="bg-white rounded-lg shadow-sm overflow-hidden">
             <div className="relative h-48">
               <img
-                src="http://localhost:8080/uploads/1740844212385.png"
+                src={`${host}${service.image}`}
                 alt={service.title}
                 className="w-full h-full object-cover"
               />
