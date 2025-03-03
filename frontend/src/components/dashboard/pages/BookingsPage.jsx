@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Calendar, Clock, MapPin, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 import { formatPrice } from '../../../utils/format';
+import OrderContext from '../../../context/order/orderContext';
 
 
 const mockBookings = [
@@ -71,8 +72,10 @@ function getStatusIcon(status) {
 
 export function BookingsPage() {
   const [filter, setFilter] = useState('all');
+  const { orderData, DeleteOrder, ShowAllOrder } = useContext(OrderContext);
 
-  const filteredBookings = mockBookings.filter(booking =>
+
+  const filteredBookings = orderData.filter(booking =>
     filter === 'all' || booking.status === filter
   );
 
@@ -81,13 +84,13 @@ export function BookingsPage() {
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold">Bookings</h2>
         <div className="flex gap-2">
-          {['all', 'pending', 'confirmed', 'completed', 'cancelled'].map((status) => (
+          {['all', 'pending', 'confirmed', 'completed'].map((status) => (
             <button
               key={status}
               onClick={() => setFilter(status)}
               className={`px-4 py-2 rounded-lg capitalize ${filter === status
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 hover:bg-gray-200'
+                ? 'bg-blue-600 text-white'
+                : 'bg-gray-100 hover:bg-gray-200'
                 }`}
             >
               {status}
@@ -104,18 +107,18 @@ export function BookingsPage() {
           >
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
               <div>
-                <h3 className="text-lg font-semibold">{booking.clientName}</h3>
-                <p className="text-gray-600">{booking.service}</p>
+                <h3 className="text-lg font-semibold">{booking.userId.name}</h3>
+                <p className="text-gray-600">{booking.serviceId.title}</p>
               </div>
 
               <div className="flex flex-wrap gap-6">
                 <div className="flex items-center gap-2 text-gray-600">
                   <Calendar className="w-5 h-5" />
-                  <span>{new Date(booking.date).toLocaleDateString()}</span>
+                  <span>{new Date(booking.bookingDate).toLocaleDateString()}</span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-600">
                   <Clock className="w-5 h-5" />
-                  <span>{booking.time} ({booking.duration}h)</span>
+                  <span>{booking.bookingTime}</span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-600">
                   <MapPin className="w-5 h-5" />
@@ -130,9 +133,6 @@ export function BookingsPage() {
                 </div>
                 <div className="text-right">
                   <div className="text-2xl font-bold">{formatPrice(booking.amount)}</div>
-                  <div className="text-sm text-gray-600">
-                    {booking.duration} hours
-                  </div>
                 </div>
               </div>
             </div>

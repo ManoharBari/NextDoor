@@ -31,6 +31,8 @@ const mockServices = [
 
 export function ServicesPage() {
   const host = `${import.meta.env.VITE_REACT_APP_BACKEND_URL}`;
+  const { AddServices, services, deleteService, editService, ShowAllServices } = useContext(ServiceContext)
+  const { user } = useContext(UserContext)
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -40,10 +42,10 @@ export function ServicesPage() {
     availability: true,
     image: null,
   });
+
+  const [editformData, setEditFormData] = useState({});
   const [showAddForm, setShowAddForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
-  const { AddServices, services, ShowAllServices } = useContext(ServiceContext)
-  const { user } = useContext(UserContext)
 
   useEffect(() => {
     ShowAllServices()
@@ -54,6 +56,25 @@ export function ServicesPage() {
     AddServices(formData)
     setFormData({})
     setShowAddForm(false);
+  }
+
+  const handleEditClick = (serviceId) => {
+    editService(serviceId, editformData)
+    setEditFormData({})
+    setShowEditForm(false);
+  }
+
+  const editServiceData = (service) => {
+    setEditFormData({
+      id: service._id,
+      title: service.title,
+      description: service.description,
+      provider: service.provider,
+      price: service.price,
+      category: service.category,
+      availability: service.availability,
+      image: null
+    })
   }
 
   const filteredServices = services.filter(service => service.provider._id == user.id)
@@ -103,15 +124,16 @@ export function ServicesPage() {
 
               <div className="flex gap-2">
                 <button
-                  onClick={() => { 
+                  onClick={() => {
                     setShowEditForm(true)
-                    
-                   }}
+                    editServiceData(service)
+                  }}
                   className="flex-1 flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
                   <Edit className="w-5 h-5" />
                   Edit
                 </button>
                 <button
+                  onClick={() => deleteService(service._id)}
                   className="flex items-center justify-center gap-2 px-4 py-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50">
                   <Trash className="w-5 h-5" />
                   Delete
@@ -229,7 +251,7 @@ export function ServicesPage() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6 w-full max-w-md">
             <h3 className="text-xl flex items-center justify-between  font-bold mb-4">Edit Service <X className='cursor-pointer text-gray-500' size={20} onClick={() => setShowEditForm(false)} /></h3>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Title
@@ -238,8 +260,8 @@ export function ServicesPage() {
                   type="text"
                   name='title'
                   required
-                  value={formData.title}
-                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  value={editformData.title}
+                  onChange={(e) => setEditFormData({ ...editformData, title: e.target.value })}
                   className="w-full px-2 py-1 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
@@ -251,8 +273,8 @@ export function ServicesPage() {
                 <textarea
                   name='description'
                   required
-                  value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  value={editformData.description}
+                  onChange={(e) => setEditFormData({ ...editformData, description: e.target.value })}
                   className="w-full px-2 py-1 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   rows={3}
                 />
@@ -266,8 +288,8 @@ export function ServicesPage() {
                   <input
                     name='price'
                     required
-                    value={formData.price}
-                    onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
+                    value={editformData.price}
+                    onChange={(e) => setEditFormData({ ...editformData, price: Number(e.target.value) })}
                     type="number"
                     className="w-full px-2 py-1 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   />
@@ -281,7 +303,7 @@ export function ServicesPage() {
                     name='image'
                     accept="image/*"
                     required
-                    onChange={(e) => setFormData({ ...formData, image: e.target.files[0] })}
+                    onChange={(e) => setEditFormData({ ...editformData, image: e.target.files[0] })}
                     className="w-full px-2 py-1 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
@@ -294,8 +316,8 @@ export function ServicesPage() {
                 <select
                   name='category'
                   required
-                  value={formData.category}
-                  onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                  value={editformData.category}
+                  onChange={(e) => setEditFormData({ ...editformData, category: e.target.value })}
                   className="w-full px-2 py-1 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                   <option value=''>select category</option>
                   <option value='Cleaning'> Cleaning</option>
@@ -311,9 +333,10 @@ export function ServicesPage() {
               <div className="flex gap-2">
                 <button
                   type="submit"
+                  onClick={() => handleEditClick(editformData.id)}
                   className="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
                 >
-                  Add Service
+                  Edit Service
                 </button>
                 <button
                   type="button"

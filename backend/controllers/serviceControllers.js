@@ -81,7 +81,7 @@ const viewAll = async (req, res) => {
 const remove = async (req, res) => {
   try {
     const service = await Service.findByIdAndDelete(req.params.id);
-    res.json({ service, message: "Service deleted" });
+    res.json({ service, message: "Service deleted successfully" });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

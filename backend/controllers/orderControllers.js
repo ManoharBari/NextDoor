@@ -39,7 +39,7 @@ const createOrder = async (req, res) => {
 // Get all bookings for a user
 const viewAll = async (req, res) => {
   try {
-    const bookings = await Order.find({ userId: req.params.userId })
+    const bookings = await Order.find({})
       .populate("serviceId", "title description")
       .populate("userId", "name profilePicture");
     res.json(bookings);

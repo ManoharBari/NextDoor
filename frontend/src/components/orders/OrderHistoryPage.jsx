@@ -33,18 +33,12 @@ export function OrderHistoryPage({ service }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem('token')) {
-      showUser();
-    }
-  }, [])
-
-  useEffect(() => {
     if (user) {
-      const userId = user.id;
-      ShowAllOrder(userId);
+      ShowAllOrder();
     }
-  }, [orderData, user]);
+  }, [user]);
 
+  const filteredOrder = orderData.filter((order) => order.userId === user.id);
   if (!user.id) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -65,7 +59,7 @@ export function OrderHistoryPage({ service }) {
         </div>
 
         <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-          {orderData.map((booking) => (
+          {filteredOrder.map((booking) => (
             <div
               key={booking._id}
               className="p-6 border-b border-gray-200 last:border-0 hover:bg-gray-50 transition-colors"

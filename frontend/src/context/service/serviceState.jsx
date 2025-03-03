@@ -61,7 +61,17 @@ function serviceState({ children }) {
   };
 
   // edit service
-  const editService = async (id, formData) => {
+  const editService = async (id, data) => {
+
+    const formData = new FormData();
+    formData.append("image", data.image);
+    formData.append("title", data.title);
+    formData.append("description", data.description);
+    formData.append("price", data.price);
+    formData.append("provider", user.id);
+    formData.append("category", data.category);
+    formData.append("availability", data.availability);
+
     try {
       const response = await fetch(`${host}/services/${id}`, {
         method: "PUT",
@@ -75,10 +85,32 @@ function serviceState({ children }) {
 
       const updatedService = await response.json();
       await ShowAllServices();
+      console.log("Service updated successfully");
+
     } catch (error) {
       console.error("Update error:", error.message);
     }
   };
+
+  const deleteService = async (id) => {
+    try {
+      const response = await fetch(`${host}/services/${id}`, {
+        method: "DELETE",
+        headers: {
+          token: `${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (!response.ok) throw new Error("Failed to delete service");
+
+      await ShowAllServices();
+
+      console.log("Service deleted successfully");
+    } catch (error) {
+      console.error("Delete error:", error.message);
+    }
+  };
+
 
   const filteredServices = useMemo(() => {
     return services.filter((service) => {
@@ -102,7 +134,8 @@ function serviceState({ children }) {
       setSelectedCategory,
       ShowAllServices,
       AddServices,
-      editService
+      editService,
+      deleteService
     }}>
       {children}
     </ServiceContext.Provider>
