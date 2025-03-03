@@ -61,13 +61,17 @@ function userState({ children }) {
 
   // Register
   const register = async (data) => {
+    const formData = new FormData();
+    formData.append("profilePicture", data.avatar);
+    formData.append("name", data.name);
+    formData.append("email", data.email);
+    formData.append("password", data.password);
+    formData.append("role", data.role);
+
     try {
       const response = await fetch(`${host}/auth/signup`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+        body: formData,
       });
 
       if (!response.ok) throw new Error("Registration failed");
@@ -77,7 +81,7 @@ function userState({ children }) {
         id: resData.user._id,
         email: resData.user.email,
         name: resData.user.name,
-        avatar: resData.user.avatar || `https://source.unsplash.com/100x100/?portrait`,
+        avatar: resData.user.profilePicture || `https://source.unsplash.com/100x100/?portrait`,
         location: resData.user.location,
         token: resData.token, // Save token for authentication
         role: resData.user.role

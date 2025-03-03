@@ -24,10 +24,6 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  bio: {
-    type: String,
-    default: "",
-  },
   // URL to profile image
   profilePicture: {
     type: String,
