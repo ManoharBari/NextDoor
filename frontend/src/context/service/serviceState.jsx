@@ -60,6 +60,26 @@ function serviceState({ children }) {
     }
   };
 
+  // edit service
+  const editService = async (id, formData) => {
+    try {
+      const response = await fetch(`${host}/services/${id}`, {
+        method: "PUT",
+        headers: {
+          token: `${localStorage.getItem("token")}`,
+        },
+        body: formData,
+      });
+
+      if (!response.ok) throw new Error("Failed to update service");
+
+      const updatedService = await response.json();
+      await ShowAllServices();
+    } catch (error) {
+      console.error("Update error:", error.message);
+    }
+  };
+
   const filteredServices = useMemo(() => {
     return services.filter((service) => {
       const matchesSearch =
@@ -81,7 +101,8 @@ function serviceState({ children }) {
       selectedCategory,
       setSelectedCategory,
       ShowAllServices,
-      AddServices
+      AddServices,
+      editService
     }}>
       {children}
     </ServiceContext.Provider>

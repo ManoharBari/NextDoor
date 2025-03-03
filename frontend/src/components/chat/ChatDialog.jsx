@@ -70,7 +70,7 @@ export function ChatDialog({ isOpen, onClose, provider }) {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Type a message..."
-                  className="flex-1 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                  className="flex-1 py-2 px-4 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 />
                 <button
                   type="submit"

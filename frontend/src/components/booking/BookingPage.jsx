@@ -130,7 +130,7 @@ export function BookingPage({ serviceId, amount, userId, service }) {
                     required
                     value={formData.date}
                     onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                    className="pl-10 py-1 px-4 w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                    className="pl-10 py-1 px-4 w-full rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
               </div>
@@ -146,7 +146,7 @@ export function BookingPage({ serviceId, amount, userId, service }) {
                     required
                     value={formData.time}
                     onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                    className="pl-10 py-1 px-4 w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                    className="pl-10 py-1 px-4 w-full rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
               </div>
@@ -161,7 +161,7 @@ export function BookingPage({ serviceId, amount, userId, service }) {
                     required
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                    className="pl-10 py-2 px-4 w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                    className="pl-10 py-2 px-4 w-full rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Enter your address..."
                     rows={2}
                   />
@@ -177,7 +177,7 @@ export function BookingPage({ serviceId, amount, userId, service }) {
                   <textarea
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                    className="pl-10 py-2 px-4 w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                    className="pl-10 py-2 px-4 w-full rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                     rows={2}
                     placeholder="Any special instructions or requirements..."
                   />

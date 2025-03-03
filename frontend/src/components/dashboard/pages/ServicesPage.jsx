@@ -41,6 +41,7 @@ export function ServicesPage() {
     image: null,
   });
   const [showAddForm, setShowAddForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
   const { AddServices, services, ShowAllServices } = useContext(ServiceContext)
   const { user } = useContext(UserContext)
 
@@ -101,11 +102,17 @@ export function ServicesPage() {
               </div>
 
               <div className="flex gap-2">
-                <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+                <button
+                  onClick={() => { 
+                    setShowEditForm(true)
+                    
+                   }}
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
                   <Edit className="w-5 h-5" />
                   Edit
                 </button>
-                <button className="flex items-center justify-center gap-2 px-4 py-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50">
+                <button
+                  className="flex items-center justify-center gap-2 px-4 py-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50">
                   <Trash className="w-5 h-5" />
                   Delete
                 </button>
@@ -130,7 +137,7 @@ export function ServicesPage() {
                   required
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  className="w-full px-2 py-1 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-2 py-1 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
 
@@ -143,7 +150,7 @@ export function ServicesPage() {
                   required
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full px-2 py-1 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-2 py-1 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   rows={3}
                 />
               </div>
@@ -159,7 +166,7 @@ export function ServicesPage() {
                     value={formData.price}
                     onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
                     type="number"
-                    className="w-full px-2 py-1 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-2 py-1 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
                 <div>
@@ -172,7 +179,7 @@ export function ServicesPage() {
                     accept="image/*"
                     required
                     onChange={(e) => setFormData({ ...formData, image: e.target.files[0] })}
-                    className="w-full px-2 py-1 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-2 py-1 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
               </div>
@@ -186,7 +193,7 @@ export function ServicesPage() {
                   required
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                  className="w-full px-2 py-1 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500">
+                  className="w-full px-2 py-1 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                   <option value=''>select category</option>
                   <option value='Cleaning'> Cleaning</option>
                   <option value='Plumbing'> Plumbing</option>
@@ -217,6 +224,110 @@ export function ServicesPage() {
           </div>
         </div>
       )}
+
+      {showEditForm && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md">
+            <h3 className="text-xl flex items-center justify-between  font-bold mb-4">Edit Service <X className='cursor-pointer text-gray-500' size={20} onClick={() => setShowEditForm(false)} /></h3>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Title
+                </label>
+                <input
+                  type="text"
+                  name='title'
+                  required
+                  value={formData.title}
+                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  className="w-full px-2 py-1 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Description
+                </label>
+                <textarea
+                  name='description'
+                  required
+                  value={formData.description}
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  className="w-full px-2 py-1 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  rows={3}
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Price (per visit)
+                  </label>
+                  <input
+                    name='price'
+                    required
+                    value={formData.price}
+                    onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
+                    type="number"
+                    className="w-full px-2 py-1 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Image
+                  </label>
+                  <input
+                    type="file"
+                    name='image'
+                    accept="image/*"
+                    required
+                    onChange={(e) => setFormData({ ...formData, image: e.target.files[0] })}
+                    className="w-full px-2 py-1 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Category
+                </label>
+                <select
+                  name='category'
+                  required
+                  value={formData.category}
+                  onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                  className="w-full px-2 py-1 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                  <option value=''>select category</option>
+                  <option value='Cleaning'> Cleaning</option>
+                  <option value='Plumbing'> Plumbing</option>
+                  <option value='Electrical'> Electrical</option>
+                  <option value='Moving'> Moving</option>
+                  <option value='Painting'> Painting</option>
+                  <option value='Carpentry'> Carpentry</option>
+                  <option value='Beauty & Wellness'> Beauty & Wellness</option>
+                </select>
+              </div>
+
+              <div className="flex gap-2">
+                <button
+                  type="submit"
+                  className="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+                >
+                  Add Service
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowEditForm(false)}
+                  className="flex-1 border border-gray-300 py-2 rounded-lg hover:bg-gray-50"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

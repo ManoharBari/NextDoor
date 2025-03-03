@@ -26,6 +26,45 @@ const create = async (req, res) => {
   }
 };
 
+const updateService = async (req, res) => {
+  try {
+    const { id } = req.params; // Get service ID from URL
+    const { title, description, provider, price, category, availability } =
+      req.body;
+
+    let updatedData = {
+      title,
+      description,
+      provider,
+      price,
+      category,
+      availability,
+    };
+
+    // If there's a new image uploaded, update the image field
+    if (req.file) {
+      updatedData.image = `uploads/${req.file.filename}`;
+    }
+
+    const updatedService = await Service.findByIdAndUpdate(id, updatedData, {
+      new: true,
+    });
+
+    if (!updatedService) {
+      return res.status(404).json({ message: "Service not found" });
+    }
+
+    res.status(200).json({
+      message: "Service updated successfully",
+      service: updatedService,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error updating service", error: error.message });
+  }
+};
+
 // Get all services
 const viewAll = async (req, res) => {
   try {
@@ -48,4 +87,4 @@ const remove = async (req, res) => {
   }
 };
 
-module.exports = { create, viewAll, remove };
+module.exports = { create, viewAll, updateService, remove };

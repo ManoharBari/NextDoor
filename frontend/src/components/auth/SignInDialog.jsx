@@ -40,9 +40,10 @@ export function SignInDialog({ isOpen, onClose }) {
             </label>
             <input
               type="email"
+              placeholder='user@email.com'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 block py-1 px-2 w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block py-1 border px-2 w-full rounded-md border-gray-300 shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               required
             />
           </div>
@@ -52,10 +53,11 @@ export function SignInDialog({ isOpen, onClose }) {
               Password
             </label>
             <input
+              placeholder='password'
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block py-1 px-2 w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block py-1 px-2 w-full border  rounded-md border-gray-300 shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               required
             />
           </div>

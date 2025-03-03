@@ -5,6 +5,7 @@ const {
   create,
   viewAll,
   remove,
+  updateService,
 } = require("../controllers/serviceControllers");
 const { roleMiddleware } = require("../middleware/roleMiddleware");
 const { authMiddleware } = require("../middleware/authMiddleware");
@@ -15,6 +16,14 @@ router.post(
   authMiddleware,
   roleMiddleware("provider"),
   create
+);
+
+router.put(
+  "/:id",
+  upload.single("image"),
+  authMiddleware,
+  roleMiddleware("provider"),
+  updateService
 );
 
 router.get("/", viewAll);
