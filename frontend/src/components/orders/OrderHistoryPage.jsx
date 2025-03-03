@@ -28,17 +28,16 @@ function getStatusIcon(status) {
 }
 
 export function OrderHistoryPage({ service }) {
-  const { user, showUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const { orderData, DeleteOrder, ShowAllOrder } = useContext(OrderContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {
-      ShowAllOrder();
-    }
-  }, [user]);
+    ShowAllOrder();
+  }, [user, orderData]);
 
-  const filteredOrder = orderData.filter((order) => order.userId === user.id);
+  const filteredOrder = orderData.filter((order) => order.userId._id == user.id);
+
   if (!user.id) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">

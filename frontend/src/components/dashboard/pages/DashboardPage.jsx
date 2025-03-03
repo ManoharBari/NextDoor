@@ -1,13 +1,11 @@
 import React from 'react';
-import { 
-  TrendingUp, 
-  Users, 
-  Calendar, 
-  DollarSign, 
-  Star, 
+import {
+  TrendingUp,
+  Users,
+  Calendar,
+  IndianRupee,
+  Star,
   Clock,
-  ArrowUpRight,
-  ArrowDownRight
 } from 'lucide-react';
 import { formatPrice } from '../../../utils/format';
 
@@ -21,7 +19,7 @@ const mockStats = {
   recentBookings: [
     {
       id: '1',
-      clientName: 'John Doe',
+      clientName: 'Ritesh Jain',
       service: 'House Cleaning',
       date: '2024-03-15',
       time: '14:00',
@@ -30,18 +28,27 @@ const mockStats = {
     },
     {
       id: '2',
-      clientName: 'Sarah Smith',
+      clientName: 'Ganesh Sardesai',
       service: 'Deep Cleaning',
       date: '2024-03-16',
       time: '10:00',
       status: 'pending',
       amount: 120
+    },
+    {
+      id: '3',
+      clientName: 'Pratham Patil',
+      service: 'Plimbing Services',
+      date: '2024-03-18',
+      time: '12:00',
+      status: 'pending',
+      amount: 240
     }
   ],
   monthlyEarnings: [
-    { month: 'Jan', amount: 850 },
-    { month: 'Feb', amount: 920 },
-    { month: 'Mar', amount: 1100 }
+    { month: 'Jan', amount: 750 },
+    { month: 'Feb', amount: 980 },
+    { month: 'Mar', amount: 1650 }
   ],
   metrics: {
     bookingsGrowth: 12,
@@ -63,7 +70,7 @@ export function DashboardPage() {
             </div>
             {mockStats.metrics.bookingsGrowth > 0 ? (
               <div className="flex items-center text-green-600">
-                <ArrowUpRight className="w-4 h-4 mr-1" />
+                <TrendingUp className="w-4 h-4 mr-1" />
                 <span>{mockStats.metrics.bookingsGrowth}%</span>
               </div>
             ) : (
@@ -80,11 +87,11 @@ export function DashboardPage() {
         <div className="bg-white rounded-lg shadow-sm p-6">
           <div className="flex items-center justify-between mb-4">
             <div className="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center">
-              <DollarSign className="w-6 h-6 text-green-600" />
+              <IndianRupee className="w-6 h-6 text-green-600" />
             </div>
             {mockStats.metrics.earningsGrowth > 0 ? (
               <div className="flex items-center text-green-600">
-                <ArrowUpRight className="w-4 h-4 mr-1" />
+                <TrendingUp className="w-4 h-4 mr-1" />
                 <span>{mockStats.metrics.earningsGrowth}%</span>
               </div>
             ) : (
@@ -105,7 +112,7 @@ export function DashboardPage() {
             </div>
             {mockStats.metrics.clientsGrowth > 0 ? (
               <div className="flex items-center text-green-600">
-                <ArrowUpRight className="w-4 h-4 mr-1" />
+                <TrendingUp className="w-4 h-4 mr-1" />
                 <span>{mockStats.metrics.clientsGrowth}%</span>
               </div>
             ) : (
@@ -126,7 +133,7 @@ export function DashboardPage() {
             </div>
             {mockStats.metrics.ratingGrowth > 0 ? (
               <div className="flex items-center text-green-600">
-                <ArrowUpRight className="w-4 h-4 mr-1" />
+                <TrendingUp className="w-4 h-4 mr-1" />
                 <span>{mockStats.metrics.ratingGrowth}%</span>
               </div>
             ) : (
@@ -148,9 +155,9 @@ export function DashboardPage() {
           <div className="h-64 flex items-end justify-between gap-2">
             {mockStats.monthlyEarnings.map((data) => (
               <div key={data.month} className="flex flex-col items-center gap-2">
-                <div 
+                <div
                   className="w-16 bg-blue-600 rounded-t-lg transition-all hover:bg-blue-700"
-                  style={{ height: `${(data.amount / 1100) * 100}%` }}
+                  style={{ height: `${(data.amount / 1100) * 100}px` }}
                 />
                 <span className="text-sm text-gray-600">{data.month}</span>
                 <span className="font-medium">{formatPrice(data.amount)}</span>

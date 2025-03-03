@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { User, Mail, Lock, Phone, MapPin } from "lucide-react";
+import { User, Mail, Lock, MapPin } from "lucide-react";
 import UserContext from "../../context/auth/userContext";
 import { useNavigate } from "react-router-dom";
 

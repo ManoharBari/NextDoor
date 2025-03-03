@@ -1,7 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Calendar, Clock, MapPin, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 import { formatPrice } from '../../../utils/format';
 import OrderContext from '../../../context/order/orderContext';
+import UserContext from '../../../context/auth/userContext';
 
 
 const mockBookings = [
@@ -13,7 +14,7 @@ const mockBookings = [
     time: '14:00',
     duration: 3,
     address: '123 Main St, New York, NY',
-    status: 'pending',
+    status: 'created',
     amount: 105
   },
   {
@@ -35,18 +36,18 @@ const mockBookings = [
     time: '09:00',
     duration: 2,
     address: '789 Broadway, New York, NY',
-    status: 'completed',
+    status: 'paid',
     amount: 70
   }
 ];
 
 function getStatusColor(status) {
   switch (status) {
-    case 'completed':
+    case 'paid':
       return 'text-green-600 bg-green-50';
     case 'confirmed':
       return 'text-blue-600 bg-blue-50';
-    case 'pending':
+    case 'created':
       return 'text-yellow-600 bg-yellow-50';
     case 'cancelled':
       return 'text-red-600 bg-red-50';
@@ -57,11 +58,11 @@ function getStatusColor(status) {
 
 function getStatusIcon(status) {
   switch (status) {
-    case 'completed':
+    case 'paid':
       return <CheckCircle className="w-5 h-5" />;
     case 'confirmed':
       return <CheckCircle className="w-5 h-5" />;
-    case 'pending':
+    case 'created':
       return <AlertCircle className="w-5 h-5" />;
     case 'cancelled':
       return <XCircle className="w-5 h-5" />;
@@ -72,11 +73,15 @@ function getStatusIcon(status) {
 
 export function BookingsPage() {
   const [filter, setFilter] = useState('all');
-  const { orderData, DeleteOrder, ShowAllOrder } = useContext(OrderContext);
+  const { user } = useContext(UserContext);
+  const { orderData, ShowAllOrder } = useContext(OrderContext);
 
+  useEffect(() => {
+    ShowAllOrder()
+  }, [orderData]);
 
   const filteredBookings = orderData.filter(booking =>
-    filter === 'all' || booking.status === filter
+    filter === 'all' || booking.status === filter || booking.serviceId._id == user.id
   );
 
   return (
@@ -84,7 +89,7 @@ export function BookingsPage() {
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold">Bookings</h2>
         <div className="flex gap-2">
-          {['all', 'pending', 'confirmed', 'completed'].map((status) => (
+          {['all', 'created', 'confirmed', 'paid'].map((status) => (
             <button
               key={status}
               onClick={() => setFilter(status)}
@@ -102,7 +107,7 @@ export function BookingsPage() {
       <div className="bg-white rounded-lg shadow-sm overflow-hidden">
         {filteredBookings.map((booking) => (
           <div
-            key={booking.id}
+            key={booking._id}
             className="p-6 border-b border-gray-100 last:border-0 hover:bg-gray-50"
           >
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
@@ -138,7 +143,7 @@ export function BookingsPage() {
             </div>
 
             <div className="mt-4 flex gap-2">
-              {booking.status === 'pending' && (
+              {booking.status === 'created' && (
                 <>
                   <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
                     Confirm
@@ -148,8 +153,9 @@ export function BookingsPage() {
                   </button>
                 </>
               )}
-              {booking.status === 'confirmed' && (
-                <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+              {booking.status === 'paid' && (
+                <button
+                 className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
                   Mark as Completed
                 </button>
               )}

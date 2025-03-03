@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { User, X } from 'lucide-react';
+import { Mail, X } from 'lucide-react';
 import UserContext from '../../context/auth/userContext';
 import { Link } from 'react-router-dom';
 

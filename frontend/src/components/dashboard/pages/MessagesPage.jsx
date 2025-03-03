@@ -103,7 +103,7 @@ export function MessagesPage() {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm overflow-hidden" style={{ height: 'calc(100vh - 200px)' }}>
+    <div className="bg-white rounded-lg shadow-sm overflow-hidden" style={{ height: 'calc(100vh - 90px)' }}>
       <div className="flex h-full">
         {/* Chat List */}
         <div className="w-1/3 border-r">
