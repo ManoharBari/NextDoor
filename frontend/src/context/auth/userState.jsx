@@ -66,6 +66,7 @@ function userState({ children }) {
     formData.append("name", data.name);
     formData.append("email", data.email);
     formData.append("password", data.password);
+    formData.append("location", data.location);
     formData.append("role", data.role);
 
     try {
@@ -87,6 +88,7 @@ function userState({ children }) {
         role: resData.user.role
       });
       localStorage.setItem("token", resData.token); // Store token in localStorage
+      console.log("registration successful")
     } catch (error) {
       console.error("Registration error:", error.message);
     }

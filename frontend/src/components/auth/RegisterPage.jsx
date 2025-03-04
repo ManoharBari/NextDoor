@@ -2,6 +2,7 @@ import React, { useState, useRef, useContext } from 'react';
 import { motion } from 'framer-motion';
 import { User, Mail, Lock, MapPin, CheckCircle, Upload, X } from 'lucide-react';
 import UserContext from '../../context/auth/userContext';
+import { Link } from 'react-router-dom';
 
 export function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -278,8 +279,8 @@ export function RegisterPage() {
                     type="text"
                     required
                     name='location'
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    value={formData.location}
+                    onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                     className="pl-10 appearance-none block w-full px-3 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition-colors"
                     placeholder="123 Main St, City"
                   />
@@ -330,9 +331,9 @@ export function RegisterPage() {
             <div className="mt-4 text-center">
               <p className="text-sm text-gray-600">
                 Already have an account?{' '}
-                <a href="#" className="text-blue-600 hover:text-blue-800 font-medium">
+                <Link to="#" className="text-blue-600 hover:text-blue-800 font-medium">
                   Sign in
-                </a>
+                </Link>
               </p>
             </div>
           </form>

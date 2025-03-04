@@ -43,7 +43,7 @@ const updateService = async (req, res) => {
 
     // If there's a new image uploaded, update the image field
     if (req.file) {
-      updatedData.image = `uploads/${req.file.filename}`;
+      updatedData.image = `/uploads/${req.file.filename}`;
     }
 
     const updatedService = await Service.findByIdAndUpdate(id, updatedData, {

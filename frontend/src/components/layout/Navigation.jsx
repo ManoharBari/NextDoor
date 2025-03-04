@@ -64,7 +64,7 @@ export function Navigation() {
         ) : (
           <button
             onClick={() => setIsSignInOpen(true)}
-            className="flex items-center gap-2 px-4 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-lg"
+            className="flex items-center gap-2 px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg"
           >
             <User className="w-5 h-5" />
             <span>Sign In</span>

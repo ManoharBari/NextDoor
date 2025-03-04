@@ -11,16 +11,21 @@ const signup = async (req, res) => {
       return res.status(400).json({ message: "User already exists" });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({
+
+    const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
+
+    const newUser = new User({
       name,
       email,
       password: hashedPassword,
       role,
       location,
+      profilePicture: imageUrl,
     });
+    await newUser.save();
 
     const token = jwt.sign(
-      { id: user._id, role: user.role },
+      { id: newUser._id, role: newUser.role },
       process.env.JWT_SECRET,
       {
         expiresIn: "1d",
