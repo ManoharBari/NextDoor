@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 export function ServiceCard({ service, onBook, onChat, onProviderClick }) {
   const host = `${import.meta.env.VITE_REACT_APP_BACKEND_URL}`;
   const navigate = useNavigate();
-  
+
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
       <div className="relative h-48">
@@ -24,7 +24,7 @@ export function ServiceCard({ service, onBook, onChat, onProviderClick }) {
       <div className="p-4">
         <div className="flex items-center gap-2 mb-2">
           <img
-            src={service.provider.image}
+            src={`${host}${service.provider.profilePicture}`}
             alt={service.provider.name}
             className="w-8 h-8 rounded-full cursor-pointer"
             onClick={() => onProviderClick?.(service.provider._id)}

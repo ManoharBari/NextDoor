@@ -31,6 +31,7 @@ export function OrderHistoryPage({ service }) {
   const { user } = useContext(UserContext);
   const { orderData, DeleteOrder, ShowAllOrder } = useContext(OrderContext);
   const navigate = useNavigate();
+  const host = `${import.meta.env.VITE_REACT_APP_BACKEND_URL}`;
 
   useEffect(() => {
     ShowAllOrder();
@@ -66,8 +67,8 @@ export function OrderHistoryPage({ service }) {
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
                 <div className="flex items-center gap-4">
                   <img
-                    src={booking.userId.profilePicture}
-                    alt={booking.userId.name}
+                    src={`${host}${booking.serviceId.provider.profilePicture}`}
+                    alt={booking.serviceId.provider.name}
                     className="w-12 h-12 rounded-full"
                   />
                   <div>

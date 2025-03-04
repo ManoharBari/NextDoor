@@ -80,8 +80,9 @@ export function BookingsPage() {
     ShowAllOrder()
   }, [orderData]);
 
+
   const filteredBookings = orderData.filter(booking =>
-    filter === 'all' || booking.status === filter || booking.serviceId._id == user.id
+    (filter === 'all' || booking.status === filter) && booking.serviceId.provider._id === user.id
   );
 
   return (
@@ -155,7 +156,7 @@ export function BookingsPage() {
               )}
               {booking.status === 'paid' && (
                 <button
-                 className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                  className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
                   Mark as Completed
                 </button>
               )}
