@@ -14,7 +14,7 @@ const signup = async (req, res) => {
 
     const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
 
-    const newUser = new User({
+    const user = new User({
       name,
       email,
       password: hashedPassword,
@@ -22,10 +22,10 @@ const signup = async (req, res) => {
       location,
       profilePicture: imageUrl,
     });
-    await newUser.save();
+    await user.save();
 
     const token = jwt.sign(
-      { id: newUser._id, role: newUser.role },
+      { id: user._id, role: user.role },
       process.env.JWT_SECRET,
       {
         expiresIn: "1d",

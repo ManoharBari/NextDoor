@@ -42,6 +42,7 @@ export function RegisterPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log('Registering user:', formData);
       await register(formData);
     } catch (error) {
       console.error('Registration failed:', error);
@@ -102,11 +103,11 @@ export function RegisterPage() {
         {/* Left Side - Image */}
         <div className="md:w-1/2 relative hidden md:block">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-600/80 to-indigo-700/90" />
-          <img
+          {/* <img
             src="https://source.unsplash.com/random/1200x1600/?home-service,professional-work"
             alt="Professional Services"
             className="w-full h-full object-cover"
-          />
+          /> */}
           <div className="absolute inset-0 flex flex-col justify-center items-center p-12">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -321,6 +322,7 @@ export function RegisterPage() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 type="button"
+                onClick={handleSubmit}
                 className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
               >
                 <span>Create Account</span>

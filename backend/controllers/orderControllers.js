@@ -1,5 +1,6 @@
 const razorpay = require("../config/razorpay");
 const Order = require("../models/Order");
+const User = require("../models/User");
 const crypto = require("crypto");
 
 const createOrder = async (req, res) => {
@@ -40,8 +41,12 @@ const createOrder = async (req, res) => {
 const viewAll = async (req, res) => {
   try {
     const bookings = await Order.find({})
-      .populate("serviceId", "title description")
-      .populate("userId", "name profilePicture");
+      .populate("serviceId", "title description provider")
+      .populate("userId", "name profilePicture")
+      .populate({
+        path: 'serviceId',
+        populate: { path: 'provider', model: User } // Populate provider details from User model
+      })
     res.json(bookings);
   } catch (error) {
     res.status(400).json({ message: error.message });

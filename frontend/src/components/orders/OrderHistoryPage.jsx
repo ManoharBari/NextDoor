@@ -74,7 +74,7 @@ export function OrderHistoryPage({ service }) {
                     <h3 className="text-lg font-semibold text-gray-900">
                       {booking.serviceId.title}
                     </h3>
-                    <p className="text-gray-600">{service.provider.name}</p>
+                    <p className="text-gray-600">{booking.serviceId.provider.name}</p>
                   </div>
                 </div>
 

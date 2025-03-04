@@ -1,9 +1,11 @@
-import { useState, createContext, useContext } from "react";
+import { useState } from "react";
 import UserContext from "./userContext";
+import { useNavigate } from "react-router-dom";
 
 function userState({ children }) {
   const [user, setUser] = useState({});
   const host = `${import.meta.env.VITE_REACT_APP_BACKEND_URL}`;
+  const navigate = useNavigate();
 
   // Sign In
   const signIn = async (email, password) => {
@@ -72,6 +74,8 @@ function userState({ children }) {
     try {
       const response = await fetch(`${host}/auth/signup`, {
         method: "POST",
+        headers: {
+        },
         body: formData,
       });
 
@@ -82,13 +86,15 @@ function userState({ children }) {
         id: resData.user._id,
         email: resData.user.email,
         name: resData.user.name,
-        avatar: resData.user.profilePicture || `https://source.unsplash.com/100x100/?portrait`,
+        avatar: resData.user.profilePicture,
         location: resData.user.location,
         token: resData.token, // Save token for authentication
         role: resData.user.role
       });
       localStorage.setItem("token", resData.token); // Store token in localStorage
       console.log("registration successful")
+      navigate("/")
+
     } catch (error) {
       console.error("Registration error:", error.message);
     }
