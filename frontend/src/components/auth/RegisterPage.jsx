@@ -1,8 +1,9 @@
 import React, { useState, useRef, useContext } from 'react';
 import { motion } from 'framer-motion';
-import { User, Mail, Lock, MapPin, CheckCircle, Upload, X } from 'lucide-react';
+import { User, Mail, Lock, MapPin, CheckCircle, Upload, X, UserCog } from 'lucide-react';
 import UserContext from '../../context/auth/userContext';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 export function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -42,7 +43,6 @@ export function RegisterPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log('Registering user:', formData);
       await register(formData);
     } catch (error) {
       console.error('Registration failed:', error);
@@ -312,7 +312,7 @@ export function RegisterPage() {
                       : 'border-gray-300 text-gray-700 hover:bg-gray-50'
                       } transition-colors flex items-center justify-center gap-2`}
                   >
-                    <User className="w-5 h-5" />
+                    <UserCog className="w-5 h-5" />
                     <span>Service Provider</span>
                   </button>
                 </div>

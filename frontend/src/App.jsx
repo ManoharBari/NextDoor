@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import '@mantine/core/styles.css';
 import { MantineProvider } from '@mantine/core';
 import Footer from './components/Footer';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function App() {
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ export default function App() {
   useEffect(() => {
     if (localStorage.getItem('token')) {
       showUser();
+      toast('Here is your toast.');
     }
   }, [])
 
@@ -121,6 +123,9 @@ export default function App() {
         </Routes>
         {selectedService && <ChatDialog isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} provider={selectedService.provider} />}
         {location.pathname != '/dashboard' && <Footer />}
+
+        <Toaster position="top-center" />
+
       </MantineProvider>
     </>
   )

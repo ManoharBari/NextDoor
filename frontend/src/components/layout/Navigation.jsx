@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { User, Bell, LayoutDashboard, ShoppingBag, LogOut, Home, Package, ChevronRight } from 'lucide-react';
+import { Bell, LayoutDashboard, ShoppingBag, LogOut, Home, Package, ChevronRight, LogIn } from 'lucide-react';
 import { SignInDialog } from '../auth/SignInDialog';
 import UserContext from '../../context/auth/userContext';
 import { useNavigate } from 'react-router-dom';
@@ -67,8 +67,8 @@ export function Navigation() {
             onClick={() => setIsSignInOpen(true)}
             className="flex items-center gap-2 px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg"
           >
-            <User className="w-5 h-5" />
-            <span>Sign In</span>
+            <LogIn className="w-5 h-5" />
+            <span>Login</span>
           </button>
         )}
 

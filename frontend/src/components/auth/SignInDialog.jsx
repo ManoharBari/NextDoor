@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Mail, X } from 'lucide-react';
+import { Lock, LogIn, Mail, X } from 'lucide-react';
 import UserContext from '../../context/auth/userContext';
 import { Link } from 'react-router-dom';
 
@@ -31,42 +31,54 @@ export function SignInDialog({ isOpen, onClose }) {
           <X className="w-5 h-5" />
         </button>
 
-        <h2 className="text-2xl font-bold mb-6">Sign In</h2>
+        <h2 className="text-2xl font-bold mb-6">Welcome Back</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+
           <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Email
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              Email Address
             </label>
-            <input
-              type="email"
-              placeholder='user@email.com'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 block py-1 border px-2 w-full rounded-md border-gray-300 shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              required
-            />
+            <div className="relative">
+              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input
+                id="email"
+                type="email"
+                required
+                name='email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="pl-10 appearance-none block w-full px-3 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                placeholder="your.email@example.com"
+              />
+            </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
               Password
             </label>
-            <input
-              placeholder='password'
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block py-1 px-2 w-full border  rounded-md border-gray-300 shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              required
-            />
+            <div className="relative">
+              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input
+                id="password"
+                type="password"
+                required
+                name='password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="pl-10 appearance-none block w-full px-3 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                placeholder="••••••••"
+              />
+            </div>
           </div>
 
           <button
             type="submit"
             className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
           >
-            Sign In
+            <LogIn siz/>
+            Login
           </button>
           <span className="block text-center text-sm text-gray-600 mt-2">Don't have an account?
             <Link className='font-semibold text-blue-700 hover:underline' onClick={onClose} to='/register'> Register here</Link></span>
