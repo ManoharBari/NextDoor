@@ -4,6 +4,7 @@ import UserContext from '../../context/auth/userContext';
 import { formatPrice } from '../../utils/format';
 import OrderContext from '../../context/order/orderContext';
 import { useNavigate } from 'react-router-dom';
+import { NoOrdersPage } from '../error/NoOrderPage';
 
 function getStatusColor(status) {
   switch (status) {
@@ -27,7 +28,7 @@ function getStatusIcon(status) {
   }
 }
 
-export function OrderHistoryPage({ service }) {
+export function OrderHistoryPage() {
   const { user } = useContext(UserContext);
   const { orderData, DeleteOrder, ShowAllOrder } = useContext(OrderContext);
   const navigate = useNavigate();
@@ -35,9 +36,15 @@ export function OrderHistoryPage({ service }) {
 
   useEffect(() => {
     ShowAllOrder();
-  }, [user, orderData]);
+  }, [user]);
 
   const filteredOrder = orderData.filter((order) => order.userId._id == user.id);
+
+  if (filteredOrder.length === 0) {
+    return (
+      <NoOrdersPage />
+    );
+  }
 
   if (!user.id) {
     return (

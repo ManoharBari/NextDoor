@@ -41,7 +41,7 @@ function orderState({ children }) {
 
             const data = await response.json();
             await ShowAllOrder();
-            toast.success('Order Deleted Successfully');
+            toast.success('Order Cancelled Successfully');
         }
         catch (error) {
             toast.error("Internal Server Error");

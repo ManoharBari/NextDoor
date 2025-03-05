@@ -49,7 +49,7 @@ export function ServicesPage() {
 
   useEffect(() => {
     ShowAllServices()
-  }, [services]);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();

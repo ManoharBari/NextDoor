@@ -3,6 +3,7 @@ import { Calendar, Clock, CreditCard, MapPin, MessageSquare } from 'lucide-react
 import { formatPrice } from '../../utils/format';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 export function BookingPage({ serviceId, amount, userId, service }) {
   const navigate = useNavigate();
@@ -11,7 +12,6 @@ export function BookingPage({ serviceId, amount, userId, service }) {
     time: '',
     address: '',
     notes: '',
-    paymentMethod: 'credit_card'
   });
 
   const loadRazorpay = () => {
@@ -49,7 +49,7 @@ export function BookingPage({ serviceId, amount, userId, service }) {
         amount: data.order.amount,
         currency: "INR",
         name: "NextDoor",
-        description: "Service Booking Payment",
+        description: "Payment for service",
         image: "/logo.png",
         order_id: data.order.id,
         handler: async (response) => {
@@ -60,7 +60,7 @@ export function BookingPage({ serviceId, amount, userId, service }) {
                 token: `${localStorage.getItem('token')}`,
               },
             });
-          alert("Payment successful!");
+          toast.success("Order Placed Successfully");
           navigate("/orders");
         },
         prefill: {
@@ -74,7 +74,7 @@ export function BookingPage({ serviceId, amount, userId, service }) {
       const razorpay = new window.Razorpay(options);
       razorpay.open();
     } catch (error) {
-      console.error("Payment Error:", error);
+      toast.error("Payment Error");
     }
   };
 

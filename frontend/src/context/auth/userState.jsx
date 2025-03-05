@@ -112,7 +112,7 @@ function userState({ children }) {
 
   return (
     <UserContext.Provider
-      value={{ user, setUser, showUser, isAuthenticated: !!user, signIn, signOut, register }}
+      value={{ user, setUser, showUser, isAuthenticated: !!user.id, signIn, signOut, register }}
     >
       {children}
     </UserContext.Provider>

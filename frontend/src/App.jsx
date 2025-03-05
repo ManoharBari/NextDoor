@@ -19,6 +19,7 @@ import '@mantine/core/styles.css';
 import { MantineProvider } from '@mantine/core';
 import Footer from './components/Footer';
 import { Toaster } from 'react-hot-toast';
+import { NotFoundPage } from './components/error/NotFoundPage';
 
 export default function App() {
   const navigate = useNavigate();
@@ -91,6 +92,8 @@ export default function App() {
 
           <Route path="/" element={<HomePage />} />
 
+          <Route path="*" element={<NotFoundPage />} /> {/* Catch-all route */}
+
           <Route path="/register" element={<RegisterPage />} />
 
           <Route
@@ -115,10 +118,10 @@ export default function App() {
 
           <Route
             path="/booking"
-            element={selectedService ? <BookingPage serviceId={selectedService._id} userId={user.id} amount={selectedService.price} service={selectedService} /> : <Navigate to="/" />}
+            element={selectedService ? <BookingPage serviceId={selectedService.id} userId={user.id} amount={selectedService.price} service={selectedService} /> : <Navigate to="/" />}
           />
 
-          <Route path="/orders" element={<OrderHistoryPage service={selectedService} />} />
+          <Route path="/orders" element={<OrderHistoryPage />} />
         </Routes>
         {selectedService && <ChatDialog isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} provider={selectedService.provider} />}
         {location.pathname != '/dashboard' && <Footer />}
