@@ -1,6 +1,7 @@
 import { useState, useMemo, useContext } from "react";
 import ServiceContext from "./serviceContext";
 import UserContext from "../auth/userContext";
+import toast from "react-hot-toast";
 
 function serviceState({ children }) {
   const host = `${import.meta.env.VITE_REACT_APP_BACKEND_URL}`;
@@ -25,7 +26,7 @@ function serviceState({ children }) {
       setServices(data);
 
     } catch (error) {
-      console.error("Login error:", error.message);
+      toast.error("Internal Server Error");
     }
   };
 
@@ -52,11 +53,11 @@ function serviceState({ children }) {
       if (!response.ok) throw new Error("Invalid credentials");
 
       const res = await response.json();
-      await ShowAllServices()
-      console.log("success")
-
+      await ShowAllServices();
+      toast.success("Service added successfully");
+      
     } catch (error) {
-      console.error("Upload error:", error.message);
+      toast.error("Internal Server Error");
     }
   };
 
@@ -85,10 +86,10 @@ function serviceState({ children }) {
 
       const updatedService = await response.json();
       await ShowAllServices();
-      console.log("Service updated successfully");
+      toast.success("Service updated successfully");
 
     } catch (error) {
-      console.error("Update error:", error.message);
+      toast.error("Internal Server Error");
     }
   };
 
@@ -105,7 +106,7 @@ function serviceState({ children }) {
 
       await ShowAllServices();
 
-      console.log("Service deleted successfully");
+      toast.success("Service deleted successfully");
     } catch (error) {
       console.error("Delete error:", error.message);
     }

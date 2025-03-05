@@ -1,9 +1,8 @@
 import React, { useState, useRef, useContext } from 'react';
 import { motion } from 'framer-motion';
-import { User, Mail, Lock, MapPin, CheckCircle, Upload, X, UserCog } from 'lucide-react';
+import { User, Mail, Lock, MapPin, CheckCircle, Upload, X, UserCog, Loader2 } from 'lucide-react';
 import UserContext from '../../context/auth/userContext';
 import { Link } from 'react-router-dom';
-import toast from 'react-hot-toast';
 
 export function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -15,10 +14,11 @@ export function RegisterPage() {
     avatar: null
   });
 
+  const [loading, setloading] = useState(false)
   const [passwordStrength, setPasswordStrength] = useState(0);
   const [avatarPreview, setAvatarPreview] = useState(null);
   const fileInputRef = useRef(null);
-  const { register, isAuthenticated } = useContext(UserContext);
+  const { register } = useContext(UserContext);
 
   const handlePasswordChange = (password) => {
     // Simple password strength calculator
@@ -44,8 +44,10 @@ export function RegisterPage() {
     e.preventDefault();
     try {
       await register(formData);
+      setloading(true)
     } catch (error) {
       console.error('Registration failed:', error);
+      setloading(false)
     }
   };
 
@@ -147,7 +149,7 @@ export function RegisterPage() {
             <h3 className="text-2xl font-bold text-gray-800">Create Your Account</h3>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form className="space-y-6">
 
             <>
               {/* Avatar Upload */}
@@ -321,11 +323,12 @@ export function RegisterPage() {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                type="button"
-                onClick={handleSubmit}
+                type="submit"
+                onSubmit={handleSubmit}
                 className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
               >
-                <span>Create Account</span>
+                <span> {loading ? <Loader2 className="animate-spin w-5 h-5 mr-2" /> : 'Create Account'} </span>
+
               </motion.button>
             </>
 

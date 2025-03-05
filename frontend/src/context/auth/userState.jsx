@@ -1,6 +1,7 @@
 import { useState } from "react";
 import UserContext from "./userContext";
 import { useNavigate } from "react-router-dom";
+import toast from 'react-hot-toast';
 
 function userState({ children }) {
   const [user, setUser] = useState({});
@@ -30,8 +31,10 @@ function userState({ children }) {
         role: data.user.role
       });
       localStorage.setItem("token", data.token); // Store token in localStorage
+      toast.success(`Welcome back ${data.user.name}`);
+      navigate("/")
     } catch (error) {
-      console.error("Login error:", error.message);
+      toast.error("Internal Server Error");
     }
   };
 
@@ -57,7 +60,7 @@ function userState({ children }) {
         role: user.role
       });
     } catch (error) {
-      console.error("user getting error:", error.message);
+      toast.error("Internal Server Error");
     }
   };
 
@@ -92,11 +95,11 @@ function userState({ children }) {
         role: resData.user.role
       });
       localStorage.setItem("token", resData.token); // Store token in localStorage
-      console.log("registration successful")
-      navigate("/")
+      toast.success('Registration successful!');
+      navigate("/");
 
     } catch (error) {
-      console.error("Registration error:", error.message);
+      toast.error("Internal Server Error");
     }
   };
 
@@ -104,6 +107,7 @@ function userState({ children }) {
   const signOut = () => {
     setUser({});
     localStorage.removeItem("token"); // Remove token on logout
+    toast.success("Logged out successfully!");
   };
 
   return (

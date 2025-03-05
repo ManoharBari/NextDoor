@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 import '@mantine/core/styles.css';
 import { MantineProvider } from '@mantine/core';
 import Footer from './components/Footer';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 
 export default function App() {
   const navigate = useNavigate();
@@ -39,7 +39,6 @@ export default function App() {
   useEffect(() => {
     if (localStorage.getItem('token')) {
       showUser();
-      toast('Here is your toast.');
     }
   }, [])
 

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import OrderContext from "./orderContext";
+import toast from "react-hot-toast";
 
 
 function orderState({ children }) {
@@ -23,7 +24,7 @@ function orderState({ children }) {
 
         }
         catch (error) {
-            console.error("Login error:", error.message);
+            toast.error("Internal Server Error");
         }
     };
     const DeleteOrder = async (orderId) => {
@@ -39,10 +40,11 @@ function orderState({ children }) {
             if (!response.ok) throw new Error("Invalid credentials");
 
             const data = await response.json();
-            await ShowAllOrder(data.userId);
+            await ShowAllOrder();
+            toast.success('Order Deleted Successfully');
         }
         catch (error) {
-            console.error("Login error:", error.message);
+            toast.error("Internal Server Error");
         }
     };
 
