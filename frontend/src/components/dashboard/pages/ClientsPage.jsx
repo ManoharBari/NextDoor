@@ -6,26 +6,26 @@ import { Mail, Phone, MapPin, Calendar, Star } from 'lucide-react';
 const mockClients = [
   {
     id: '1',
-    name: 'John Doe',
+    name: 'Vishal Desai',
     email: 'john.doe@example.com',
     phone: '+1 (555) 123-4567',
     address: '123 Main St, New York, NY',
     joinedDate: '2024-01-15',
     bookings: 5,
     totalSpent: 450,
-    avatar: 'https://source.unsplash.com/100x100/?portrait-man-1',
+    avatar: 'https://img.freepik.com/premium-photo/portrait-young-man-against-gray-background_1048944-7971045.jpg',
     rating: 4.8
   },
   {
     id: '2',
-    name: 'Sarah Smith',
+    name: 'Arnav Gupta',
     email: 'sarah.smith@example.com',
     phone: '+1 (555) 987-6543',
     address: '456 Park Ave, New York, NY',
     joinedDate: '2024-02-01',
     bookings: 3,
     totalSpent: 280,
-    avatar: 'https://source.unsplash.com/100x100/?portrait-woman-1',
+    avatar: 'https://img.freepik.com/free-photo/front-view-smiley-man-seaside_23-2149737022.jpg',
     rating: 4.9
   }
 ];

@@ -12,9 +12,9 @@ import { formatPrice } from '../../../utils/format';
 const mockStats = {
   totalBookings: 156,
   activeBookings: 12,
-  totalEarnings: 4850,
+  totalEarnings: 24850,
   averageRating: 4.8,
-  totalClients: 98,
+  totalClients: 58,
   totalServices: 5,
   recentBookings: [
     {

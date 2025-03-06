@@ -27,8 +27,8 @@ const mockChats = [
     id: '1',
     user: {
       id: 'u1',
-      name: 'John Doe',
-      avatar: 'https://source.unsplash.com/100x100/?portrait-man-1',
+      name: 'Arnav Gupta',
+      avatar: 'https://img.freepik.com/free-photo/front-view-smiley-man-seaside_23-2149737022.jpg',
       lastSeen: '2024-03-15T10:30:00'
     },
     lastMessage: {
@@ -45,8 +45,8 @@ const mockChats = [
     id: '2',
     user: {
       id: 'u2',
-      name: 'Sarah Smith',
-      avatar: 'https://source.unsplash.com/100x100/?portrait-woman-1',
+      name: 'Vishal Desai',
+      avatar: 'https://img.freepik.com/premium-photo/portrait-young-man-against-gray-background_1048944-7971045.jpg',
       lastSeen: '2024-03-15T09:45:00'
     },
     lastMessage: {
@@ -99,7 +99,7 @@ export function MessagesPage() {
 
     // In a real app, this would send the message through a WebSocket
     console.log('Sending message:', newMessage);
-    setNewMessage('');
+    setNewMessage(' ');
   };
 
   return (
