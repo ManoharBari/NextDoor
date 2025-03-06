@@ -43,14 +43,12 @@ const mockBookings = [
 
 function getStatusColor(status) {
   switch (status) {
-    case 'paid':
-      return 'text-green-600 bg-green-50';
     case 'confirmed':
+      return 'text-green-600 bg-green-50';
+    case 'completed':
       return 'text-blue-600 bg-blue-50';
-    case 'created':
+    case 'pending':
       return 'text-yellow-600 bg-yellow-50';
-    case 'cancelled':
-      return 'text-red-600 bg-red-50';
     default:
       return 'text-gray-600 bg-gray-50';
   }
@@ -58,14 +56,12 @@ function getStatusColor(status) {
 
 function getStatusIcon(status) {
   switch (status) {
-    case 'paid':
-      return <CheckCircle className="w-5 h-5" />;
     case 'confirmed':
       return <CheckCircle className="w-5 h-5" />;
-    case 'created':
+    case 'completed':
+      return <CheckCircle className="w-5 h-5" />;
+    case 'pending':
       return <AlertCircle className="w-5 h-5" />;
-    case 'cancelled':
-      return <XCircle className="w-5 h-5" />;
     default:
       return <AlertCircle className="w-5 h-5" />;
   }
@@ -74,7 +70,7 @@ function getStatusIcon(status) {
 export function BookingsPage() {
   const [filter, setFilter] = useState('all');
   const { user } = useContext(UserContext);
-  const { orderData, ShowAllOrder } = useContext(OrderContext);
+  const { orderData, ShowAllOrder, markAs } = useContext(OrderContext);
 
   useEffect(() => {
     ShowAllOrder()
@@ -87,10 +83,10 @@ export function BookingsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">Bookings</h2>
+      <div className="flex overflow-auto justify-between items-center">
+        <h2 className="text-2xl mr-5 font-bold">Bookings</h2>
         <div className="flex gap-2">
-          {['all', 'created', 'confirmed', 'paid'].map((status) => (
+          {['all', 'pending', 'confirmed', 'completed'].map((status) => (
             <button
               key={status}
               onClick={() => setFilter(status)}
@@ -144,9 +140,11 @@ export function BookingsPage() {
             </div>
 
             <div className="mt-4 flex gap-2">
-              {booking.status === 'created' && (
+              {booking.status === 'pending' && (
                 <>
-                  <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                  <button
+                    onClick={() => markAs(booking._id, 'confirmed')}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
                     Confirm
                   </button>
                   <button className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
@@ -154,15 +152,13 @@ export function BookingsPage() {
                   </button>
                 </>
               )}
-              {booking.status === 'paid' && (
+              {booking.status === 'confirmed' && (
                 <button
+                  onClick={() => markAs(booking._id, 'completed')}
                   className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
                   Mark as Completed
                 </button>
               )}
-              <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
-                View Details
-              </button>
             </div>
           </div>
         ))}

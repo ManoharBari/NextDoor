@@ -8,9 +8,11 @@ import { NoOrdersPage } from '../error/NoOrderPage';
 
 function getStatusColor(status) {
   switch (status) {
-    case 'paid':
+    case 'confirmed':
       return 'text-green-600 bg-green-50';
-    case 'created':
+    case 'completed':
+      return 'text-blue-600 bg-blue-50';
+    case 'pending':
       return 'text-yellow-600 bg-yellow-50';
     default:
       return 'text-gray-600 bg-gray-50';
@@ -19,10 +21,12 @@ function getStatusColor(status) {
 
 function getStatusIcon(status) {
   switch (status) {
-    case 'paid':
+    case 'confirmed':
       return <CheckCircle className="w-5 h-5" />;
-    case 'created':
+    case 'pending':
       return <AlertCircle className="w-5 h-5" />;
+    case 'completed':
+      return <CheckCircle className="w-5 h-5" />;
     default:
       return <AlertCircle className="w-5 h-5" />;
   }
@@ -115,7 +119,7 @@ export function OrderHistoryPage() {
               </div>
 
               <div className="mt-4 flex flex-wrap gap-4">
-                {booking.status === 'created' && (
+                {booking.status === 'pending' && (
                   <>
                     <button
                       onClick={() => DeleteOrder(booking._id)}
@@ -131,7 +135,7 @@ export function OrderHistoryPage() {
                     </button>
                   </>
                 )}
-                {booking.status === 'paid' && (
+                {booking.status === 'confirmed' && (
                   <>
                     <button
                       onClick={() => DeleteOrder(booking._id)}

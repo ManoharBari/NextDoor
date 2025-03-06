@@ -21,7 +21,7 @@ const createOrder = async (req, res) => {
       serviceId,
       amount,
       currency: "INR",
-      status: "created",
+      status: "pending",
       bookingDate,
       bookingTime,
       address,
@@ -44,9 +44,9 @@ const viewAll = async (req, res) => {
       .populate("serviceId", "title description provider")
       .populate("userId", "name profilePicture")
       .populate({
-        path: 'serviceId',
-        populate: { path: 'provider', model: User } // Populate provider details from User model
-      })
+        path: "serviceId",
+        populate: { path: "provider", model: User }, // Populate provider details from User model
+      });
     res.json(bookings);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -60,6 +60,30 @@ const remove = async (req, res) => {
     res.json({ booking, message: "Booking Cancelled" });
   } catch (error) {
     res.status(400).json({ message: error.message });
+  }
+};
+
+// Update order Status
+const updateOrderStatus = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const { status } = req.body;
+
+    // Check if order exists
+    const order = await Order.findById(orderId);
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    // Update the status
+    order.status = status;
+    await order.save();
+
+    res
+      .status(200)
+      .json({ message: "Order status updated successfully", order });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
@@ -77,7 +101,7 @@ const verifyPayment = async (req, res) => {
     if (expectedSignature === razorpay_signature) {
       await Order.findOneAndUpdate(
         { razorpayOrderId: razorpay_order_id },
-        { paymentId: razorpay_payment_id, status: "paid" }
+        { paymentId: razorpay_payment_id, status: "confirmed" }
       );
 
       res.json({ success: true, message: "Payment verified successfully" });
@@ -94,4 +118,10 @@ const verifyPayment = async (req, res) => {
   }
 };
 
-module.exports = { createOrder, verifyPayment, remove, viewAll };
+module.exports = {
+  createOrder,
+  updateOrderStatus,
+  verifyPayment,
+  remove,
+  viewAll,
+};
