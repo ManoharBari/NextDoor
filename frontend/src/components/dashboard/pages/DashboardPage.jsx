@@ -24,7 +24,7 @@ const mockStats = {
       date: '2024-03-15',
       time: '14:00',
       status: 'confirmed',
-      amount: 75
+      amount: 300
     },
     {
       id: '2',
@@ -33,7 +33,7 @@ const mockStats = {
       date: '2024-03-16',
       time: '10:00',
       status: 'pending',
-      amount: 120
+      amount: 450
     },
     {
       id: '3',
@@ -42,7 +42,7 @@ const mockStats = {
       date: '2024-03-18',
       time: '12:00',
       status: 'pending',
-      amount: 240
+      amount: 350
     }
   ],
   monthlyEarnings: [
