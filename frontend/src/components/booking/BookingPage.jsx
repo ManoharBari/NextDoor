@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 
 export function BookingPage({ serviceId, amount, userId, service }) {
   const navigate = useNavigate();
+  const host = `${import.meta.env.VITE_REACT_APP_BACKEND_URL}`;
   const [formData, setFormData] = useState({
     date: '',
     time: '',
@@ -87,7 +88,7 @@ export function BookingPage({ serviceId, amount, userId, service }) {
             <div className="bg-white rounded-xl shadow-lg overflow-hidden">
               <div className="relative h-64">
                 <img
-                  src={"https://media.istockphoto.com/id/1049775258/photo/smiling-handsome-electrician-repairing-electrical-box-with-pliers-in-corridor-and-looking-at.jpg?s=1024x1024&w=is&k=20&c=I8Fxr-SRoAovM3W5Ijd36Vv3cYFqrEErd6mKvPUjmzs="}
+                  src={`${host}${service.image}`}
                   alt={service.title}
                   className="w-full h-full object-cover"
                 />

@@ -149,7 +149,7 @@ export function RegisterPage() {
             <h3 className="text-2xl font-bold text-gray-800">Create Your Account</h3>
           </div>
 
-          <form className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
 
             <>
               {/* Avatar Upload */}
@@ -324,7 +324,7 @@ export function RegisterPage() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 type="submit"
-                onSubmit={handleSubmit}
+
                 className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
               >
                 <span> {loading ? <Loader2 className="animate-spin w-5 h-5 mr-2" /> : 'Create Account'} </span>

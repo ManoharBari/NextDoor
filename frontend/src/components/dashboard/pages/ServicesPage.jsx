@@ -54,7 +54,9 @@ export function ServicesPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     AddServices(formData)
-    setFormData({})
+    setFormData({
+      availability: true
+    })
     setShowAddForm(false);
   }
 
