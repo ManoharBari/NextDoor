@@ -7,9 +7,9 @@ const mockClients = [
   {
     id: '1',
     name: 'Vishal Desai',
-    email: 'john.doe@example.com',
-    phone: '+1 (555) 123-4567',
-    address: '123 Main St, New York, NY',
+    email: 'vishal.desai@gmail.com',
+    phone: '+91 123-4567-789',
+    address: '123 Main St, Mumbai',
     joinedDate: '2024-01-15',
     bookings: 5,
     totalSpent: 450,
@@ -19,9 +19,9 @@ const mockClients = [
   {
     id: '2',
     name: 'Arnav Gupta',
-    email: 'sarah.smith@example.com',
-    phone: '+1 (555) 987-6543',
-    address: '456 Park Ave, New York, NY',
+    email: 'arnav.gupta@gmil.com',
+    phone: '+91 987-6543-210',
+    address: '456 Park Ave, Pune',
     joinedDate: '2024-02-01',
     bookings: 3,
     totalSpent: 280,
@@ -33,8 +33,8 @@ const mockClients = [
 export function ClientsPage() {
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">Clients</h2>
+      <div className="flex overflow-auto justify-between items-center">
+        <h2 className="text-2xl mr-5 font-bold">Clients</h2>
         <div className="flex gap-2">
           <input
             type="text"
