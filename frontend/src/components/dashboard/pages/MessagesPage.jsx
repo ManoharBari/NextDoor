@@ -106,7 +106,7 @@ export function MessagesPage() {
     <div className="bg-white rounded-lg shadow-sm overflow-hidden" style={{ height: 'calc(100vh - 90px)' }}>
       <div className="flex h-full">
         {/* Chat List */}
-        <div className="w-full border-r">
+        <div className="w-full md:w-1/3 border-r">
           <div className="p-4 border-b">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
