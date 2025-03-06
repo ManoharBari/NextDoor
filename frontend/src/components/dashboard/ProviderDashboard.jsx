@@ -5,7 +5,6 @@ import {
   Users,
   Package,
   MessageSquare,
-  Handshake,
 } from 'lucide-react';
 import { DashboardPage } from './pages/DashboardPage';
 import { BookingsPage } from './pages/BookingsPage';
