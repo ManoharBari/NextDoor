@@ -33,7 +33,7 @@ export function BookingPage({ serviceId, amount, userId, service }) {
     try {
       const { data } = await axios.post("http://localhost:8080/orders/create-order", {
         userId,
-        serviceId,
+        serviceId: service._id,
         amount,
         bookingDate: formData.date,
         bookingTime: formData.time,
