@@ -2,6 +2,7 @@ import { useState } from "react";
 import UserContext from "./userContext";
 import { useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
+import axios from "axios";
 
 function userState({ children }) {
   const [user, setUser] = useState({});
@@ -11,56 +12,50 @@ function userState({ children }) {
   // Sign In
   const signIn = async (email, password) => {
     try {
-      const response = await fetch(`${host}/auth/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await axios.post(`${host}/auth/login`, { email, password });
 
-      if (!response.ok) throw new Error("Invalid credentials");
+      const data = response.data;
 
-      const data = await response.json();
       setUser({
         id: data.user._id,
         email: data.user.email,
         name: data.user.name,
-        avatar: data.user.profilePicture || `https://source.unsplash.com/100x100/?portrait`,
+        avatar: data.user.profilePicture || "",
         token: data.token, // Save token for authentication
-        role: data.user.role
+        role: data.user.role,
       });
+
       localStorage.setItem("token", data.token); // Store token in localStorage
       toast.success(`Welcome back ${data.user.name}`);
-      navigate("/")
+      navigate("/");
     } catch (error) {
-      toast.error("Internal Server Error");
+      toast.error(error.response?.data?.message || "Internal Server Error");
     }
   };
 
   // get user details
   const showUser = async () => {
     try {
-      const response = await fetch(`${host}/auth/getuser`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          token: `${localStorage.getItem("token")}`
-        },
-      });
+      const response = await axios.post(`${host}/auth/getuser`, {}, // Empty object for POST request body
+        {
+          headers: {
+            "Content-Type": "application/json",
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
 
-      if (!response.ok) throw new Error("Invalid credentials");
+      const user = response.data;
 
-      const user = await response.json();
       setUser({
         id: user._id,
         email: user.email,
         name: user.name,
-        avatar: user.profilePicture || `https://source.unsplash.com/100x100/?portrait`,
-        role: user.role
+        avatar: user.profilePicture || "",
+        role: user.role,
       });
     } catch (error) {
-      toast.error("Internal Server Error");
+      toast.error(error.response?.data?.message || "Internal Server Error");
     }
   };
 
@@ -75,16 +70,14 @@ function userState({ children }) {
     formData.append("role", data.role);
 
     try {
-      const response = await fetch(`${host}/auth/signup`, {
-        method: "POST",
+      const response = await axios.post(`${host}/auth/signup`, formData, {
         headers: {
+          "Content-Type": "multipart/form-data",
         },
-        body: formData,
       });
 
-      if (!response.ok) throw new Error("Registration failed");
+      const resData = response.data;
 
-      const resData = await response.json();
       setUser({
         id: resData.user._id,
         email: resData.user.email,
@@ -92,17 +85,17 @@ function userState({ children }) {
         avatar: resData.user.profilePicture,
         location: resData.user.location,
         token: resData.token, // Save token for authentication
-        role: resData.user.role
+        role: resData.user.role,
       });
-      localStorage.setItem("token", resData.token); // Store token in localStorage
-      toast.success('Registration successful!');
-      navigate("/");
 
+      localStorage.setItem("token", resData.token); // Store token in localStorage
+      toast.success("Registration successful!");
+      navigate("/");
     } catch (error) {
-      toast.error("Internal Server Error");
+      toast.error(error.response?.data?.message || "Internal Server Error");
     }
   };
-
+  
   // Sign Out
   const signOut = () => {
     setUser({});

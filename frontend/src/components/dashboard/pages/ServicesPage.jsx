@@ -4,31 +4,6 @@ import { formatPrice } from '../../../utils/format';
 import ServiceContext from '../../../context/service/serviceContext';
 import UserContext from '../../../context/auth/userContext';
 
-const mockServices = [
-  {
-    id: '1',
-    title: 'House Cleaning',
-    description: 'Professional house cleaning service with eco-friendly products',
-    price: 35,
-    duration: 2,
-    category: 'Cleaning',
-    image: 'https://source.unsplash.com/800x600/?cleaning',
-    rating: 4.8,
-    bookings: 156
-  },
-  {
-    id: '2',
-    title: 'Deep Cleaning',
-    description: 'Thorough deep cleaning service for all rooms',
-    price: 45,
-    duration: 4,
-    category: 'Cleaning',
-    image: 'https://source.unsplash.com/800x600/?deep-cleaning',
-    rating: 4.9,
-    bookings: 98
-  }
-];
-
 export function ServicesPage() {
   const host = `${import.meta.env.VITE_REACT_APP_BACKEND_URL}`;
   const { AddServices, services, deleteService, editService, ShowAllServices } = useContext(ServiceContext)

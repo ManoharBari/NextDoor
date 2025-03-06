@@ -1,45 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Calendar, Clock, MapPin, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
+import { Calendar, Clock, MapPin, CheckCircle, AlertCircle } from 'lucide-react';
 import { formatPrice } from '../../../utils/format';
 import OrderContext from '../../../context/order/orderContext';
 import UserContext from '../../../context/auth/userContext';
-
-
-const mockBookings = [
-  {
-    id: '1',
-    clientName: 'John Doe',
-    service: 'House Cleaning',
-    date: '2024-03-15',
-    time: '14:00',
-    duration: 3,
-    address: '123 Main St, New York, NY',
-    status: 'created',
-    amount: 105
-  },
-  {
-    id: '2',
-    clientName: 'Sarah Smith',
-    service: 'Deep Cleaning',
-    date: '2024-03-16',
-    time: '10:00',
-    duration: 4,
-    address: '456 Park Ave, New York, NY',
-    status: 'confirmed',
-    amount: 180
-  },
-  {
-    id: '3',
-    clientName: 'Mike Johnson',
-    service: 'House Cleaning',
-    date: '2024-03-14',
-    time: '09:00',
-    duration: 2,
-    address: '789 Broadway, New York, NY',
-    status: 'paid',
-    amount: 70
-  }
-];
 
 function getStatusColor(status) {
   switch (status) {

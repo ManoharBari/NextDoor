@@ -3,7 +3,7 @@ import { Star, MapPin, Clock, MessageCircle } from 'lucide-react';
 import { formatPrice } from '../../utils/format';
 import { useNavigate } from 'react-router-dom';
 
-export function ServiceCard({ service, onBook, onChat, onProviderClick }) {
+export function ServiceCard({ service, onBook, onChat }) {
   const host = `${import.meta.env.VITE_REACT_APP_BACKEND_URL}`;
   const navigate = useNavigate();
 
@@ -27,13 +27,11 @@ export function ServiceCard({ service, onBook, onChat, onProviderClick }) {
             src={`${host}${service.provider.profilePicture}`}
             alt={service.provider.name}
             className="w-8 h-8 rounded-full cursor-pointer"
-            onClick={() => onProviderClick?.(service.provider._id)}
           />
           <div>
             <h3 className="text-lg font-semibold">{service.title}</h3>
             <p
-              className="text-sm text-gray-600 cursor-pointer hover:text-blue-600"
-              onClick={() => onProviderClick?.(service.provider._id)}
+              className="text-sm text-gray-600"
             >
               {service.provider.name}
             </p>

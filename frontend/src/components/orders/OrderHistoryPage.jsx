@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Calendar, Clock, MapPin, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
+import { Calendar, Clock, MapPin, CheckCircle, AlertCircle } from 'lucide-react';
 import UserContext from '../../context/auth/userContext';
 import { formatPrice } from '../../utils/format';
 import OrderContext from '../../context/order/orderContext';

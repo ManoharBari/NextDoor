@@ -105,11 +105,6 @@ export function RegisterPage() {
         {/* Left Side - Image */}
         <div className="md:w-1/2 relative hidden md:block">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-600/80 to-indigo-700/90" />
-          {/* <img
-            src="https://source.unsplash.com/random/1200x1600/?home-service,professional-work"
-            alt="Professional Services"
-            className="w-full h-full object-cover"
-          /> */}
           <div className="absolute inset-0 flex flex-col justify-center items-center p-12">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -118,7 +113,7 @@ export function RegisterPage() {
             >
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Join Our Community</h2>
               <p className="text-blue-100 text-lg mb-8">
-                Connect with trusted service providers and clients in your area.
+                Connect with trusted service providers and clients.
               </p>
               <div className="space-y-4">
                 {[

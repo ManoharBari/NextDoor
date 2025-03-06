@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { ServiceCard } from './ServiceCard';
 import ServiceContext from '../../context/service/serviceContext';
 
-export function ServiceGrid({ services, onBook, onChat, onProviderClick }) {
+export function ServiceGrid({ services, onBook, onChat }) {
   const { ShowAllServices } = useContext(ServiceContext);
 
   useEffect(() => {
@@ -25,7 +25,6 @@ export function ServiceGrid({ services, onBook, onChat, onProviderClick }) {
           service={service}
           onBook={onBook}
           onChat={onChat}
-          onProviderClick={onProviderClick}
         />
       ))}
     </div>

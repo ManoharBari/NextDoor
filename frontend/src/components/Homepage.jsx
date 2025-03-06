@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Star, Shield, Clock, CheckCircle, MapPin, Calendar, CreditCard, Home, ClipboardList, Award, ArrowRight, } from 'lucide-react';
-import { categories } from '../data/categories';
 import { useNavigate } from 'react-router-dom';
 import ServiceContext from '../context/service/serviceContext';
 
@@ -172,7 +171,7 @@ export function HomePage() {
                         transition={{ delay: 0.2 }}
                         className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4"
                     >
-                        {categories.map((category, index) => (
+                        {['Cleaning', 'Plumbing', 'Electrical', 'Gardening'].map((category, index) => (
                             <motion.button
                                 key={category}
                                 initial={{ scale: 0.9, opacity: 0 }}

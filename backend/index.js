@@ -6,10 +6,8 @@ const cors = require("cors");
 const path = require("path");
 const authRoutes = require("./routes/authRoutes");
 const serviceRoutes = require("./routes/serviceRoutes");
-const reviewRoutes = require("./routes/reviewRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const orderRoutes = require("./routes/orderRoutes");
-const paymentRoutes = require("./routes/paymentRoutes");
 const { errorMiddleware } = require("./middleware/errorMiddleware");
 const { authMiddleware } = require("./middleware/authMiddleware");
 
@@ -24,9 +22,7 @@ connectDB();
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/auth", authRoutes);
 app.use("/services", serviceRoutes);
-app.use("/review", reviewRoutes);
 app.use("/chat", authMiddleware, chatRoutes);
-app.use("/payments", authMiddleware, paymentRoutes);
 app.use("/orders", authMiddleware, orderRoutes);
 
 app.listen(8080, () => {

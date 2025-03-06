@@ -5,7 +5,7 @@ import UserContext from '../../context/auth/userContext';
 
 export function ChatDialog({ isOpen, onClose, provider }) {
   const [message, setMessage] = useState('');
-  
+  const host = `${import.meta.env.VITE_REACT_APP_BACKEND_URL}`;
   const { isAuthenticated } = useContext(UserContext);
 
   if (!isOpen) return null;
@@ -29,7 +29,7 @@ export function ChatDialog({ isOpen, onClose, provider }) {
           </button>
           <div className="flex items-center gap-3">
             <img
-              src={provider.avatar}
+              src={`${host}${provider.profilePicture}`}
               alt={provider.name}
               className="w-10 h-10 rounded-full"
             />

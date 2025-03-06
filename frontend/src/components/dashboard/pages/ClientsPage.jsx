@@ -1,8 +1,6 @@
 import React from 'react';
 import { Mail, Phone, MapPin, Calendar, Star } from 'lucide-react';
 
-
-
 const mockClients = [
   {
     id: '1',

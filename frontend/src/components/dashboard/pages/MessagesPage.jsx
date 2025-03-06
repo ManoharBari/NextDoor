@@ -161,7 +161,7 @@ export function MessagesPage() {
 
         {/* Chat Window */}
         {selectedChat ? (
-          <div className="flex-1  flex flex-col">
+          <div className="flex-1 flex flex-col">
             {/* Chat Header */}
             <div className="p-4 border-b flex items-center gap-3">
               <img

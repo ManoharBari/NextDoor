@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Calendar, Clock, CreditCard, MapPin, MessageSquare } from 'lucide-react';
+import { Calendar, Clock, MapPin, MessageSquare } from 'lucide-react';
 import { formatPrice } from '../../utils/format';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -31,7 +31,7 @@ export function BookingPage({ serviceId, amount, userId, service }) {
 
   const handlePayment = async () => {
     try {
-      const { data } = await axios.post("http://localhost:8080/orders/create-order", {
+      const { data } = await axios.post(`${host}/orders/create-order`, {
         userId,
         serviceId: service._id,
         amount,
@@ -54,7 +54,7 @@ export function BookingPage({ serviceId, amount, userId, service }) {
         image: "/logo.png",
         order_id: data.order.id,
         handler: async (response) => {
-          await axios.post("http://localhost:8080/orders/verify-payment", response,
+          await axios.post(`${host}/orders/verify-payment`, response,
             {
               headers: {
                 "Content-Type": "application/json",

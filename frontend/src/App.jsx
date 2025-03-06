@@ -1,25 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Header } from './components/layout/Header';
 import { HomePage } from './components/Homepage';
 import { SearchBar } from './components/search/SearchBar';
 import { CategoryFilter } from './components/search/CategoryFilter';
 import { ServiceGrid } from './components/service/ServiceGrid';
-import { ProviderProfile } from './components/provider/ProviderProfile';
 import { BookingPage } from './components/booking/BookingPage';
 import { RegisterPage } from './components/auth/RegisterPage';
 import { ChatDialog } from './components/chat/ChatDialog';
 import { OrderHistoryPage } from './components/orders/OrderHistoryPage';
+import { NotFoundPage } from './components/error/NotFoundPage';
 import { ProviderDashboard } from './components/dashboard/ProviderDashboard';
 import UserContext from './context/auth/userContext';
 import ServiceContext from './context/service/serviceContext';
-import { Service } from './types/index';
-import { useNavigate } from "react-router-dom";
 import '@mantine/core/styles.css';
 import { MantineProvider } from '@mantine/core';
 import Footer from './components/Footer';
 import { Toaster } from 'react-hot-toast';
-import { NotFoundPage } from './components/error/NotFoundPage';
 
 export default function App() {
   const navigate = useNavigate();
@@ -33,8 +30,7 @@ export default function App() {
   } = useContext(ServiceContext);
 
   const { isAuthenticated, user, showUser } = useContext(UserContext);
-  const [selectedService, setSelectedService] = useState(Service || null);
-  const [selectedProviderId, setSelectedProviderId] = useState("" || null);
+  const [selectedService, setSelectedService] = useState(null);
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   useEffect(() => {
@@ -42,14 +38,6 @@ export default function App() {
       showUser();
     }
   }, [])
-
-  // Get the selected provider and their services
-  const selectedProvider = selectedProviderId
-    ? services.find(s => s.provider._id === selectedProviderId)?.provider
-    : null;
-  const providerServices = selectedProvider
-    ? services.filter(s => s.provider._id === selectedProviderId)
-    : [];
 
   const handleBookService = (serviceId) => {
     const service = services.find(s => s._id === serviceId);
@@ -79,11 +67,6 @@ export default function App() {
     console.log('Opening filters modal');
   };
 
-  const handleProviderClick = (providerId) => {
-    setSelectedProviderId(providerId);
-    navigate(`/provider/${providerId}`);
-  };
-
   return (
     <>
       <MantineProvider>
@@ -104,7 +87,7 @@ export default function App() {
                   <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} onOpenFilters={handleOpenFilters} />
                   <CategoryFilter selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />
                 </div>
-                <ServiceGrid services={services} onBook={handleBookService} onChat={handleChat} onProviderClick={handleProviderClick} />
+                <ServiceGrid services={services} onBook={handleBookService} onChat={handleChat} />
               </div>
             }
           />
@@ -112,17 +95,13 @@ export default function App() {
           <Route path="/dashboard" element={<ProviderDashboard />} />
 
           <Route
-            path="/provider/:providerId"
-            element={<ProviderProfile provider={selectedProvider} services={providerServices} />}
-          />
-
-          <Route
             path="/booking"
-            element={selectedService ? <BookingPage serviceId={selectedService.id} userId={user.id} amount={selectedService.price} service={selectedService} /> : <Navigate to="/" />}
+            element={selectedService ? <BookingPage serviceId={selectedService.id} userId={user.id} amount={selectedService.price} service={selectedService} /> : <Navigate to="/" replace/>}
           />
 
           <Route path="/orders" element={<OrderHistoryPage />} />
         </Routes>
+        
         {selectedService && <ChatDialog isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} provider={selectedService.provider} />}
         {location.pathname != '/dashboard' && <Footer />}
 
