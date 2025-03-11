@@ -63,10 +63,6 @@ export default function App() {
     }
   };
 
-  const handleOpenFilters = () => {
-    console.log('Opening filters modal');
-  };
-
   return (
     <>
       <MantineProvider>
@@ -84,7 +80,7 @@ export default function App() {
             element={
               <div className="max-w-7xl mx-auto px-6 py-2">
                 <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
-                  <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} onOpenFilters={handleOpenFilters} />
+                  <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
                   <CategoryFilter selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />
                 </div>
                 <ServiceGrid services={services} onBook={handleBookService} onChat={handleChat} />

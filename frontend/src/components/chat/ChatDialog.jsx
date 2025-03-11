@@ -13,7 +13,7 @@ export function ChatDialog({ isOpen, onClose, provider }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     // In a real app, this would send the message through a WebSocket
-    console.log('Message sent:', { provider, message });
+    // console.log('Message sent:', { provider, message });
     setMessage('');
   };
 

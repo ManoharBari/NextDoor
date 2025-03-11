@@ -70,7 +70,6 @@ const getUser = async (req, res) => {
     const user = await User.findById(userId).select("-password"); //select()- password does not include
     res.json(user);
   } catch (error) {
-    console.log(error.message);
     res.status(500).json({ msg: "Internal server error" });
   }
 };

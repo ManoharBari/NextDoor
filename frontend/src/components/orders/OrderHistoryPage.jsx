@@ -128,7 +128,7 @@ export function OrderHistoryPage() {
                       Cancel Booking
                     </button>
                     <button
-                      onClick={() => console.log('Reschedule booking:', booking.id)}
+                      // onClick={() => console.log('Reschedule booking:', booking.id)}
                       className="text-blue-600 hover:text-blue-700 font-medium"
                     >
                       Reschedule

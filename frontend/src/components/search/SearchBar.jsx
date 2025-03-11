@@ -1,7 +1,7 @@
 import React from 'react';
 import { Search, Sliders } from 'lucide-react';
 
-export function SearchBar({ searchTerm, onSearchChange, onOpenFilters }) {
+export function SearchBar({ searchTerm, onSearchChange }) {
   return (
     <div className="flex gap-4">
       <div className="flex-1 relative">
@@ -15,7 +15,6 @@ export function SearchBar({ searchTerm, onSearchChange, onOpenFilters }) {
         />
       </div>
       <button
-        onClick={onOpenFilters}
         className="flex items-center gap-2 px-4 py-2 border rounded-lg hover:bg-gray-50"
       >
         <Sliders className="w-5 h-5" />

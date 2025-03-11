@@ -8,8 +8,8 @@ main()
 async function main() {
   await mongoose.connect(process.env.MONGO_URI, {
     // hosting configuration
-    // useNewUrlParser: true,
-    // useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
   });
 }
 
