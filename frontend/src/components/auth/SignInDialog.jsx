@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Lock, Mail, X } from 'lucide-react';
+import { Loader2, Lock, Mail, X } from 'lucide-react';
 import UserContext from '../../context/auth/userContext';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
