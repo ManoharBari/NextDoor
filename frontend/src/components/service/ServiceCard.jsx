@@ -1,11 +1,8 @@
 import React from 'react';
 import { Star, MapPin, Clock, MessageCircle } from 'lucide-react';
 import { formatPrice } from '../../utils/format';
-import { useNavigate } from 'react-router-dom';
 
 export function ServiceCard({ service, onBook, onChat }) {
-  const host = `${import.meta.env.VITE_REACT_APP_BACKEND_URL}`;
-  const navigate = useNavigate();
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">

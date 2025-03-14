@@ -36,7 +36,6 @@ export function OrderHistoryPage() {
   const { user } = useContext(UserContext);
   const { orderData, DeleteOrder, ShowAllOrder } = useContext(OrderContext);
   const navigate = useNavigate();
-  const host = `${import.meta.env.VITE_REACT_APP_BACKEND_URL}`;
 
   useEffect(() => {
     ShowAllOrder();

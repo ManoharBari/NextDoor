@@ -171,7 +171,7 @@ export function HomePage() {
                         transition={{ delay: 0.2 }}
                         className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4"
                     >
-                        {['Cleaning', 'Plumbing', 'Electrical', 'Gardening'].map((category, index) => (
+                        {['Cleaning', 'Plumbing', 'Painting', 'Electrical', 'Gardening'].map((category, index) => (
                             <motion.button
                                 key={category}
                                 initial={{ scale: 0.9, opacity: 0 }}
