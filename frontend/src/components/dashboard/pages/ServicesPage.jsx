@@ -235,7 +235,9 @@ export function ServicesPage() {
                   <option value='Plumbing'> Plumbing</option>
                   <option value='Electrical'> Electrical</option>
                   <option value='Moving'> Moving</option>
+                  <option value='Gardening'> Gardening</option>
                   <option value='Painting'> Painting</option>
+                  <option value='Pet Care'> Pet Care</option>
                   <option value='Carpentry'> Carpentry</option>
                   <option value='Beauty & Wellness'> Beauty & Wellness</option>
                 </select>
@@ -354,7 +356,9 @@ export function ServicesPage() {
                     <option value='Plumbing'> Plumbing</option>
                     <option value='Electrical'> Electrical</option>
                     <option value='Moving'> Moving</option>
+                    <option value='Gardening'> Gardening</option>
                     <option value='Painting'> Painting</option>
+                    <option value='Pet Care'> Pet Care</option>
                     <option value='Carpentry'> Carpentry</option>
                     <option value='Beauty & Wellness'> Beauty & Wellness</option>
                   </select>
