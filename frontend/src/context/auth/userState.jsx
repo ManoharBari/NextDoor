@@ -80,7 +80,7 @@ function userState({ children }) {
       toast.success("Registration successful!");
       navigate("/");
     } catch (error) {
-      toast.error(error.response?.data?.message || "Internal Server Error");
+      toast.error("Internal Server Error");
     }
   };
 

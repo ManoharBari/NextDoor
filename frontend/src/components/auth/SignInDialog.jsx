@@ -21,8 +21,8 @@ export function SignInDialog({ isOpen, onClose }) {
       setPassword('');
       onClose();
     } catch (error) {
-      setloading(false)
       toast.error('Sign in failed');
+      setloading(false)
     }
   };
 
