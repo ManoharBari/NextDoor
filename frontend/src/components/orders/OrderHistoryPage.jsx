@@ -78,7 +78,7 @@ export function OrderHistoryPage() {
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
                 <div className="flex items-center gap-4">
                   <img
-                    src={`${host}${booking.serviceId.provider.profilePicture}`}
+                    src={`${booking.serviceId.provider.profilePicture}`}
                     alt={booking.serviceId.provider.name}
                     className="w-12 h-12 rounded-full"
                   />

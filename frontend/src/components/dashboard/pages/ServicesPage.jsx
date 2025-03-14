@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Plus, Edit, Trash, X, Star } from 'lucide-react';
+import { Plus, Edit, Trash, X, Star, Upload } from 'lucide-react';
 import { formatPrice } from '../../../utils/format';
 import ServiceContext from '../../../context/service/serviceContext';
 import UserContext from '../../../context/auth/userContext';
@@ -15,7 +15,7 @@ export function ServicesPage() {
     price: Number,
     category: '',
     availability: true,
-    image: null,
+    image: '',
   });
 
   const [editformData, setEditFormData] = useState({});
@@ -194,11 +194,26 @@ export function ServicesPage() {
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Image
                   </label>
+
+                  {formData.image ? (
+                    <div
+                      onClick={handleImageUpload}
+                      className="w-30 h-9 p-3 rounded-lg text-sm bg-white flex items-center justify-center cursor-pointer border hover:bg-gray-50 transition-colors"
+                    >
+                      {formData.image ? formData.image.split('/').filter(Boolean).pop() : "No image selected"}
+                    </div>
+                  ) : (<div
+                    onClick={handleImageUpload}
+                    className="w-30 h-9 rounded-lg bg-white flex items-center justify-center cursor-pointer border hover:bg-gray-50 transition-colors"
+                  >
+                    <Upload className="w-5 h-5 text-gray-500" />
+                  </div>)}
+
+
                   <input
                     type="file"
                     name='image'
-                    accept="image/*"
-                    required
+                    hidden
                     onChange={handleImageUpload}
                     className="w-full px-2 py-1 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   />
@@ -243,113 +258,130 @@ export function ServicesPage() {
               </div>
             </form>
           </div>
-        </div>
-      )}
+        </div >
+      )
+      }
 
-      {showEditForm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-md">
-            <h3 className="text-xl flex items-center justify-between  font-bold mb-4">Edit Service <X className='cursor-pointer text-gray-500' size={20} onClick={() => setShowEditForm(false)} /></h3>
-            <form className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Title
-                </label>
-                <input
-                  type="text"
-                  name='title'
-                  required
-                  value={editformData.title}
-                  onChange={(e) => setEditFormData({ ...editformData, title: e.target.value })}
-                  className="w-full px-2 py-1 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Description
-                </label>
-                <textarea
-                  name='description'
-                  required
-                  value={editformData.description}
-                  onChange={(e) => setEditFormData({ ...editformData, description: e.target.value })}
-                  className="w-full px-2 py-1 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                  rows={3}
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
+      {
+        showEditForm && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-6 w-full max-w-md">
+              <h3 className="text-xl flex items-center justify-between  font-bold mb-4">Edit Service <X className='cursor-pointer text-gray-500' size={20} onClick={() => setShowEditForm(false)} /></h3>
+              <form className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Price (per visit)
+                    Title
                   </label>
                   <input
-                    name='price'
+                    type="text"
+                    name='title'
                     required
-                    value={editformData.price}
-                    onChange={(e) => setEditFormData({ ...editformData, price: Number(e.target.value) })}
-                    type="number"
+                    value={editformData.title}
+                    onChange={(e) => setEditFormData({ ...editformData, title: e.target.value })}
                     className="w-full px-2 py-1 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Image
+                    Description
                   </label>
-                  <input
-                    type="file"
-                    name='image'
-                    accept="image/*"
+                  <textarea
+                    name='description'
                     required
-                    onChange={handleEditImageUpload}
+                    value={editformData.description}
+                    onChange={(e) => setEditFormData({ ...editformData, description: e.target.value })}
                     className="w-full px-2 py-1 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    rows={3}
                   />
                 </div>
-              </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Category
-                </label>
-                <select
-                  name='category'
-                  required
-                  value={editformData.category}
-                  onChange={(e) => setEditFormData({ ...editformData, category: e.target.value })}
-                  className="w-full px-2 py-1 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                  <option value=''>select category</option>
-                  <option value='Cleaning'> Cleaning</option>
-                  <option value='Plumbing'> Plumbing</option>
-                  <option value='Electrical'> Electrical</option>
-                  <option value='Moving'> Moving</option>
-                  <option value='Painting'> Painting</option>
-                  <option value='Carpentry'> Carpentry</option>
-                  <option value='Beauty & Wellness'> Beauty & Wellness</option>
-                </select>
-              </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Price (per visit)
+                    </label>
+                    <input
+                      name='price'
+                      required
+                      value={editformData.price}
+                      onChange={(e) => setEditFormData({ ...editformData, price: Number(e.target.value) })}
+                      type="number"
+                      className="w-full px-2 py-1 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Image
+                    </label>
+                    {editformData.image ? (
+                      <div
+                        onClick={handleEditImageUpload}
+                        className="w-30 h-9 p-3 text-sm rounded-lg bg-white flex items-center justify-center cursor-pointer border hover:bg-gray-50 transition-colors"
+                      >
+                        {editformData.image ? editformData.image.split('/').filter(Boolean).pop() : "No image selected"}
+                      </div>
+                    ) : (<div
+                      onClick={handleEditImageUpload}
+                      className="w-30 h-9 rounded-lg bg-white flex items-center justify-center cursor-pointer border hover:bg-gray-50 transition-colors"
+                    >
+                      <Upload className="w-5 h-5 text-gray-500" />
+                    </div>)}
 
-              <div className="flex gap-2">
-                <button
-                  type="submit"
-                  onClick={() => handleEditClick(editformData.id)}
-                  className="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
-                >
-                  Edit Service
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setShowEditForm(false)}
-                  className="flex-1 border border-gray-300 py-2 rounded-lg hover:bg-gray-50"
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
+
+                    <input
+                      type="file"
+                      name='image'
+                      hidden
+                      onChange={handleEditImageUpload}
+                      className="w-full px-2 py-1 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Category
+                  </label>
+                  <select
+                    name='category'
+                    required
+                    value={editformData.category}
+                    onChange={(e) => setEditFormData({ ...editformData, category: e.target.value })}
+                    className="w-full px-2 py-1 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <option value=''>select category</option>
+                    <option value='Cleaning'> Cleaning</option>
+                    <option value='Plumbing'> Plumbing</option>
+                    <option value='Electrical'> Electrical</option>
+                    <option value='Moving'> Moving</option>
+                    <option value='Painting'> Painting</option>
+                    <option value='Carpentry'> Carpentry</option>
+                    <option value='Beauty & Wellness'> Beauty & Wellness</option>
+                  </select>
+                </div>
+
+                <div className="flex gap-2">
+                  <button
+                    type="submit"
+                    onClick={() => handleEditClick(editformData.id)}
+                    className="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+                  >
+                    Edit Service
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowEditForm(false)}
+                    className="flex-1 border border-gray-300 py-2 rounded-lg hover:bg-gray-50"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-        </div>
-      )}
+        )
+      }
 
-    </div>
+    </div >
   );
 }

@@ -29,7 +29,7 @@ export function ChatDialog({ isOpen, onClose, provider }) {
           </button>
           <div className="flex items-center gap-3">
             <img
-              src={`${host}${provider.profilePicture}`}
+              src={`${provider.profilePicture}`}
               alt={provider.name}
               className="w-10 h-10 rounded-full"
             />

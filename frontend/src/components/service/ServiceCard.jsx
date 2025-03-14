@@ -11,7 +11,7 @@ export function ServiceCard({ service, onBook, onChat }) {
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
       <div className="relative h-48">
         <img
-          src={`${host}${service.image}`}
+          src={`${service.image}`}
           alt={service.title}
           className="w-full h-full object-cover"
         />
@@ -24,7 +24,7 @@ export function ServiceCard({ service, onBook, onChat }) {
       <div className="p-4">
         <div className="flex items-center gap-2 mb-2">
           <img
-            src={`${host}${service.provider.profilePicture}`}
+            src={`${service.provider.profilePicture}`}
             alt={service.provider.name}
             className="w-8 h-8 rounded-full cursor-pointer"
           />

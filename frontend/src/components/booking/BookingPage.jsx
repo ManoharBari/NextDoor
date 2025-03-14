@@ -88,7 +88,7 @@ export function BookingPage({ serviceId, amount, userId, service }) {
             <div className="bg-white rounded-xl shadow-lg overflow-hidden">
               <div className="relative h-64">
                 <img
-                  src={`${host}${service.image}`}
+                  src={`${service.image}`}
                   alt={service.title}
                   className="w-full h-full object-cover"
                 />
