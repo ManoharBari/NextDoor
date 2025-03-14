@@ -16,6 +16,8 @@ export function SignInDialog({ isOpen, onClose }) {
     e.preventDefault();
     try {
       await signIn(email, password);
+      setEmail('');
+      setPassword('');
       onClose();
     } catch (error) {
       toast.error('Sign in failed');
