@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 export function SignInDialog({ isOpen, onClose }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [loading, setloading] = useState(false)
   const { signIn } = useContext(UserContext);
 
   if (!isOpen) return null;
@@ -15,11 +15,13 @@ export function SignInDialog({ isOpen, onClose }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setloading(true)
       await signIn(email, password);
       setEmail('');
       setPassword('');
       onClose();
     } catch (error) {
+      setloading(false)
       toast.error('Sign in failed');
     }
   };
@@ -80,7 +82,7 @@ export function SignInDialog({ isOpen, onClose }) {
             type="submit"
             className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
           >
-            Login
+            {loading ? <Loader2 className="animate-spin w-5 h-5 mr-2" /> : 'Login'}
           </button>
           <span className="block text-center text-sm text-gray-600 mt-2">Don't have an account?
             <Link className='font-semibold text-blue-700 hover:underline' onClick={onClose} to='/register'> Register here</Link></span>
