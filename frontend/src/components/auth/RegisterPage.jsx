@@ -299,7 +299,7 @@ export function RegisterPage() {
 
                 className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
               >
-                <span> {loading ? <Loader2 className="animate-spin w-5 h-5 mr-2" /> : 'Create Account'} </span>
+                {loading ? <span className='flex gap-2 items-center justify-center'>Please Wait <Loader2 className="animate-spin w-5 h-5 mr-2" /></span> : <span>Create Account</span>}
 
               </motion.button>
             </>
@@ -308,7 +308,7 @@ export function RegisterPage() {
             <div className="mt-4 text-center">
               <p className="text-sm text-gray-600">
                 Already have an account?{' '}
-                <Link to="#" className="text-blue-600 hover:text-blue-800 font-medium">
+                <Link to="/" className="text-blue-600 hover:text-blue-800 font-medium">
                   Sign in
                 </Link>
               </p>
