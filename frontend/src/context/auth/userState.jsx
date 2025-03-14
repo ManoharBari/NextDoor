@@ -27,7 +27,7 @@ function userState({ children }) {
       toast.success(`Welcome back ${data.user.name}`);
       navigate("/");
     } catch (error) {
-      toast.error(error.response?.data?.message || "Internal Server Error");
+      toast.error("Internal Server Error");
     }
   };
 
