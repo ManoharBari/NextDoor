@@ -19,6 +19,7 @@ export function SignInDialog({ isOpen, onClose }) {
       await signIn(email, password);
       setEmail('');
       setPassword('');
+      setloading(false)
       onClose();
     } catch (error) {
       toast.error('Sign in failed');
