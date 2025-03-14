@@ -46,6 +46,7 @@ export function RegisterPage() {
     try {
       setloading(true)
       await register(formData);
+      setloading(false)
     } catch (error) {
       setloading(false)
     }
