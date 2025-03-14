@@ -98,7 +98,6 @@ export function MessagesPage() {
     if (!newMessage.trim()) return;
 
     // In a real app, this would send the message through a WebSocket
-    // console.log('Sending message:', newMessage);
     setNewMessage(' ');
   };
 

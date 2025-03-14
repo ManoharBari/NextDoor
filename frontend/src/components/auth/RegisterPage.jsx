@@ -47,7 +47,6 @@ export function RegisterPage() {
       setloading(true)
       await register(formData);
     } catch (error) {
-      console.error('Registration failed:', error);
       setloading(false)
     }
   };
