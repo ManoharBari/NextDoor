@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { User, Mail, Lock, MapPin, CheckCircle, Upload, X, UserCog, Loader2 } from 'lucide-react';
 import UserContext from '../../context/auth/userContext';
 import { Link } from 'react-router-dom';
+import { openDialog } from 'uploadcare-widget';
 
 export function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -51,39 +52,16 @@ export function RegisterPage() {
     }
   };
 
-  const handleAvatarChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-
-      // Check file size (limit to 5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        alert('File size must be less than 5MB');
-        return;
-      }
-
-      // Check file type
-      if (!file.type.match('image.*')) {
-        alert('Only image files are allowed');
-        return;
-      }
-
-      setFormData({ ...formData, avatar: file });
-
-      // Create preview
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        if (e.target?.result) {
-          setAvatarPreview(e.target.result);
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const triggerFileInput = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
+  const handleAvatarUpload = () => {
+    openDialog({}, {
+      publicKey: 'ff51bb6991fd3e18caf0',
+      imagesOnly: true
+    }).done((file) => {
+      file.promise().then((fileInfo) => {
+        setFormData({ ...formData, avatar: fileInfo.cdnUrl });
+        setAvatarPreview(fileInfo.cdnUrl);
+      });
+    });
   };
 
   const removeAvatar = () => {
@@ -167,7 +145,7 @@ export function RegisterPage() {
                     </div>
                   ) : (
                     <div
-                      onClick={triggerFileInput}
+                      onClick={handleAvatarUpload}
                       className="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center cursor-pointer border-4 border-blue-100 hover:bg-blue-100 transition-colors"
                     >
                       <Upload className="w-8 h-8 text-blue-500" />
@@ -176,7 +154,7 @@ export function RegisterPage() {
                   <input
                     type="file"
                     ref={fileInputRef}
-                    onChange={handleAvatarChange}
+                    onChange={handleAvatarUpload}
                     accept="image/*"
                     className="hidden"
                     name='avatar'
@@ -184,7 +162,7 @@ export function RegisterPage() {
                 </div>
                 <button
                   type="button"
-                  onClick={triggerFileInput}
+                  onClick={handleAvatarUpload}
                   className="mt-2 text-blue-600 text-sm font-medium hover:text-blue-800"
                 >
                   {avatarPreview ? 'Change Photo' : 'Upload Profile Photo'}

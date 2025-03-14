@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const upload = require("../middleware/uploadMiddleware");
 const {
   create,
   viewAll,
@@ -10,21 +9,9 @@ const {
 const { roleMiddleware } = require("../middleware/roleMiddleware");
 const { authMiddleware } = require("../middleware/authMiddleware");
 
-router.post(
-  "/",
-  upload.single("image"),
-  authMiddleware,
-  roleMiddleware("provider"),
-  create
-);
+router.post("/", authMiddleware, roleMiddleware("provider"), create);
 
-router.put(
-  "/:id",
-  upload.single("image"),
-  authMiddleware,
-  roleMiddleware("provider"),
-  updateService
-);
+router.put("/:id", authMiddleware, roleMiddleware("provider"), updateService);
 
 router.get("/", viewAll);
 

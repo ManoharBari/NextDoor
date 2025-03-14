@@ -6,13 +6,11 @@ const User = require("../models/User");
 // User Signup
 const signup = async (req, res) => {
   try {
-    const { name, email, password, role, location } = req.body;
+    const { name, email, password, role, location, avatar } = req.body;
     if (await User.findOne({ email })) {
       return res.status(400).json({ message: "User already exists" });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-
-    const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
 
     const user = new User({
       name,
@@ -20,7 +18,7 @@ const signup = async (req, res) => {
       password: hashedPassword,
       role,
       location,
-      profilePicture: imageUrl,
+      profilePicture: avatar,
     });
     await user.save();
 

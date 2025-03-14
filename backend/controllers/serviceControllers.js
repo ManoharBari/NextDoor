@@ -3,9 +3,15 @@ const Service = require("../models/Service");
 // Create a new service
 const create = async (req, res) => {
   try {
-    const { title, description, price, provider, availability, category } =
-      req.body;
-    const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
+    const {
+      title,
+      description,
+      price,
+      provider,
+      availability,
+      category,
+      image,
+    } = req.body;
 
     const newService = new Service({
       title,
@@ -14,7 +20,7 @@ const create = async (req, res) => {
       availability,
       category,
       price,
-      image: imageUrl,
+      image,
     });
     await newService.save();
 
@@ -29,8 +35,15 @@ const create = async (req, res) => {
 const updateService = async (req, res) => {
   try {
     const { id } = req.params; // Get service ID from URL
-    const { title, description, provider, price, category, availability } =
-      req.body;
+    const {
+      title,
+      description,
+      provider,
+      price,
+      category,
+      availability,
+      image,
+    } = req.body;
 
     let updatedData = {
       title,
@@ -39,12 +52,8 @@ const updateService = async (req, res) => {
       price,
       category,
       availability,
+      image,
     };
-
-    // If there's a new image uploaded, update the image field
-    if (req.file) {
-      updatedData.image = `/uploads/${req.file.filename}`;
-    }
 
     const updatedService = await Service.findByIdAndUpdate(id, updatedData, {
       new: true,

@@ -25,9 +25,9 @@ app.use("/services", serviceRoutes);
 app.use("/chat", authMiddleware, chatRoutes);
 app.use("/orders", authMiddleware, orderRoutes);
 
-// app.listen(8080, () => {
-//   console.log("Server is running on port 8080");
-// });
+app.listen(8080, () => {
+  console.log("Server is running on port 8080");
+});
 
 app.get("/", (req, res) => {
   res.send("NextDoor Backend Working!");

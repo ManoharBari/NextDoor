@@ -12,9 +12,7 @@ function userState({ children }) {
   // Sign In
   const signIn = async (email, password) => {
     try {
-      const response = await axios.post(`${host}/auth/login`, { email, password });
-
-      const data = response.data;
+      const { data } = await axios.post(`${host}/auth/login`, { email, password });
 
       setUser({
         id: data.user._id,
@@ -49,9 +47,10 @@ function userState({ children }) {
 
       setUser({
         id: user._id,
-        email: user.email,
         name: user.name,
-        avatar: user.profilePicture || "",
+        email: user.email,
+        avatar: user.profilePicture,
+        location: user.location,
         role: user.role,
       });
     } catch (error) {
@@ -61,20 +60,9 @@ function userState({ children }) {
 
   // Register
   const register = async (data) => {
-    const formData = new FormData();
-    formData.append("profilePicture", data.avatar);
-    formData.append("name", data.name);
-    formData.append("email", data.email);
-    formData.append("password", data.password);
-    formData.append("location", data.location);
-    formData.append("role", data.role);
 
     try {
-      const response = await axios.post(`${host}/auth/signup`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.post(`${host}/auth/signup`, data);
 
       const resData = response.data;
 
@@ -95,7 +83,7 @@ function userState({ children }) {
       toast.error(error.response?.data?.message || "Internal Server Error");
     }
   };
-  
+
   // Sign Out
   const signOut = () => {
     setUser({});

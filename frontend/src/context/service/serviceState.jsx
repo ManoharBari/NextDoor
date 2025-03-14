@@ -32,59 +32,57 @@ function serviceState({ children }) {
 
   // Add Services
   const AddServices = async (data) => {
-
-    const formData = new FormData();
-    formData.append("image", data.image);
-    formData.append("title", data.title);
-    formData.append("description", data.description);
-    formData.append("price", data.price);
-    formData.append("provider", user.id);
-    formData.append("category", data.category);
-    formData.append("availability", data.availability);
-
     try {
       const response = await fetch(`${host}/services`, {
         method: "POST",
         headers: {
+          "Content-Type": "application/json",
           token: `${localStorage.getItem("token")}`,
         },
-        body: formData,
+        body: JSON.stringify({
+          image: data.image,
+          title: data.title,
+          description: data.description,
+          price: data.price,
+          provider: user.id,
+          category: data.category,
+          availability: data.availability,
+        }),
       });
+
       if (!response.ok) throw new Error("Invalid credentials");
 
-      const res = await response.json();
       await ShowAllServices();
       toast.success("Service added successfully");
-      
     } catch (error) {
       toast.error("Internal Server Error");
     }
   };
 
+
   // edit service
   const editService = async (id, data) => {
-
-    const formData = new FormData();
-    formData.append("image", data.image);
-    formData.append("title", data.title);
-    formData.append("description", data.description);
-    formData.append("price", data.price);
-    formData.append("provider", user.id);
-    formData.append("category", data.category);
-    formData.append("availability", data.availability);
 
     try {
       const response = await fetch(`${host}/services/${id}`, {
         method: "PUT",
         headers: {
+          "Content-Type": "application/json",
           token: `${localStorage.getItem("token")}`,
         },
-        body: formData,
+        body: JSON.stringify({
+          image: data.image,
+          title: data.title,
+          description: data.description,
+          price: data.price,
+          provider: user.id,
+          category: data.category,
+          availability: data.availability,
+        }),
       });
 
       if (!response.ok) throw new Error("Failed to update service");
 
-      const updatedService = await response.json();
       await ShowAllServices();
       toast.success("Service updated successfully");
 

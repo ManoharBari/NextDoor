@@ -11,7 +11,6 @@ export function Navigation() {
   const navigate = useNavigate();
   const [isSignInOpen, setIsSignInOpen] = useState(false);
   const { user, isAuthenticated, signOut } = useContext(UserContext);
-  const host = `${import.meta.env.VITE_REACT_APP_BACKEND_URL}`;
 
   return (
     <>
@@ -20,7 +19,7 @@ export function Navigation() {
           <Menu shadow="md" width={200}>
             <Menu.Target>
               <Group>
-                <Avatar src={`${host}${user.avatar}`} radius="xl" />
+                <Avatar src={`${user.avatar}`} radius="xl" />
                 <div style={{ flex: 1 }}>
                   <Text size="sm" fw={500}>
                     {user.name}

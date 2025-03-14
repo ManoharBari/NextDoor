@@ -3,9 +3,9 @@ import { Plus, Edit, Trash, X, Star } from 'lucide-react';
 import { formatPrice } from '../../../utils/format';
 import ServiceContext from '../../../context/service/serviceContext';
 import UserContext from '../../../context/auth/userContext';
+import { openDialog } from 'uploadcare-widget';
 
 export function ServicesPage() {
-  const host = `${import.meta.env.VITE_REACT_APP_BACKEND_URL}`;
   const { AddServices, services, deleteService, editService, ShowAllServices } = useContext(ServiceContext)
   const { user } = useContext(UserContext)
   const [formData, setFormData] = useState({
@@ -35,6 +35,28 @@ export function ServicesPage() {
     setShowAddForm(false);
   }
 
+  const handleImageUpload = () => {
+    openDialog({}, {
+      publicKey: 'ff51bb6991fd3e18caf0',
+      imagesOnly: true
+    }).done((file) => {
+      file.promise().then((fileInfo) => {
+        setFormData({ ...formData, image: fileInfo.cdnUrl });
+      });
+    });
+  };
+
+  const handleEditImageUpload = () => {
+    openDialog({}, {
+      publicKey: 'ff51bb6991fd3e18caf0',
+      imagesOnly: true
+    }).done((file) => {
+      file.promise().then((fileInfo) => {
+        setEditFormData({ ...editformData, image: fileInfo.cdnUrl });
+      });
+    });
+  };
+
   const handleEditClick = (serviceId) => {
     editService(serviceId, editformData)
     setEditFormData({})
@@ -50,7 +72,7 @@ export function ServicesPage() {
       price: service.price,
       category: service.category,
       availability: service.availability,
-      image: null
+      image: service.image,
     })
   }
 
@@ -74,7 +96,7 @@ export function ServicesPage() {
           <div key={service._id} className="bg-white rounded-lg shadow-sm overflow-hidden">
             <div className="relative h-48">
               <img
-                src={`${host}${service.image}`}
+                src={`${service.image}`}
                 alt={service.title}
                 className="w-full h-full object-cover"
               />
@@ -177,7 +199,7 @@ export function ServicesPage() {
                     name='image'
                     accept="image/*"
                     required
-                    onChange={(e) => setFormData({ ...formData, image: e.target.files[0] })}
+                    onChange={handleImageUpload}
                     className="w-full px-2 py-1 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
@@ -280,7 +302,7 @@ export function ServicesPage() {
                     name='image'
                     accept="image/*"
                     required
-                    onChange={(e) => setEditFormData({ ...editformData, image: e.target.files[0] })}
+                    onChange={handleEditImageUpload}
                     className="w-full px-2 py-1 rounded-lg border focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
