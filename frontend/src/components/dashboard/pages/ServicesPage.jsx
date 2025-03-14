@@ -198,7 +198,7 @@ export function ServicesPage() {
                   {formData.image ? (
                     <div
                       onClick={handleImageUpload}
-                      className="w-30 h-9 p-3 rounded-lg text-sm bg-white flex items-center justify-center cursor-pointer border hover:bg-gray-50 transition-colors"
+                      className="w-30 h-9 p-3 overflow-hidden rounded-lg text-sm bg-white flex items-center justify-center cursor-pointer border hover:bg-gray-50 transition-colors"
                     >
                       {formData.image ? formData.image.split('/').filter(Boolean).pop() : "No image selected"}
                     </div>
@@ -317,7 +317,7 @@ export function ServicesPage() {
                     {editformData.image ? (
                       <div
                         onClick={handleEditImageUpload}
-                        className="w-30 h-9 p-3 text-sm rounded-lg bg-white flex items-center justify-center cursor-pointer border hover:bg-gray-50 transition-colors"
+                        className="w-30 h-9 p-3 overflow-hidden text-sm rounded-lg bg-white flex items-center justify-center cursor-pointer border hover:bg-gray-50 transition-colors"
                       >
                         {editformData.image ? editformData.image.split('/').filter(Boolean).pop() : "No image selected"}
                       </div>

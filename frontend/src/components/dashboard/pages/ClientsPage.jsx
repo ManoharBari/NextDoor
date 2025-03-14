@@ -1,5 +1,6 @@
 import React from 'react';
 import { Mail, Phone, MapPin, Calendar, Star } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const mockClients = [
   {
@@ -29,6 +30,7 @@ const mockClients = [
 ];
 
 export function ClientsPage() {
+  const navigate = useNavigate();
   return (
     <div className="space-y-6">
       <div className="flex overflow-auto justify-between items-center">
@@ -97,14 +99,6 @@ export function ClientsPage() {
               </div>
             </div>
 
-            <div className="mt-4 pt-4 border-t flex justify-between items-center">
-              <button className="px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg">
-                View Bookings
-              </button>
-              <button className="px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg">
-                Send Message
-              </button>
-            </div>
           </div>
         ))}
       </div>

@@ -92,12 +92,12 @@ export default function App() {
 
           <Route
             path="/booking"
-            element={selectedService ? <BookingPage serviceId={selectedService.id} userId={user.id} amount={selectedService.price} service={selectedService} /> : <Navigate to="/" replace/>}
+            element={selectedService ? <BookingPage serviceId={selectedService.id} userId={user.id} amount={selectedService.price} service={selectedService} /> : <Navigate to="/" />}
           />
 
           <Route path="/orders" element={<OrderHistoryPage />} />
         </Routes>
-        
+
         {selectedService && <ChatDialog isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} provider={selectedService.provider} />}
         {location.pathname != '/dashboard' && <Footer />}
 
