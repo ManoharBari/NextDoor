@@ -40,8 +40,10 @@ export function BookingsPage() {
   }, []);
 
 
-  const filteredBookings = orderData.filter(booking =>
-    (filter === 'all' || booking.status === filter) && booking.serviceId.provider._id === user.id
+  const filteredBookings = orderData.filter(
+    (booking) =>
+      (filter === "all" || booking.status === filter) &&
+      booking.serviceId?.provider?._id === user.id
   );
 
   return (
