@@ -41,7 +41,7 @@ export function OrderHistoryPage() {
     ShowAllOrder();
   }, [user]);
 
-  const filteredOrder = orderData.filter((order) => order.userId._id == user.id);
+  const filteredOrder = orderData.filter(order => order.userId?.['_id'] === user.id);
 
   if (filteredOrder.length === 0) {
     return (
