@@ -74,7 +74,7 @@ export function HomePage() {
     const testimonials = [
         {
             id: 1,
-            name: 'Sarah Johnson',
+            name: 'Nikita Patil',
             role: 'Homeowner',
             image: 'https://t4.ftcdn.net/jpg/11/70/74/75/360_F_1170747517_cpGtv16ShOyiZBEp6nQcc4R8vmsbnsUv.jpg',
             content: 'Found an amazing cleaning service through this platform. The booking process was seamless!',
@@ -82,7 +82,7 @@ export function HomePage() {
         },
         {
             id: 2,
-            name: 'Michael Chen',
+            name: 'Mahesh Joshi',
             role: 'Business Owner',
             image: 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg',
             content: 'Great platform for finding reliable service providers. Highly recommended!',
