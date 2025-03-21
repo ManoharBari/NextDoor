@@ -1,7 +1,7 @@
 import { useState } from "react";
 import OrderContext from "./orderContext";
 import toast from "react-hot-toast";
-
+import axios from "axios";
 
 function orderState({ children }) {
     const host = `${import.meta.env.VITE_REACT_APP_BACKEND_URL}`;
@@ -9,39 +9,31 @@ function orderState({ children }) {
 
     const ShowAllOrder = async () => {
         try {
-            const response = await fetch(`${host}/orders`, {
-                method: "GET",
+            const response = await axios.get(`${host}/orders`, {
                 headers: {
                     "Content-Type": "application/json",
-                    token: `${localStorage.getItem("token")}`
-                },
+                    token: localStorage.getItem("token")
+                }
             });
 
-            if (!response.ok) throw new Error("Invalid credentials");
-
-            const data = await response.json();
-            setOrderData(data);
-
+            setOrderData(response.data);
         }
         catch (error) {
             toast.error("Internal Server Error");
         }
     };
+
     const DeleteOrder = async (orderId) => {
         try {
-            const response = await fetch(`${host}/orders/${orderId}`, {
-                method: "DELETE",
+            await axios.delete(`${host}/orders/${orderId}`, {
                 headers: {
                     "Content-Type": "application/json",
-                    token: `${localStorage.getItem("token")}`
-                },
+                    token: localStorage.getItem("token"),
+                }
             });
 
-            if (!response.ok) throw new Error("Invalid credentials");
-
-            const data = await response.json();
             await ShowAllOrder();
-            toast.success('Order Cancelled Successfully');
+            toast.success("Order Cancelled Successfully");
         }
         catch (error) {
             toast.error("Internal Server Error");
@@ -50,24 +42,21 @@ function orderState({ children }) {
 
     const markAs = async (orderId, status) => {
         try {
-            const response = await fetch(`${host}/orders/${orderId}/status`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    token: `${localStorage.getItem("token")}`,
-                },
-                body: JSON.stringify({ status }),
-            });
+            const { data } = await axios.put(
+                `${host}/orders/${orderId}/status`,
+                { status },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        token: localStorage.getItem("token"),
+                    }
+                }
+            );
 
-            if (!response.ok) {
-                throw new Error("Failed to update status");
-            }
-
-            const data = await response.json();
             await ShowAllOrder();
             toast.success(data.message);
-
-        } catch (error) {
+        }
+        catch (error) {
             console.error("Error updating status:", error);
         }
     };

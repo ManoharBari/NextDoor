@@ -1,45 +1,32 @@
 import { useState, useMemo, useContext } from "react";
+import axios from "axios";
 import ServiceContext from "./serviceContext";
 import UserContext from "../auth/userContext";
 import toast from "react-hot-toast";
 
-function serviceState({ children }) {
-  const host = `${import.meta.env.VITE_REACT_APP_BACKEND_URL}`;
+function ServiceState({ children }) {
+  const host = import.meta.env.VITE_REACT_APP_BACKEND_URL;
   const [services, setServices] = useState([]);
   const { user } = useContext(UserContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  // Show All Services 
+  // Show All Services
   const ShowAllServices = async () => {
     try {
-      const response = await fetch(`${host}/services`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) throw new Error("Invalid credentials");
-
-      const data = await response.json();
-      setServices(data);
-
+      const response = await axios.get(`${host}/services`);
+      setServices(response.data);
     } catch (error) {
       toast.error("Internal Server Error");
     }
   };
 
-  // Add Services
+  // Add Service
   const AddServices = async (data) => {
     try {
-      const response = await fetch(`${host}/services`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          token: `${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({
+      await axios.post(
+        `${host}/services`,
+        {
           image: data.image,
           title: data.title,
           description: data.description,
@@ -47,10 +34,14 @@ function serviceState({ children }) {
           provider: user.id,
           category: data.category,
           availability: data.availability,
-        }),
-      });
-
-      if (!response.ok) throw new Error("Invalid credentials");
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
 
       await ShowAllServices();
       toast.success("Service added successfully");
@@ -59,18 +50,12 @@ function serviceState({ children }) {
     }
   };
 
-
-  // edit service
+  // Edit Service
   const editService = async (id, data) => {
-
     try {
-      const response = await fetch(`${host}/services/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          token: `${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({
+      await axios.put(
+        `${host}/services/${id}`,
+        {
           image: data.image,
           title: data.title,
           description: data.description,
@@ -78,39 +63,39 @@ function serviceState({ children }) {
           provider: user.id,
           category: data.category,
           availability: data.availability,
-        }),
-      });
-
-      if (!response.ok) throw new Error("Failed to update service");
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
 
       await ShowAllServices();
       toast.success("Service updated successfully");
-
     } catch (error) {
       toast.error("Internal Server Error");
     }
   };
 
+  // Delete Service
   const deleteService = async (id) => {
     try {
-      const response = await fetch(`${host}/services/${id}`, {
-        method: "DELETE",
+      await axios.delete(`${host}/services/${id}`, {
         headers: {
-          token: `${localStorage.getItem("token")}`,
+          token: localStorage.getItem("token"),
         },
       });
 
-      if (!response.ok) throw new Error("Failed to delete service");
-
       await ShowAllServices();
-
       toast.success("Service deleted successfully");
     } catch (error) {
-      console.error("Delete error:", error.message);
+      console.error("Internal Server Error");
     }
   };
 
-
+  // Filter Services
   const filteredServices = useMemo(() => {
     return services.filter((service) => {
       const matchesSearch =
@@ -125,20 +110,22 @@ function serviceState({ children }) {
   }, [services, searchTerm, selectedCategory]);
 
   return (
-    <ServiceContext.Provider value={{
-      services: filteredServices,
-      searchTerm,
-      setSearchTerm,
-      selectedCategory,
-      setSelectedCategory,
-      ShowAllServices,
-      AddServices,
-      editService,
-      deleteService
-    }}>
+    <ServiceContext.Provider
+      value={{
+        services: filteredServices,
+        searchTerm,
+        setSearchTerm,
+        selectedCategory,
+        setSelectedCategory,
+        ShowAllServices,
+        AddServices,
+        editService,
+        deleteService,
+      }}
+    >
       {children}
     </ServiceContext.Provider>
   );
 }
 
-export default serviceState;
+export default ServiceState;

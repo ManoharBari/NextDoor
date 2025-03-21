@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Calendar, Clock, MapPin, MessageSquare } from 'lucide-react';
 import { formatPrice } from '../../utils/format';
 import axios from 'axios';
