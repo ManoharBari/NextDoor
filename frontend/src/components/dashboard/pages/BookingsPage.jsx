@@ -33,7 +33,7 @@ function getStatusIcon(status) {
 export function BookingsPage() {
   const [filter, setFilter] = useState('all');
   const { user } = useContext(UserContext);
-  const { orderData, ShowAllOrder, markAs } = useContext(OrderContext);
+  const { orderData, ShowAllOrder, DeleteOrder, markAs } = useContext(OrderContext);
 
   useEffect(() => {
     ShowAllOrder()
@@ -112,7 +112,9 @@ export function BookingsPage() {
                     className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
                     Confirm
                   </button>
-                  <button className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
+                  <button
+                    onClick={() => DeleteOrder(booking._id)}
+                    className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
                     Decline
                   </button>
                 </>
