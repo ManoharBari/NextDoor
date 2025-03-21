@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { formatPrice } from '../../../utils/format';
 import OrderContext from '../../../context/order/orderContext';
 import UserContext from '../../../context/auth/userContext';
-import { motion } from 'framer-motion';
 
 function getStatusColor(status) {
   switch (status) {
@@ -61,28 +60,24 @@ export function BookingsPage() {
       </div>
 
       {filteredBookings.length === 0 ? (
-        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-          <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center p-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="rounded-2xl p-8 md:p-12">
-                <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.2 }} className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-8">
-                  <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
-                    <Package className="w-12 h-12 text-blue-600" />
-                  </motion.div>
-                </motion.div>
-                <motion.h1 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="text-3xl font-bold text-gray-900 mb-4">
-                  No Orders Yet
-                </motion.h1>
-                <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="text-gray-600 mb-8">
-                  Looks like you haven't placed any orders yet. Start exploring our services and book your first service today!
-                </motion.p>
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="rounded-2xl p-8 md:p-12">
+            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.2 }} className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-8">
+              <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
+                <Calendar className="w-12 h-12 text-blue-600" />
               </motion.div>
-            </div>
-          </div>
+            </motion.div>
+            <motion.h1 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="text-3xl font-bold text-gray-900 mb-4">
+              No Bookings Yet
+            </motion.h1>
+            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="text-gray-600 mb-8">
+              Looks like no one has booked your services yet.<br/> Keep your profile updated and wait for your first booking!
+            </motion.p>
+          </motion.div>
         </div>
       ) : (
         filteredBookings.map((booking) => (
-          <div key={booking._id} className="p-6 border-b border-gray-100 last:border-0 hover:bg-gray-50">
+          <div key={booking._id} className="p-6 border-b rounded-lg border-gray-200 last:border-0 hover:bg-gray-100">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
               <div>
                 <h3 className="text-lg font-semibold">{booking.userId.name}</h3>

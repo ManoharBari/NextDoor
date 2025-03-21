@@ -14,7 +14,7 @@ const apiLimiter = require("./middleware/apiLimiter");
 
 // middleware
 const corsOptions = {
-  origin: ["http://localhost:8080", "https://next-door-app.vercel.app"],
+  origin: ["http://localhost:5173", "https://next-door-app.vercel.app"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
   optionsSuccessStatus: 200,
