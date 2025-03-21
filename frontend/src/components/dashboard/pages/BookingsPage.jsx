@@ -68,10 +68,10 @@ export function BookingsPage() {
               </motion.div>
             </motion.div>
             <motion.h1 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="text-3xl font-bold text-gray-900 mb-4">
-              No Bookings Yet
+              No Bookings
             </motion.h1>
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="text-gray-600 mb-8">
-              Looks like no one has booked your services yet.<br/> Keep your profile updated and wait for your first booking!
+              Looks like there are no bookings yet.
             </motion.p>
           </motion.div>
         </div>
