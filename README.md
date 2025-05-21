@@ -1,3 +1,5 @@
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/ManoharBari/NextDoor)
+
 # NextDoor
 
 NextDoor is a service booking platform that connects users with verified service providers for various home services like plumbing, electrical work, and more. The platform ensures seamless booking, secure payments, and a user-friendly experience.
